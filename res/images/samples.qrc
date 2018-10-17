@@ -1,0 +1,8 @@
+<RCC>
+  <qresource prefix="samples">
+    <file>samples/image1.jpeg</file>
+    <file>samples/image2.jpeg</file>
+    <file>samples/image3.jpg</file>
+    <file>samples/image4.jpg</file>
+  </qresource>
+</RCC>

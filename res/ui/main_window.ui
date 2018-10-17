@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>main_window</class>
+ <widget class="QMainWindow" name="main_window">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>933</width>
+    <height>662</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Album Photo</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="central_widget">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QStackedWidget" name="stacked_widget">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="gallery">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="gallery_header">
+          <item>
+           <widget class="QTextEdit" name="search_textedit">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="verticalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="search_button">
+            <property name="text">
+             <string>Search</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="galery_header_spacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="classement_button">
+            <property name="text">
+             <string>Classement</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="advance_search_button">
+            <property name="text">
+             <string>Recherche avancée</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="display_all_button">
+            <property name="text">
+             <string>Afficher tout</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QScrollArea" name="gallery_scrollbar">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>0</horstretch>
+            <verstretch>1</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="gallery_content">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>913</width>
+             <height>565</height>
+            </rect>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <layout class="QVBoxLayout" name="gallery_item1">
+              <item>
+               <widget class="QLabel" name="gallery_item1_label">
+                <property name="styleSheet">
+                 <string notr="true">font-weight: bold;
+font-size: 14pt;</string>
+                </property>
+                <property name="text">
+                 <string>Août 2018</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <layout class="QGridLayout" name="gallery_item1_images">
+                <property name="horizontalSpacing">
+                 <number>0</number>
+                </property>
+                <item row="1" column="0" alignment="Qt::AlignLeft">
+                 <widget class="QLabel" name="gallery_item1_image1">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap resource="../images/samples.qrc">:/samples/samples/image1.jpeg</pixmap>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="gallery_item1_image3">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>300</width>
+                    <height>300</height>
+                   </size>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap resource="../images/samples.qrc">:/samples/samples/image3.jpg</pixmap>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLabel" name="gallery_item1_image2">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap resource="../images/samples.qrc">:/samples/samples/image2.jpeg</pixmap>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLabel" name="gallery_item1_image4">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>300</width>
+                    <height>300</height>
+                   </size>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap resource="../images/samples.qrc">:/samples/samples/image4.jpg</pixmap>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="image_viewer">
+       <layout class="QVBoxLayout" name="verticalLayout_3">
+        <item>
+         <layout class="QHBoxLayout" name="image_viewer_header">
+          <item>
+           <widget class="QPushButton" name="back_button">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="text">
+             <string>Retour</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer name="image_viewer_header_spacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="frame_objects_button">
+            <property name="text">
+             <string>Encadrer les objets</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="search_similar_button">
+            <property name="text">
+             <string>Images similaires</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="delete_button">
+            <property name="text">
+             <string>Supprimer</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QSplitter" name="image_viewer_splitter">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>1</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QLabel" name="image_viewer_image">
+           <property name="pixmap">
+            <pixmap resource="../images/samples.qrc">:/samples/samples/image3.jpg</pixmap>
+           </property>
+          </widget>
+          <widget class="QWidget" name="verticalLayoutWidget">
+           <layout class="QFormLayout" name="image_viewer_metadata_form">
+            <property name="leftMargin">
+             <number>10</number>
+            </property>
+            <item row="0" column="0" colspan="2">
+             <widget class="Line" name="image_viewer_metadata_line1">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="image_viewer_metadata_name_label">
+              <property name="text">
+               <string>&lt;b&gt;Nom :&lt;/b&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="image_viewer_metadata_name_value_label">
+              <property name="text">
+               <string>chat_trump.jpg</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0">
+             <widget class="QLabel" name="image_viewer_metadata_size_label">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Taille :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="1">
+             <widget class="QLabel" name="image_viewer_metadata_size_value_label">
+              <property name="text">
+               <string>169.8 KB</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="image_viewer_metadata_dimensions_label">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Dimensions :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLabel" name="image_viewer_metadata_dimensions_value_label">
+              <property name="text">
+               <string>754x548</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="image_viewer_metadata_date_label">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Date :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLabel" name="image_viewer_metadata_date_value_label">
+              <property name="text">
+               <string>09/08/2018</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
+             <widget class="QLabel" name="image_viewer_metadata_place_label">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lieu :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLabel" name="image_viewer_metadata_place_value_label">
+              <property name="text">
+               <string>Inconnu</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0" colspan="2">
+             <widget class="Line" name="image_viewer_metadata_line2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0" colspan="2">
+             <widget class="Line" name="image_viewer_metadata_line4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0" colspan="2">
+             <widget class="QLabel" name="image_viewer_metadata_classification_label">
+              <property name="text">
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Classifications :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0" colspan="2">
+             <widget class="QLabel" name="image_viewer_metadata_classification1_value1_label">
+              <property name="text">
+               <string>Animaux &gt; Chats</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0" colspan="2">
+             <widget class="QLabel" name="image_viewer_metadata_classification1_value2_label">
+              <property name="text">
+               <string>Personnes &gt; Jean-Pierre</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>933</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="file_menu">
+    <property name="title">
+     <string>Fichier</string>
+    </property>
+    <addaction name="import_images_action"/>
+   </widget>
+   <widget class="QMenu" name="edit_menu">
+    <property name="title">
+     <string>Edition</string>
+    </property>
+    <addaction name="preferences_action"/>
+   </widget>
+   <widget class="QMenu" name="help_menu">
+    <property name="title">
+     <string>Aide</string>
+    </property>
+    <addaction name="help_action"/>
+    <addaction name="about_action"/>
+   </widget>
+   <widget class="QMenu" name="view_menu">
+    <property name="title">
+     <string>Affichage</string>
+    </property>
+    <widget class="QMenu" name="images_size_action">
+     <property name="title">
+      <string>Taille des images</string>
+     </property>
+     <addaction name="action_small_images"/>
+     <addaction name="action_medium_images"/>
+     <addaction name="action_large_images"/>
+    </widget>
+    <addaction name="images_size_action"/>
+   </widget>
+   <addaction name="file_menu"/>
+   <addaction name="edit_menu"/>
+   <addaction name="view_menu"/>
+   <addaction name="help_menu"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="import_images_action">
+   <property name="text">
+    <string>Importer les images depuis...</string>
+   </property>
+  </action>
+  <action name="preferences_action">
+   <property name="text">
+    <string>Préférences</string>
+   </property>
+  </action>
+  <action name="about_action">
+   <property name="text">
+    <string>A propos</string>
+   </property>
+  </action>
+  <action name="help_action">
+   <property name="text">
+    <string>Aide</string>
+   </property>
+  </action>
+  <action name="action_small_images">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Petites</string>
+   </property>
+  </action>
+  <action name="action_medium_images">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Moyennes</string>
+   </property>
+  </action>
+  <action name="action_large_images">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Grandes</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../images/samples.qrc"/>
+ </resources>
+ <connections/>
+</ui>
