@@ -93,7 +93,7 @@ class TensoflowFaceDector(object):
         (boxes, scores, classes, num_detections) = self.run(image)
         i = 0
 
-        while scores[0][i] > 0.45:
+        while scores[0][i] > 0.20:
             boxesToPrint.append(boxes[0][i])
             i += 1
 
