@@ -11,27 +11,31 @@ class PhotoView(AspectRatioImage):
     def __init__(self, parent: QWidget = None):
         super(PhotoView, self).__init__(parent)
 
-        self.rectangles = []
-        self.names = []
+        self.detectionBoxes = []
 
-    def setObjectDetectionBoxes(self, rectangles, names):
-        self.rectangles = rectangles
-        self.names = names
+    def setDetectionBoxes(self, boxes):
+        self.detectionBoxes = boxes
 
     def paintEvent(self, event):
         super().paintEvent(event)
+
         painter = QPainter(self)
-        pen = QPen(Qt.red)
+
+        pen = QPen(Qt.blue)
         pen.setWidth(5)
         painter.setPen(pen)
 
         height = self.pixmap().height()
         width = self.pixmap().width()
 
-        x_offset = self.height() / 2 - height / 2
+        x_offset = self.width() / 2 - width / 2
         y_offset = self.height() / 2 - height / 2
 
-        painter.drawRect(QRect(100, 100 + y_offset, 100, 100))
+        for i in range(0, len(self.detectionBoxes)):
+            box = self.detectionBoxes[i]
+            yMin = box[0] * height + y_offset
+            xMin = box[1] * width + x_offset
+            yMax = box[2] * height + y_offset
+            xMax = box[3] * width + x_offset
 
-        for i in range(0, len(self.rectangles)):
-            painter.drawRect(QRect(100, 100, 100, 100))
+            painter.drawRect(QRect(xMin, yMin, xMax - xMin, yMax - yMin))

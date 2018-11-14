@@ -9,6 +9,7 @@ from PyQt5.QtWidgets import *
 from ui.generated.photo_viewer_panel_ui import Ui_PhotoViewerPanel
 from ui.widgets.aspect_ratio_image import AspectRatioImage
 from ui.dependencies import *
+from face_detection.inference_image_face import *
 
 class PhotoViewerPanel(QWidget):
     def __init__(self, parent=None):
@@ -16,11 +17,12 @@ class PhotoViewerPanel(QWidget):
 
         self.ui = Ui_PhotoViewerPanel()
         self.ui.setupUi(self)
+        self.tDetector = TensoflowFaceDector()
 
     def set_photo(self, photo: Photo):
         pixmap = QPixmap(photo.path)
         self.ui.photo.setPixmap(pixmap)
-        self.ui.photo.setObjectDetectionBoxes([], [])
+        self.ui.photo.setDetectionBoxes(self.tDetector.getBoxes(photo.path))
         self.ui.name_value_label.setText(os.path.basename(photo.path))
         self.ui.size_value_label.setText(str(round(os.path.getsize(photo.path) / 1000, 1)) + ' KB')
         self.ui.dimensions_value_label.setText(str(pixmap.width()) + 'x' + str(pixmap.height()))
