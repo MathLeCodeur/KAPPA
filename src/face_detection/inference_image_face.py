@@ -11,14 +11,14 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import tensorflow as tf
 import cv2
 
-from utils import label_map_util
-from utils import visualization_utils_color as vis_util
+import face_detection.utils.label_map_util as label_map_util
+import face_detection.utils.visualization_utils_color as vis_util
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
-PATH_TO_CKPT = './model/frozen_inference_graph_face.pb'
+PATH_TO_CKPT = 'res/face_detection/model/frozen_inference_graph_face.pb'
 
 # List of the strings that is used to add correct label for each box.
-PATH_TO_LABELS = './protos/face_label_map.pbtxt'
+PATH_TO_LABELS = 'src/face_detection/protos/face_label_map.pbtxt'
 
 NUM_CLASSES = 2
 
@@ -27,7 +27,7 @@ categories = label_map_util.convert_label_map_to_categories(label_map, max_num_c
 category_index = label_map_util.create_category_index(categories)
 
 class TensoflowFaceDector(object):
-    def __init__(self, PATH_TO_CKPT):
+    def __init__(self):
         """Tensorflow detector
         """
 
@@ -77,27 +77,30 @@ class TensoflowFaceDector(object):
         return (boxes, scores, classes, num_detections)
 
 
-    def findBoxesToDrawCoordinates(imagePath):
 
-        tDetector = TensoflowFaceDector(PATH_TO_CKPT)
-        image = cv2.imread(sys.argv[1])
+    def getBoxes(self,imagePath):
 
-        [h, w] = image.shape[:2]
-        print (h, w)
-
-        (boxes, scores, classes, num_detections) = tDetector.run(image)
-        i = 0
-        # coordinates of a box are ymin,xmin,ymax,xmax
-        # in order to have normalized coordinates, you have to do
+        #coordinates of a box are ymin,xmin,ymax,xmax
+        #in order to have normalized coordinates, you have to do
         # left : xmin * image_width
         # right : xmax * image_width
         # top : ymin * image_height
         # bottom : ymax * image_height
-        boxesToPrint = []
-        while scores[0][i] > 0.75:
-            print(scores[0][i])
+
+        boxesToPrint=[]
+        image = cv2.imread(imagePath)
+        [h, w] = image.shape[:2]
+        (boxes, scores, classes, num_detections) = self.run(image)
+        i = 0
+
+        while scores[0][i] > 0.45:
             boxesToPrint.append(boxes[0][i])
             i += 1
+
+        return boxesToPrint
+
+
+
 
 
 
@@ -107,8 +110,8 @@ if __name__ == "__main__":
         print ("usage:%s (input filename)[output filename] Detect faces\
  in the image"%(sys.argv[0]))
         exit(1)
-    
-    tDetector = TensoflowFaceDector(PATH_TO_CKPT)
+
+    tDetector = TensoflowFaceDector()
     image = cv2.imread(sys.argv[1])
 
     [h, w] = image.shape[:2]
@@ -144,4 +147,3 @@ if __name__ == "__main__":
     if len(sys.argv) == 3:
         cv2.imwrite(sys.argv[2],image)
     cv2.waitKey(0)
-
