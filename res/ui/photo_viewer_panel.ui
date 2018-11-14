@@ -73,7 +73,7 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="AspectRatioImage" name="photo">
+     <widget class="PhotoView" name="photo" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
         <horstretch>1</horstretch>
@@ -184,13 +184,11 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>AspectRatioImage</class>
-   <extends>QLabel</extends>
-   <header>ui.widgets.aspect_ratio_image</header>
+   <class>PhotoView</class>
+   <extends>QWidget</extends>
+   <header>ui.widgets.photo_view</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../images/samples.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

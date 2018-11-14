@@ -20,6 +20,7 @@ class PhotoViewerPanel(QWidget):
     def set_photo(self, photo: Photo):
         pixmap = QPixmap(photo.path)
         self.ui.photo.setPixmap(pixmap)
+        self.ui.photo.setObjectDetectionBoxes([], [])
         self.ui.name_value_label.setText(os.path.basename(photo.path))
         self.ui.size_value_label.setText(str(round(os.path.getsize(photo.path) / 1000, 1)) + ' KB')
         self.ui.dimensions_value_label.setText(str(pixmap.width()) + 'x' + str(pixmap.height()))

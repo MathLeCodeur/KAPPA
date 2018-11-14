@@ -86,4 +86,3 @@ class Ui_MainWindow(object):
         self.action_medium_images.setText(_translate("MainWindow", "Moyennes"))
         self.action_large_images.setText(_translate("MainWindow", "Grandes"))
 
-from . import samples_rc

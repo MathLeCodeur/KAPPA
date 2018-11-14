@@ -130,8 +130,6 @@
    </property>
   </action>
  </widget>
- <resources>
-  <include location="../images/samples.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

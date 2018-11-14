@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ui_files="res/ui/*.ui"
-rc_files="res/images/samples.qrc"
+rc_files=""
 src_ui_dir="src/ui/generated/"
 
 rm -rf ${src_ui_dir}*

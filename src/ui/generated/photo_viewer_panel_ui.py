@@ -44,7 +44,7 @@ class Ui_PhotoViewerPanel(object):
         self.splitter.setSizePolicy(sizePolicy)
         self.splitter.setOrientation(QtCore.Qt.Horizontal)
         self.splitter.setObjectName("splitter")
-        self.photo = AspectRatioImage(self.splitter)
+        self.photo = PhotoView(self.splitter)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(1)
         sizePolicy.setVerticalStretch(1)
@@ -127,5 +127,4 @@ class Ui_PhotoViewerPanel(object):
         self.place_label.setText(_translate("PhotoViewerPanel", "<html><head/><body><p><span style=\" font-weight:600;\">Lieu :</span></p></body></html>"))
         self.classification_label.setText(_translate("PhotoViewerPanel", "<html><head/><body><p><span style=\" font-weight:600;\">Classifications :</span></p></body></html>"))
 
-from ui.widgets.aspect_ratio_image import AspectRatioImage
-from . import samples_rc
+from ui.widgets.photo_view import PhotoView
