@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true"/>
   </property>
-  <widget class="QWidget" name="central_widget">
+  <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="central_widget_layout">
     <property name="leftMargin">
      <number>0</number>
@@ -31,11 +31,11 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QStackedWidget" name="stacked_widget"/>
+     <widget class="QStackedWidget" name="stackedWidget"/>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menu_bar">
+  <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -44,65 +44,65 @@
      <height>22</height>
     </rect>
    </property>
-   <widget class="QMenu" name="file_menu">
+   <widget class="QMenu" name="fileMenu">
     <property name="title">
      <string>Fichier</string>
     </property>
-    <addaction name="import_images_action"/>
+    <addaction name="importImagesAction"/>
    </widget>
-   <widget class="QMenu" name="edit_menu">
+   <widget class="QMenu" name="editMenu">
     <property name="title">
      <string>Edition</string>
     </property>
-    <addaction name="preferences_action"/>
+    <addaction name="preferencesAction"/>
    </widget>
-   <widget class="QMenu" name="help_menu">
+   <widget class="QMenu" name="helpMenu">
     <property name="title">
      <string>Aide</string>
     </property>
-    <addaction name="help_action"/>
-    <addaction name="about_action"/>
+    <addaction name="helpAction"/>
+    <addaction name="aboutAction"/>
    </widget>
-   <widget class="QMenu" name="view_menu">
+   <widget class="QMenu" name="viewMenu">
     <property name="title">
      <string>Affichage</string>
     </property>
-    <widget class="QMenu" name="images_size_action">
+    <widget class="QMenu" name="changeIimagesSizeAction">
      <property name="title">
       <string>Taille des images</string>
      </property>
-     <addaction name="action_small_images"/>
-     <addaction name="action_medium_images"/>
-     <addaction name="action_large_images"/>
+     <addaction name="actionSmallImages"/>
+     <addaction name="actionMediumImages"/>
+     <addaction name="actionLargeImages"/>
     </widget>
-    <addaction name="images_size_action"/>
+    <addaction name="changeIimagesSizeAction"/>
    </widget>
-   <addaction name="file_menu"/>
-   <addaction name="edit_menu"/>
-   <addaction name="view_menu"/>
-   <addaction name="help_menu"/>
+   <addaction name="fileMenu"/>
+   <addaction name="editMenu"/>
+   <addaction name="viewMenu"/>
+   <addaction name="helpMenu"/>
   </widget>
-  <action name="import_images_action">
+  <action name="importImagesAction">
    <property name="text">
     <string>Importer les images depuis...</string>
    </property>
   </action>
-  <action name="preferences_action">
+  <action name="preferencesAction">
    <property name="text">
     <string>Préférences</string>
    </property>
   </action>
-  <action name="about_action">
+  <action name="aboutAction">
    <property name="text">
     <string>A propos</string>
    </property>
   </action>
-  <action name="help_action">
+  <action name="helpAction">
    <property name="text">
     <string>Aide</string>
    </property>
   </action>
-  <action name="action_small_images">
+  <action name="actionSmallImages">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -110,7 +110,7 @@
     <string>Petites</string>
    </property>
   </action>
-  <action name="action_medium_images">
+  <action name="actionMediumImages">
    <property name="checkable">
     <bool>true</bool>
    </property>
@@ -121,7 +121,7 @@
     <string>Moyennes</string>
    </property>
   </action>
-  <action name="action_large_images">
+  <action name="actionLargeImages">
    <property name="checkable">
     <bool>true</bool>
    </property>

@@ -1,7 +1,9 @@
 import sys
-from PyQt5 import QtCore, QtGui, QtWidgets
 
-class FlowLayout(QtWidgets.QLayout):
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+
+class FlowLayout(QLayout):
     def __init__(self, parent=None, margin=-1, hspacing=-1, vspacing=-1):
         super(FlowLayout, self).__init__(parent)
         self._hspacing = hspacing
@@ -20,14 +22,14 @@ class FlowLayout(QtWidgets.QLayout):
             return self._hspacing
         else:
             return self.smartSpacing(
-                QtWidgets.QStyle.PM_LayoutHorizontalSpacing)
+                QStyle.PM_LayoutHorizontalSpacing)
 
     def verticalSpacing(self):
         if self._vspacing >= 0:
             return self._vspacing
         else:
             return self.smartSpacing(
-                QtWidgets.QStyle.PM_LayoutVerticalSpacing)
+                QStyle.PM_LayoutVerticalSpacing)
 
     def count(self):
         return len(self._items)
@@ -41,13 +43,13 @@ class FlowLayout(QtWidgets.QLayout):
             return self._items.pop(index)
 
     def expandingDirections(self):
-        return QtCore.Qt.Orientations(0)
+        return Qt.Orientations(0)
 
     def hasHeightForWidth(self):
         return True
 
     def heightForWidth(self, width):
-        return self.doLayout(QtCore.QRect(0, 0, width, 0), True)
+        return self.doLayout(QRect(0, 0, width, 0), True)
 
     def setGeometry(self, rect):
         super(FlowLayout, self).setGeometry(rect)
@@ -57,11 +59,11 @@ class FlowLayout(QtWidgets.QLayout):
         return self.minimumSize()
 
     def minimumSize(self):
-        size = QtCore.QSize()
+        size = QSize()
         for item in self._items:
             size = size.expandedTo(item.minimumSize())
         left, top, right, bottom = self.getContentsMargins()
-        size += QtCore.QSize(left + right, top + bottom)
+        size += QSize(left + right, top + bottom)
         return size
 
     def doLayout(self, rect, testonly):
@@ -79,13 +81,13 @@ class FlowLayout(QtWidgets.QLayout):
             hspace = self.horizontalSpacing()
             if hspace == -1:
                 hspace = widget.style().layoutSpacing(
-                    QtWidgets.QSizePolicy.PushButton,
-                    QtWidgets.QSizePolicy.PushButton, QtCore.Qt.Horizontal)
+                    QSizePolicy.PushButton,
+                    QSizePolicy.PushButton, Qt.Horizontal)
             vspace = self.verticalSpacing()
             if vspace == -1:
                 vspace = widget.style().layoutSpacing(
-                    QtWidgets.QSizePolicy.PushButton,
-                    QtWidgets.QSizePolicy.PushButton, QtCore.Qt.Vertical)
+                    QSizePolicy.PushButton,
+                    QSizePolicy.PushButton, Qt.Vertical)
 
             nextX = int(x + item.maximumSize().width() * row_width_ratio + hspace)
             if nextX - hspace > effective.right():
@@ -96,7 +98,7 @@ class FlowLayout(QtWidgets.QLayout):
                 lineheight = 0
             if not testonly:
                 item.setGeometry(
-                    QtCore.QRect(QtCore.QPoint(x, y), QtCore.QSize(item.maximumSize().width() * row_width_ratio, item.sizeHint().height())))
+                    QRect(QPoint(x, y), QSize(item.maximumSize().width() * row_width_ratio, item.sizeHint().height())))
             x = nextX
             lineheight = max(lineheight, item.sizeHint().height())
         return y + lineheight - rect.y() + bottom
@@ -117,8 +119,8 @@ class FlowLayout(QtWidgets.QLayout):
                 hspace = self.horizontalSpacing()
                 if hspace == -1:
                     hspace = widget.style().layoutSpacing(
-                        QtWidgets.QSizePolicy.PushButton,
-                        QtWidgets.QSizePolicy.PushButton, QtCore.Qt.Horizontal)
+                        QSizePolicy.PushButton,
+                        QSizePolicy.PushButton, Qt.Horizontal)
 
             next_minimum_line_width_and_spacing = minimum_line_width_and_spacing + item.minimumSize().width() + hspace
             if next_minimum_line_width_and_spacing > effective.width():

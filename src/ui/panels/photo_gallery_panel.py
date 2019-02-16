@@ -1,10 +1,7 @@
-"""
-...
-"""
+from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 
-from PyQt5.QtWidgets import QWidget
-from PyQt5.QtCore import pyqtSlot
-from ui.generated.photo_gallery_panel_ui import Ui_PhotoGalleryPanel
+from ui.generated.photo_gallery_panel_ui import *
 from ui.dependencies import *
 
 class PhotoGalleryPanel(QWidget):
@@ -14,17 +11,17 @@ class PhotoGalleryPanel(QWidget):
         self.ui = Ui_PhotoGalleryPanel()
         self.ui.setupUi(self)
 
-        self.photos = get_photos('date', 'desc')
-        self.ui.photo_list_view.set_photos(self.photos)
+        self.photos = getPhotos('date', 'desc')
+        self.ui.photoListView.setPhotos(self.photos)
 
-    @pyqtSlot(name='on_search_button_clicked')
+    @pyqtSlot(name='on_searchButton_clicked')
     def search_photos_by_file_name(self):
         pass
 
-    @pyqtSlot(name='on_advanced_search_button_clicked')
+    @pyqtSlot(name='on_advancedSearchButton_clicked')
     def toggle_advanced_search(self):
         pass
 
-    @pyqtSlot(name='on_sorting_button_clicked')
+    @pyqtSlot(name='on_sortingButton_clicked')
     def sort_photos(self):
         pass

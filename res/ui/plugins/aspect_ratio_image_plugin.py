@@ -16,7 +16,7 @@ class AspectRatioImagePlugin(QPyDesignerCustomWidgetPlugin):
         return self.initialized
 
     def createWidget(self, parent):
-        return AspectRatioImage(parent)
+        return AspectRatioImage(parent=parent)
 
     def name(self):
         return "AspectRatioImage"

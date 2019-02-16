@@ -1,15 +1,16 @@
 """
-Widget permettant d'afficher une photo avec les boîtes englobantes des objetsdétectés.
+Widget permettant d'afficher une photo avec les boîtes englobantes des objets détectés.
 """
 
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from ui.widgets.aspect_ratio_image import AspectRatioImage
+
+from ui.widgets.aspect_ratio_image import *
 
 class PhotoView(AspectRatioImage):
     def __init__(self, parent: QWidget = None):
-        super(PhotoView, self).__init__(parent)
+        super(PhotoView, self).__init__(parent=parent)
 
         self.detectionBoxes = []
 
