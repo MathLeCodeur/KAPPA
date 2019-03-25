@@ -12,9 +12,9 @@
   </property>
   <layout class="QVBoxLayout" name="photo_viewer_layout">
    <item>
-    <layout class="QHBoxLayout" name="header_layout">
+    <layout class="QHBoxLayout" name="headerLayout">
      <item>
-      <widget class="QPushButton" name="back_button">
+      <widget class="QPushButton" name="backButton">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
          <horstretch>0</horstretch>
@@ -27,7 +27,7 @@
       </widget>
      </item>
      <item>
-      <spacer name="header_spacer">
+      <spacer name="headerSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -40,21 +40,21 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="frame_objects_button">
+      <widget class="QPushButton" name="frameObjectsButton">
        <property name="text">
         <string>Encadrer les objets</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="search_similar_button">
+      <widget class="QPushButton" name="searchSimilarButton">
        <property name="text">
         <string>Images similaires</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="delete_button">
+      <widget class="QPushButton" name="deleteButton">
        <property name="text">
         <string>Supprimer</string>
        </property>
@@ -73,7 +73,7 @@
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
-     <widget class="PhotoView" name="photo" native="true">
+     <widget class="PhotoView" name="image" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
         <horstretch>1</horstretch>
@@ -91,7 +91,7 @@
       </property>
      </widget>
      <widget class="QWidget" name="verticalLayoutWidget">
-      <layout class="QFormLayout" name="metadata_form">
+      <layout class="QFormLayout" name="metadataForm">
        <property name="leftMargin">
         <number>10</number>
        </property>
@@ -103,54 +103,54 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLabel" name="name_label">
+        <widget class="QLabel" name="nameLabel">
          <property name="text">
           <string>&lt;b&gt;Nom :&lt;/b&gt;</string>
          </property>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLabel" name="name_value_label"/>
+        <widget class="QLabel" name="nameValueLabel"/>
        </item>
        <item row="2" column="0">
-        <widget class="QLabel" name="size_label">
+        <widget class="QLabel" name="sizeLabel">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Taille :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QLabel" name="size_value_label"/>
+        <widget class="QLabel" name="sizeValueLabel"/>
        </item>
        <item row="3" column="0">
-        <widget class="QLabel" name="dimensions_label">
+        <widget class="QLabel" name="dimensionsLabel">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Dimensions :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QLabel" name="dimensions_value_label"/>
+        <widget class="QLabel" name="dimensionsValueLabel"/>
        </item>
        <item row="4" column="0">
-        <widget class="QLabel" name="date_label">
+        <widget class="QLabel" name="dateLabel">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Date :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QLabel" name="date_value_label"/>
+        <widget class="QLabel" name="dateValueLabel"/>
        </item>
        <item row="5" column="0">
-        <widget class="QLabel" name="place_label">
+        <widget class="QLabel" name="placeLabel">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Lieu :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QLabel" name="place_value_label"/>
+        <widget class="QLabel" name="placeValueLabel"/>
        </item>
        <item row="6" column="0" colspan="2">
         <widget class="Line" name="line2">
@@ -160,7 +160,7 @@
         </widget>
        </item>
        <item row="7" column="0" colspan="2">
-        <widget class="QLabel" name="classification_label">
+        <widget class="QLabel" name="classificationLabel">
          <property name="text">
           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Classifications :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>

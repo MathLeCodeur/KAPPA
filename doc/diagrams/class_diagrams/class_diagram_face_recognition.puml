@@ -1,0 +1,11 @@
+@startuml class_diagram_face_recognition
+
+package face_recognition
+{
+    class "face_recognition (module)" << M, SkyBlue >>
+    {
+        recognizePeople(peopleInformations : List, facePositions : List, imagePath : String) : List
+    }
+}
+
+@enduml

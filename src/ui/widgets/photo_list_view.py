@@ -8,40 +8,40 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from ui.widgets.flow_layout import *
 from ui.dependencies import *
+from ui.widgets.flow_layout import *
 
 class PhotoListView(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QWidget = None):
         super(PhotoListView, self).__init__(parent)
 
-        self.layout = FlowLayout(self, 30, 16, 16)
-        self.setLayout(self.layout)
+        self.__layout = FlowLayout(self, 30, 16, 16)
+        self.setLayout(self.__layout)
 
     def setPhotos(self, photos: List[Photo]):
-        self.photos = photos
+        self.__photos = photos
         for photo in photos:
-            self.layout.addWidget(PhotoListViewItem(photo, self.openPhoto))
+            self.__layout.addWidget(PhotoListViewItem(photo, self.__openPhoto))
 
-    def openPhoto(self):
+    def __openPhoto(self):
         window = self.window()
-        photoViewerPanel = window.photoViewerPanel
+        photoViewerPanel = window.getPhotoViewerPanel()
         photoViewerPanel.setPhoto(self.sender().property('photo'))
         window.setActivePanel(photoViewerPanel)
 
 class PhotoListViewItem(QPushButton):
-    def __init__(self, photo: Photo, clicked_slot, parent=None):
+    def __init__(self, photo: Photo, clickSlot: Callable, parent: QWidget = None):
         super(PhotoListViewItem, self).__init__(parent)
 
         self.setProperty('photo', photo)
-        self.pixmap = QPixmap(photo.path)
-        self.fixed_height = 320
-        fullWidgetSize = QSize(self.pixmap.width() / self.pixmap.height() * self.fixed_height, self.fixed_height)
+        pixmap = QPixmap(photo.path)
+        fixedHeight = 320
+        fullWidgetSize = QSize(pixmap.width() / pixmap.height() * fixedHeight, fixedHeight)
 
         self.setMaximumSize(fullWidgetSize)
-        self.setMinimumSize(QSize(fullWidgetSize.width() / 2, self.fixed_height))
+        self.setMinimumSize(QSize(fullWidgetSize.width() / 2, fixedHeight))
 
         self.setFlat(True)
-        self.setIcon(QIcon(self.pixmap.scaled(fullWidgetSize, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)))
+        self.setIcon(QIcon(pixmap.scaled(fullWidgetSize, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)))
         self.setIconSize(fullWidgetSize)
-        self.clicked.connect(clicked_slot)
+        self.clicked.connect(clickSlot)

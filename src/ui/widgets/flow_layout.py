@@ -6,41 +6,40 @@ from PyQt5.QtWidgets import *
 class FlowLayout(QLayout):
     def __init__(self, parent=None, margin=-1, hspacing=-1, vspacing=-1):
         super(FlowLayout, self).__init__(parent)
-        self._hspacing = hspacing
-        self._vspacing = vspacing
-        self._items = []
+        self.__hspacing = hspacing
+        self.__vspacing = vspacing
+        self.__items = []
         self.setContentsMargins(margin, margin, margin, margin)
 
     def __del__(self):
-        del self._items[:]
+        del self.__items[:]
 
     def addItem(self, item):
-        self._items.append(item)
+        self.__items.append(item)
 
     def horizontalSpacing(self):
-        if self._hspacing >= 0:
-            return self._hspacing
+        if self.__hspacing >= 0:
+            return self.__hspacing
         else:
-            return self.smartSpacing(
-                QStyle.PM_LayoutHorizontalSpacing)
+            return self.smartSpacing(QStyle.PM_LayoutHorizontalSpacing)
 
     def verticalSpacing(self):
-        if self._vspacing >= 0:
-            return self._vspacing
+        if self.__vspacing >= 0:
+            return self.__vspacing
         else:
             return self.smartSpacing(
                 QStyle.PM_LayoutVerticalSpacing)
 
     def count(self):
-        return len(self._items)
+        return len(self.__items)
 
     def itemAt(self, index):
-        if 0 <= index < len(self._items):
-            return self._items[index]
+        if 0 <= index < len(self.__items):
+            return self.__items[index]
 
     def takeAt(self, index):
-        if 0 <= index < len(self._items):
-            return self._items.pop(index)
+        if 0 <= index < len(self.__items):
+            return self.__items.pop(index)
 
     def expandingDirections(self):
         return Qt.Orientations(0)
@@ -60,7 +59,7 @@ class FlowLayout(QLayout):
 
     def minimumSize(self):
         size = QSize()
-        for item in self._items:
+        for item in self.__items:
             size = size.expandedTo(item.minimumSize())
         left, top, right, bottom = self.getContentsMargins()
         size += QSize(left + right, top + bottom)
@@ -72,11 +71,11 @@ class FlowLayout(QLayout):
         x = effective.x()
         y = effective.y()
         lineheight = 0
-        row_width_ratio = self.get_row_width_ratio(rect, 0)
+        row_width_ratio = self.getRowWidthRatio(rect, 0)
         isFirst = 0
 
         for i in range(self.count()):
-            item = self._items[i]
+            item = self.__items[i]
             widget = item.widget()
             hspace = self.horizontalSpacing()
             if hspace == -1:
@@ -93,7 +92,7 @@ class FlowLayout(QLayout):
             if nextX - hspace > effective.right():
                 x = effective.x()
                 y = y + lineheight + vspace
-                row_width_ratio = self.get_row_width_ratio(rect, i)
+                row_width_ratio = self.getRowWidthRatio(rect, i)
                 nextX = int(x + item.maximumSize().width() * row_width_ratio + hspace)
                 lineheight = 0
             if not testonly:
@@ -103,14 +102,14 @@ class FlowLayout(QLayout):
             lineheight = max(lineheight, item.sizeHint().height())
         return y + lineheight - rect.y() + bottom
 
-    def get_row_width_ratio(self, rect, i):
+    def getRowWidthRatio(self, rect, i):
         left, top, right, bottom = self.getContentsMargins()
         effective = rect.adjusted(+left, +top, -right, -bottom)
         minimum_line_width_and_spacing = 0
         maximum_line_width = 0
 
         for j in range(i, self.count()):
-            item = self._items[j]
+            item = self.__items[j]
             widget = item.widget()
 
             if i == j:

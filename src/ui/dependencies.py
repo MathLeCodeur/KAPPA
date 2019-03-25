@@ -1,5 +1,5 @@
 """
-Dépendances du package ui.
+Dépendances du package ui (temporaire avant intégration avec les autres packages).
 """
 
 import os

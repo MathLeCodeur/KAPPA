@@ -1,27 +1,32 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
+"""
+Affichage de toutes les photos de l'utilisateur, avec la possibilité de les trier et d'effectuer une
+recherche filtrant les photos affichées.
+"""
 
-from ui.generated.photo_gallery_panel_ui import *
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+
 from ui.dependencies import *
+from ui.generated.photo_gallery_panel_ui import *
 
 class PhotoGalleryPanel(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QWidget = None):
         super(PhotoGalleryPanel, self).__init__(parent)
 
-        self.ui = Ui_PhotoGalleryPanel()
-        self.ui.setupUi(self)
+        self.__ui = Ui_PhotoGalleryPanel()
+        self.__ui.setupUi(self)
 
-        self.photos = getPhotos('date', 'desc')
-        self.ui.photoListView.setPhotos(self.photos)
+        self.__photos = getPhotos('date', 'desc')
+        self.__ui.photoListView.setPhotos(self.__photos)
 
     @pyqtSlot(name='on_searchButton_clicked')
-    def search_photos_by_file_name(self):
+    def searchPhotosByFileName(self):
         pass
 
     @pyqtSlot(name='on_advancedSearchButton_clicked')
-    def toggle_advanced_search(self):
+    def toggleAdvancedSearchPanel(self):
         pass
 
     @pyqtSlot(name='on_sortingButton_clicked')
-    def sort_photos(self):
+    def sortPhotos(self):
         pass

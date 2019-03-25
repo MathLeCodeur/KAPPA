@@ -1,0 +1,76 @@
+@startuml class_diagram_models
+
+package models
+{
+    class Model
+    {
+    }
+
+    class ImageModel
+    {
+        -id : Integer
+        -comment : String
+        -lastUpdate : String
+        -path : String
+        -length : Integer
+        -width : Integer
+        -size : Integer
+        -FaceVectors : List<FaceVectorModel>
+        -ObjectVectors : List<ObjectVectorModel>
+
+        +getId() : Integer
+        +setId(id : Integer)
+        +getComment() : String
+        +setComment(comment : String)
+        +getLastUpdate() : String
+        +setLastUpdate(lastUpdate : String)
+        +getPath() : String
+        +setPath(path : String)
+        +getLength() : Integer
+        +setLength(length : Integer)
+        +getWidth() : Integer
+        +setWidth(width : Integer)
+        +getSize() : Integer
+        +setSize(size : Integer)
+        +getFaceVectors() : List<FaceVectorModel>
+        +setFaceVectors(vectors : List<FaceVectorModel>)
+        +getObjectVectors() : List<ObjectVectorModel>
+        +setObjectectors(vectors : List<ObjectVectorModel>)
+    }
+
+    class VectorModel
+    {
+        -id : Integer
+        -value : String
+        -tagName : String
+        -parent : VectorModel
+
+        +getId() : Integer
+        +setId(id : Integer)
+        +getValue() : String
+        +setValue(value : String)
+        +getTagName() : String
+        +setTagName(tagName : String)
+        +getParent() : VectorModel
+        +setParent(parent : VectorModel)
+    }
+
+    class ObjectVectorModel
+    {
+    }
+
+    class FaceVectorModel
+    {
+    	-isKnown : Boolean
+
+    	+getIsKnown() : Boolean
+        +setIsKnown(isKnown : Boolean)
+    }
+
+    Model <|-- ImageModel
+    Model <|-- VectorModel
+    VectorModel <|-- FaceVectorModel
+    VectorModel <|-- ObjectVectorModel
+}
+
+@enduml

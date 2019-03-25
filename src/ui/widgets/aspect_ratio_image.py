@@ -10,26 +10,28 @@ class AspectRatioImage(QLabel):
     def __init__(self, pixmap: QPixmap = None, parent: QWidget = None):
         super(AspectRatioImage, self).__init__(parent)
 
+        self.__pixmap = None
+
         self.setPixmap(pixmap)
         self.setMinimumSize(1, 1)
         self.setScaledContents(False)
         self.setAlignment(Qt.AlignCenter)
 
     def setPixmap(self, pixmap: QPixmap):
-        self._pixmap = pixmap
         if pixmap:
-            super().setPixmap(self._get_scaled_pixmap())
+            self.__pixmap = pixmap
+            super().setPixmap(self.__getScaledPixmap())
 
-    def heightForWidth(self, width: int):
-        return self.height() if self._pixmap is None else (self._pixmap.height() * width) / self._pixmap.width()
+    def heightForWidth(self, width: int) -> int:
+        return self.height() if self.__pixmap is None else (self.__pixmap.height() * width) / self.__pixmap.width()
 
-    def sizeHint(self):
+    def sizeHint(self) -> QSize:
         width = self.width()
         return QSize(width, self.heightForWidth(width))
 
     def resizeEvent(self, resizeEvent: QResizeEvent):
-        if self._pixmap != None:
-            super().setPixmap(self._get_scaled_pixmap())
+        if self.__pixmap != None:
+            super().setPixmap(self.__getScaledPixmap())
 
-    def _get_scaled_pixmap(self):
-        return self._pixmap.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)
+    def __getScaledPixmap(self) -> QPixmap:
+        return self.__pixmap.scaled(self.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation)

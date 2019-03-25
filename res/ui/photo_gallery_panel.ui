@@ -14,7 +14,7 @@
    <item>
     <layout class="QHBoxLayout" name="header">
      <item>
-      <widget class="QTextEdit" name="search_textedit">
+      <widget class="QTextEdit" name="searchTextEdit">
        <property name="sizePolicy">
         <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
          <horstretch>0</horstretch>
@@ -33,14 +33,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="search_button">
+      <widget class="QPushButton" name="searchButton">
        <property name="text">
         <string>Search</string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="header_spacer">
+      <spacer name="headerSpacer">
        <property name="orientation">
         <enum>Qt::Horizontal</enum>
        </property>
@@ -53,21 +53,21 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="sorting_button">
+      <widget class="QPushButton" name="sortingButton">
        <property name="text">
         <string>Classement</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="advanced_search_button">
+      <widget class="QPushButton" name="advancedSearchButton">
        <property name="text">
         <string>Recherche avancée</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="show_all_button">
+      <widget class="QPushButton" name="showAllButton">
        <property name="text">
         <string>Afficher tout</string>
        </property>
@@ -76,7 +76,7 @@
     </layout>
    </item>
    <item>
-    <widget class="QScrollArea" name="scroll_area">
+    <widget class="QScrollArea" name="scrollArea">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>1</horstretch>
@@ -94,8 +94,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>966</width>
-        <height>4390</height>
+        <width>980</width>
+        <height>647</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -106,7 +106,7 @@
       </property>
       <layout class="QVBoxLayout" name="content_layout">
        <item>
-        <widget class="PhotoListView" name="photo_list_view">
+        <widget class="PhotoListView" name="photoListView" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
            <horstretch>0</horstretch>

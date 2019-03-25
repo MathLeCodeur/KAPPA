@@ -1,0 +1,25 @@
+@startuml class_diagram_all
+
+!include doc/diagrams/class_diagrams/class_diagram_dao.puml
+!include doc/diagrams/class_diagrams/class_diagram_models.puml
+!include doc/diagrams/class_diagrams/class_diagram_controllers.puml
+!include doc/diagrams/class_diagrams/class_diagram_ui.puml
+
+together {
+    together {
+        !include doc/diagrams/class_diagrams/class_diagram_face_detection.puml
+        !include doc/diagrams/class_diagrams/class_diagram_face_recognition.puml
+    }
+    !include doc/diagrams/class_diagrams/class_diagram_object_recognition.puml
+}
+
+PhotoGalleryPanel --> ImageController : get image list
+PhotoViewerPanel --> ImageController : get image data (metadata, tags, bounding-boxes)
+FaceVectorController --> face_detection : uses
+FaceVectorController --> face_recognition : uses
+ObjectVectorController --> object_recognition : uses
+
+controllers o-- dao : < access
+dao --> models : manages
+
+@enduml

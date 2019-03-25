@@ -5,15 +5,15 @@ from ui.widgets.photo_view import PhotoView
 class PhotoViewPlugin(QPyDesignerCustomWidgetPlugin):
     def __init__(self, parent=None):
         super(PhotoViewPlugin, self).__init__(parent)
-        self.initialized = False
+        self.__initialized = False
 
     def initialize(self, core):
-        if self.initialized:
+        if self.__initialized:
             return
-        self.initialized = True
+        self.__initialized = True
 
     def isInitialized(self):
-        return self.initialized
+        return self.__initialized
 
     def createWidget(self, parent):
         return PhotoView(parent)

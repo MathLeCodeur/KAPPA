@@ -1,0 +1,46 @@
+@startuml class_diagram_ui
+
+package ui
+{
+    class MainWindow
+    {
+        -ui : Ui_MainWindow
+        -photoViewerPanel : PhotoViewerPanel
+        -photoGalleryPanel : PhotoGalleryPanel
+
+        +MainWindow()
+        +getPhotoGalleryPanel() : PhotoGalleryPanel
+        +getPhotoViewerPanel() : PhotoViewerPanel
+        +setActivePanel(panel : QWidget)
+    }
+
+    package panels
+    {
+        class PhotoGalleryPanel
+        {
+            -ui : Ui_PhotoGallery
+            -photos : List<Photo>
+
+            +PhotoGalleryPanel(parent : QWidget = null)
+            +searchPhotosByFileName()
+            +toggleAdvancedSearchPanel()
+            +sortPhotos()
+        }
+
+        class PhotoViewerPanel
+        {
+            -ui : Ui_PhotoViewerPanel
+            -faceDetector : FaceDetector
+
+            +PhotoViewerPanel(parent : QWidget = null)
+            +setPhoto(photo : Photo)
+            +returnToPhotoGallery()
+            -clearLayout()
+        }
+    }
+
+    MainWindow *-- PhotoGalleryPanel
+    MainWindow *-- PhotoViewerPanel
+}
+
+@enduml

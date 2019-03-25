@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1000, 700)
+        MainWindow.resize(1200, 900)
         MainWindow.setStyleSheet("")
         self.centralWidget = QtWidgets.QWidget(MainWindow)
         self.centralWidget.setObjectName("centralWidget")
@@ -23,7 +23,7 @@ class Ui_MainWindow(object):
         self.central_widget_layout.addWidget(self.stackedWidget)
         MainWindow.setCentralWidget(self.centralWidget)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
-        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1000, 22))
+        self.menuBar.setGeometry(QtCore.QRect(0, 0, 1200, 22))
         self.menuBar.setObjectName("menuBar")
         self.fileMenu = QtWidgets.QMenu(self.menuBar)
         self.fileMenu.setObjectName("fileMenu")

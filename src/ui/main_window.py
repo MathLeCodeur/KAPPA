@@ -9,14 +9,20 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
+        self.__ui = Ui_MainWindow()
+        self.__ui.setupUi(self)
 
-        self.photoGalleryPanel = PhotoGalleryPanel()
-        self.photoViewerPanel = PhotoViewerPanel()
+        self.__photoGalleryPanel = PhotoGalleryPanel()
+        self.__photoViewerPanel = PhotoViewerPanel()
 
-        self.ui.stackedWidget.addWidget(self.photoGalleryPanel)
-        self.ui.stackedWidget.addWidget(self.photoViewerPanel)
+        self.__ui.stackedWidget.addWidget(self.__photoGalleryPanel)
+        self.__ui.stackedWidget.addWidget(self.__photoViewerPanel)
+
+    def getPhotoGalleryPanel(self) -> PhotoGalleryPanel:
+        return self.__photoGalleryPanel
+
+    def getPhotoViewerPanel(self) -> PhotoViewerPanel:
+        return self.__photoViewerPanel
 
     def setActivePanel(self, panel: QWidget):
-        self.ui.stackedWidget.setCurrentWidget(panel)
+        self.__ui.stackedWidget.setCurrentWidget(panel)
