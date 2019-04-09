@@ -3,7 +3,7 @@ import sqlite3
 class ConnectionManager:
 	class ConnectionDB:
 		def __init__(self,severName):
-			self.connection = sqlite3.connect(severName)
+			self.connection = sqlite3.connect("KappaBase.db")
 
 
 		def __str__(self):

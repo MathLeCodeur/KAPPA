@@ -1,7 +1,7 @@
 CREATE TABLE IMAGE(
 	id_image INT PRIMARY KEY NOT NULL,
 	comment VARCHAR(255),
-	last_update date,
+	creation_date date,
 	length int,
 	width int,
 	size int,
@@ -16,6 +16,8 @@ CREATE TABLE VECTOR(
 
 CREATE TABLE OBJECT_VECTOR(
 	id_vector INT NOT NULL,
+	id_parent INT,
+	FOREIGN KEY (id_vector) REFERENCES OBJECT_VECTOR(id_vector)
 	FOREIGN KEY (id_vector) REFERENCES VECTOR(id_vector)
 );
 
