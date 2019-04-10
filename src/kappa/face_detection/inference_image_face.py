@@ -11,14 +11,14 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import tensorflow as tf
 import cv2
 
-import face_detection.utils.label_map_util as label_map_util
-import face_detection.utils.visualization_utils_color as vis_util
+import kappa.face_detection.utils.label_map_util as label_map_util
+import kappa.face_detection.utils.visualization_utils_color as vis_util
 
 # Path to frozen detection graph. This is the actual model that is used for the object detection.
 PATH_TO_CKPT = 'res/face_detection/model/frozen_inference_graph_face.pb'
 
 # List of the strings that is used to add correct label for each box.
-PATH_TO_LABELS = 'src/face_detection/protos/face_label_map.pbtxt'
+PATH_TO_LABELS = 'src/kappa/face_detection/protos/face_label_map.pbtxt'
 
 NUM_CLASSES = 2
 
@@ -66,7 +66,7 @@ class TensoflowFaceDector(object):
         scores = self.detection_graph.get_tensor_by_name('detection_scores:0')
         classes = self.detection_graph.get_tensor_by_name('detection_classes:0')
         num_detections = self.detection_graph.get_tensor_by_name('num_detections:0')
-        # Actual detection.
+        # Current detection.
         start_time = time.time()
         (boxes, scores, classes, num_detections) = self.sess.run(
             [boxes, scores, classes, num_detections],

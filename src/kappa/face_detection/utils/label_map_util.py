@@ -19,7 +19,7 @@ import logging
 
 import tensorflow as tf
 from google.protobuf import text_format
-import face_detection.protos.string_int_label_map_pb2 as string_int_label_map_pb2
+import kappa.face_detection.protos.string_int_label_map_pb2 as string_int_label_map_pb2
 
 
 def _validate_label_map(label_map):
