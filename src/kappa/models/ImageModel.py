@@ -1,4 +1,4 @@
-import Model as m
+import kappa.models.Model as m
 
 
 class ImageModel(m.Model):
@@ -8,7 +8,7 @@ class ImageModel(m.Model):
 		self.lastUpdate = lastUpdate
 		self.path = path
 		self.length = length
-		self.width = width		
+		self.width = width
 		self.size = size
 		self.faceVectors = faceVectors
 		self.objectVectors = objectVectors

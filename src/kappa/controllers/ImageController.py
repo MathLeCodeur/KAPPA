@@ -1,8 +1,8 @@
-import DAO as dao
-import Controller as ctl
-import ConnectionManager
-import ImageModel as im
-from ImageDAO import ImageDAO
+import kappa.dao.DAO as dao
+import kappa.controllers.Controller as ctl
+from kappa.dao import ConnectionManager
+import kappa.models.ImageModel as im
+from kappa.dao.ImageDAO import ImageDAO
 import os
 import glob
 from PIL import Image
@@ -19,7 +19,7 @@ class ImageController(ctl.Controller):
 
 	def getById(self):
 		print("coucou")
-	
+
 	def importImageFolder(self,pathF):
 		y = ConnectionManager.ConnectionManager('KappaBase.db')
 		print(y.instance.connection)

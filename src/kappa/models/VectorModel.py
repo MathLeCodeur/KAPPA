@@ -1,4 +1,4 @@
-import Model as m
+import kappa.models.Model as m
 
 
 class VectorModel(m.Model):

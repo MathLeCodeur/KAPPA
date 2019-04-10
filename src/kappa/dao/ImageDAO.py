@@ -1,6 +1,6 @@
-import DAO as dao
-import ConnectionManager
-import ImageModel as im
+import kappa.dao.DAO as dao
+from kappa.dao import ConnectionManager
+import kappa.models.ImageModel as im
 
 
 
@@ -19,6 +19,3 @@ class ImageDAO(dao.DAO):
 
 	def getById(self):
 		print("coucou")
-
-
-

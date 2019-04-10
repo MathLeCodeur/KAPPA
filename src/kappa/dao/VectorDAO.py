@@ -1,6 +1,6 @@
-from DAO import DAO as daoclass
-from ConnectionManager import ConnectionManager
-from VectorModel import VectorModel
+from kappa.dao.DAO import DAO as daoclass
+from kappa.dao.ConnectionManager import ConnectionManager
+from kappa.models.VectorModel import VectorModel
 
 
 
@@ -19,7 +19,7 @@ class VectorDAO(daoclass):
 	def getById(self, id):
 		cm = ConnectionManager('KappaBase')
 		res = cm.executeSQL("SELECT * FROM Vector WHERE id_vector="+str(id))
-		if (len(res)!=1) : 
+		if (len(res)!=1) :
 			return
 		res2 = VectorModel(res[0][0], res[0][1], "tagname", "parent")
 		return res2

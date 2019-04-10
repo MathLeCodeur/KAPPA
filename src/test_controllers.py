@@ -1,7 +1,7 @@
-import ConnectionManager
-from VectorDAO import VectorDAO
-from ImageDAO import ImageDAO
-from ImageController import ImageController
+import kappa.dao.ConnectionManager
+from kappa.dao.VectorDAO import VectorDAO
+from kappa.dao.ImageDAO import ImageDAO
+from kappa.controllers.ImageController import ImageController
 import os
 import glob
 from PIL import Image
