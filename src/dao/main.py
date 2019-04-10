@@ -2,6 +2,10 @@ import ConnectionManager
 from VectorDAO import VectorDAO
 from ImageDAO import ImageDAO
 from ImageController import ImageController
+import os
+import glob
+from PIL import Image
+import time
 
 def main():
 	 #y = ConnectionManager.ConnectionManager('KappaBase.db')
@@ -11,9 +15,11 @@ def main():
 	#rows = y.executeSQL('select * from Vector');
 	imgCtl = ImageController()
 	rows = imgCtl.getAll()
-	print(rows)
+	#print(rows)
 	for row in rows:
 		print(str(row.path))
+
+	imgCtl.importImageFolder("/home/kappa/Documents/Image/")
 	#print("Image : "+str(rows[0].path))
 	#print("Image : "+str(rows[1].path))
 	#for elem in rows:
