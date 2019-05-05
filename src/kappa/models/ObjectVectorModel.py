@@ -1,6 +1,6 @@
-import VectorModel as m
+from kappa.models.VectorModel import VectorModel
 
 
-class ObjectVectorModel(m.VectorModel):
+class ObjectVectorModel(VectorModel):
 	def __init__(self, id, value, tagName, parent):        
-		super().__init__(self, id, value, tagName, parent)
+		super().__init__(id, value, tagName, parent)

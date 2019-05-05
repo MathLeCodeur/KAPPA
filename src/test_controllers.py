@@ -1,7 +1,7 @@
 import kappa.dao.ConnectionManager
 from kappa.dao.VectorDAO import VectorDAO
-from kappa.dao.ImageDAO import ImageDAO
-from kappa.controllers.ImageController import ImageController
+from kappa.dao.ObjectVectorDAO import ObjectVectorDAO
+from kappa.controllers.ObjectVectorController import ObjectVectorController
 import os
 import glob
 from PIL import Image
@@ -13,13 +13,15 @@ def main():
 
 	#Select
 	#rows = y.executeSQL('select * from Vector');
-	imgCtl = ImageController()
-	rows = imgCtl.getAll()
+	imgCtl = ObjectVectorController()
+	#rows = imgCtl.getAll()
 	#print(rows)
-	for row in rows:
-		print(str(row.path))
+	#for row in rows:
+	#	print(str(row.path))
 
-	imgCtl.importImageFolder("/home/kappa/Documents/Image/")
+	imgCtl.importObjectVectors()
+
+	#imgCtl.importImageFolder("/home/kappa/Documents/Image/")
 	#print("Image : "+str(rows[0].path))
 	#print("Image : "+str(rows[1].path))
 	#for elem in rows:
