@@ -38,3 +38,30 @@ class ImageDAO(dao.DAO):
 		cm = ConnectionManager.ConnectionManager('KappaBase.db')
 		res = cm.executeSQL("SELECT * FROM Image where id_image ="+id+";")
 		return res
+
+	def getNextId(self):
+		cm = ConnectionManager.ConnectionManager('KappaBase')
+		res = cm.executeSQL("SELECT MAX(id_image) FROM IMAGE")
+		res2 = res
+		for elem in res:
+			if(elem[0] == None):
+				res2=0
+				break
+			res2=elem[0]+1
+
+		return res2
+	#d_image INT PRIMARY KEY NOT NULL,
+	#comment VARCHAR(255),
+	#creation_date date,
+	#length int,
+	#width int,
+	#size int,
+	#path VARCHAR(255)
+	def update(self, imageMod):
+		print("update")
+
+
+	def create(self, imgModel):
+		print("create")
+		cm = ConnectionManager.ConnectionManager('KappaBase.db')
+		res = cm.executeAndCommitSQL("INSERT INTO Image (id_image, comment,creation_date,length,width,size,path) VALUES (" + imgModel.id + ", \"" + imgModel.comment + "\""+imgModel.creation_date+", "+imgModel.length+","+imgModel.size+","+imgModel.path+")")

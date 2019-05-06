@@ -27,7 +27,7 @@ class ImageController(ctl.Controller):
 		y = ConnectionManager.ConnectionManager('KappaBase.db')
 		print(y.instance.connection)
 		l=os.listdir(pathF)
-		ui=y.executeSQL("select Max(id_image) from Image");
+		ui=y.executeSQL("select Max(id_image) from Image")
 		u=ui
 		for elem in ui:
 			if(elem[0] == None):
@@ -50,5 +50,5 @@ class ImageController(ctl.Controller):
 					date = str(time.ctime(os.path.getctime(pathF+str(i))))
 					sql	= "Insert into IMAGE (id_image,creation_date ,length, width,size, path) values ("+str(u)+",'"+date+"',"+str(height)+", "+str(width)+ ", " +str(size)+", '" +path+"')"
 					print(path)
-					y.executeAndCommitSQL(sql)
+					#y.executeAndCommitSQL(sql)
 					u+=1

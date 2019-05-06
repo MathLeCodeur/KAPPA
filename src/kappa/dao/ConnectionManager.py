@@ -1,13 +1,12 @@
 import sqlite3
-
+import context
 class ConnectionManager:
 	class ConnectionDB:
 		def __init__(self,severName):
 			self.connection = sqlite3.connect("/home/kappa/Documents/Kappa_bdd_imp/KAPPA/res/database/KappaBase.db")
 
-
 		def __str__(self):
-			return 'coucou'
+			return 'ConnectionManager'
 
 		def executeSQL(self,sql):
 			print('sql execute')
@@ -23,7 +22,6 @@ class ConnectionManager:
 			self.connection.commit()
 
 		def closeConnection(self):
-
 			print('sql close')
 			self.connection.close()
 

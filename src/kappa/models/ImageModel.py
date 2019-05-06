@@ -2,10 +2,10 @@ import kappa.models.Model as m
 
 
 class ImageModel(m.Model):
-	def __init__(self, id, comment, lastUpdate, length, width, size,path, faceVectors, objectVectors):
+	def __init__(self, id, comment, creation_date, length, width, size,path, faceVectors, objectVectors):
 		self.id = id
 		self.comment = comment
-		self.lastUpdate = lastUpdate
+		self.creation_date = creation_date
 		self.path = path
 		self.length = length
 		self.width = width
