@@ -17,8 +17,11 @@ class ImageController(ctl.Controller):
 	def getAll(self):
 		return self.cDao.getAll()
 
-	def getById(self):
-		print("coucou")
+	def getAllOrderByDate(self):
+		return self.cDao.getAllOrderByDate()
+
+	def getById(self,id):
+		return self.cDao.getById(id)
 
 	def importImageFolder(self,pathF):
 		y = ConnectionManager.ConnectionManager('KappaBase.db')
@@ -31,15 +34,21 @@ class ImageController(ctl.Controller):
 				u=0
 				break
 			u=elem[0]+1
-		#print(ui)
+
 		for i in l:
-			im = Image.open(pathF+str(i))
-			path = pathF+str(i)
-			size = os.path.getsize(path)
-			width = im.size[0]
-			height = im.size[1]
-			date = str(time.ctime(os.path.getctime(pathF+str(i))))
-			sql = "Insert into IMAGE (id_image,creation_date ,length, width,size, path) values ("+str(u)+",'"+date+"',"+str(height)+", "+str(width)+ ", " +str(size)+", '" +path+"')"
-			print(sql)
-			y.executeAndCommitSQL(sql)
-			u+=1
+			print(i)
+			if(os.path.isfile(pathF+i)):
+
+				extension = i.split(".")[1]
+				if(extension in ("jpeg","jpg") ):
+
+					im = Image.open(pathF+str(i))
+					path = pathF+str(i)
+					size = os.path.getsize(path)
+					width = im.size[0]
+					height = im.size[1]
+					date = str(time.ctime(os.path.getctime(pathF+str(i))))
+					sql	= "Insert into IMAGE (id_image,creation_date ,length, width,size, path) values ("+str(u)+",'"+date+"',"+str(height)+", "+str(width)+ ", " +str(size)+", '" +path+"')"
+					print(path)
+					y.executeAndCommitSQL(sql)
+					u+=1
