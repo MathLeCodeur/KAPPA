@@ -17,12 +17,12 @@ class ObjectVectorController(ctl.Controller):
 
 	def importObjectVectors(self):
 		#recuperation du fichier des description de chaque vecteurs
-		descriptionf = open('C:\\Users\\Alexis\\Desktop\\Nouveaudossier\\KAPPA\\res\\database\\imagenet_synset_to_human_label_map.txt','r')
+		descriptionf = open('./res/database/imagenet_synset_to_human_label_map.txt','r')
 		descriptionlines  = descriptionf.readlines()
 		descriptionf.close()
 
 		#recuperation du fichier des lien parent pour chaque vecteurs
-		parentf= open('C:\\Users\\Alexis\\Desktop\\Nouveaudossier\\KAPPA\\res\\database\\wordnet.is_a.txt','r')
+		parentf= open('./res/database/wordnet.is_a.txt','r')
 		parentslines  = parentf.readlines()
 		parentf.close()
 
@@ -41,7 +41,7 @@ class ObjectVectorController(ctl.Controller):
 			# in file : parent - enfant
 			vectorParent =parent[:9]
 			vectorEnfant = parent[10:-1]
-			if (vectorEnfant in tags):
+			if (vectorEnfant in tags and vectorParent in tags and not isinstance(tags[vectorEnfant], tuple) ):
 				tags[vectorEnfant] = ( tags[vectorEnfant] , vectorParent )
 
 
@@ -56,46 +56,7 @@ class ObjectVectorController(ctl.Controller):
 		#////////////////////////////SQL REQUEST HERE/////////////////////////////
 		#/////////////////////////////////////////////////////////////////////////
 
-		for vector, tags_and_parent in tags.items():
-
-			#exemple :
-			#vector          => 'n07877187'
-			#tags_and_parent => ('spaghetti and meatballs', 'n07557434')
-			if (isinstance(tags_and_parent[0], tuple)) :
-				continue
-
-			vChild = self.cDao.getByValue(vector)
-
-			if (vChild!=None) :
-				vChild.value = vector
-				vChild.tagName = tags_and_parent[0]
-				if(tags_and_parent[1]==None) :
-					vChild.parent = None
-				else :
-					vParent = self.cDao.getByValue(tags_and_parent[1])
-					if(vParent!=None) :
-						vChild.parent = vParent.id
-					else :
-						nextId=self.cDao.getNextId()
-						vParent = ObjectVectorModel(nextId, tags_and_parent[1], "", None)
-						vChild.parent = nextId
-						self.cDao.create(vParent)
-				self.cDao.update(vChild)
-			else :
-				nextId=self.cDao.getNextId()
-				vChild = ObjectVectorModel(nextId, vector, tags_and_parent[0], None)
-				if(tags_and_parent[1]==None) :
-					vChild.parent = None
-				else :
-					vParent = self.cDao.getByValue(tags_and_parent[1])
-					if(vParent!=None) :
-						vChild.parent = vParent.id
-					else :
-						vParent = ObjectVectorModel(nextId+1, tags_and_parent[1], "", None)
-						vChild.parent = nextId+1
-						print(vChild.parent)
-						self.cDao.create(vParent)
-				self.cDao.create(vChild)
+		self.cDao.importObjectVectors(tags.items())
 
 		#/////////////////////////////////////////////////////////////////////////
 		#/////////////////////////////////////////////////////////////////////////

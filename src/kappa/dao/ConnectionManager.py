@@ -3,33 +3,29 @@ import context
 class ConnectionManager:
 	class ConnectionDB:
 		def __init__(self,severName):
-			self.connection = sqlite3.connect("/home/kappa/Documents/Kappa_bdd_imp/KAPPA/res/database/KappaBase.db")
+			self.connection = sqlite3.connect("./res/database/KappaBase.db")
 
 		def __str__(self):
 			return 'ConnectionManager'
 
 		def executeSQL(self,sql):
-			print('sql execute')
 			cur = self.connection.cursor()
 			cur.execute(sql)
 			rows = cur.fetchall()
 			return rows
 
 		def executeAndCommitSQL(self,sql):
-			print('sql excute and commit')
 			cur = self.connection.cursor()
 			cur.execute(sql)
 			self.connection.commit()
 
 		def closeConnection(self):
-			print('sql close')
 			self.connection.close()
 
 	instance = None
 	def __new__(self, serverName):
 		if not ConnectionManager.instance:
 			ConnectionManager.instance = ConnectionManager.ConnectionDB(serverName)
-			print("new instance")
 		return ConnectionManager
 
 	def executeSQL(sql):

@@ -13,7 +13,7 @@ class VectorDAO(daoclass):
 		res = cm.executeSQL("SELECT * FROM Vector")
 		vectorList = []
 		for elem in res:
-			vectorList.append(VectorModel(elem[0], elem[1], "tagname", "parent"))
+			vectorList.append(VectorModel(elem[0], elem[1], elem[2]))
 		return vectorList
 
 	def getById(self, id):
@@ -21,13 +21,19 @@ class VectorDAO(daoclass):
 		res = cm.executeSQL("SELECT * FROM Vector WHERE id_vector="+str(id))
 		if (len(res)!=1) :
 			return
-		res2 = VectorModel(res[0][0], res[0][1], "tagname", "parent")
+		res2 = VectorModel(res[0][0], res[0][1], elem[0][2])
 		return res2
 
 	def update(self, vectorModel):
 		cm = ConnectionManager('KappaBase')
-		res = cm.executeAndCommitSQL("UPDATE Vector SET value_vector=\"" + str(vectorModel.value) + "\" WHERE id_vector=" + str(vectorModel.id))
+		self.updateWithConnection(cm, vectorModel)
 
 	def create(self, vectorModel):
 		cm = ConnectionManager('KappaBase')
-		res = cm.executeAndCommitSQL("INSERT INTO Vector (id_vector, value_vector) VALUES (" + str(vectorModel.id) + ", \"" + vectorModel.value + "\")")
+		self.createWithConnection(cm, vectorModel)
+
+	def updateWithConnection(self, cm, vectorModel):
+		res = cm.executeAndCommitSQL("UPDATE Vector SET value_vector=\"" + str(vectorModel.value) + "\" , tag_name=\"" + str(vectorModel.tagName) + "\" WHERE id_vector=" + str(vectorModel.id))
+
+	def createWithConnection(self, cm, vectorModel):
+		res = cm.executeAndCommitSQL("INSERT INTO Vector (id_vector, value_vector, tag_name) VALUES (" + str(vectorModel.id) + ", \"" + vectorModel.value + "\", \"" + vectorModel.value + "\")")

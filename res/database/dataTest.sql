@@ -9,16 +9,16 @@ Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values
 Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (9,"image 9 un gars",'2030-01-09 10:20:00',2000,2000,958738,"/image/perso/solo/image9.png");
 Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (10,"une couille",'2077-01-05 10:09:00',5000,5000,970,"/image/perso/couille/image10.png");
 
-Insert into VECTOR (id_vector,value_vector) values (1,"value vector1");
-Insert into VECTOR (id_vector,value_vector) values (2,"value vector2");
-Insert into VECTOR (id_vector,value_vector) values (3,"value vector3");
-Insert into VECTOR (id_vector,value_vector) values (4,"value vector4");
-Insert into VECTOR (id_vector,value_vector) values (5,"value vector5");
-Insert into VECTOR (id_vector,value_vector) values (6,"value vector6");
-Insert into VECTOR (id_vector,value_vector) values (7,"value vector7");
-Insert into VECTOR (id_vector,value_vector) values (8,"value vector8");
-Insert into VECTOR (id_vector,value_vector) values (9,"value vector9");
-Insert into VECTOR (id_vector,value_vector) values (10,"value vector10");
+Insert into VECTOR (id_vector,value_vector,tag_name) values (1,"value vector1", "tag1");
+Insert into VECTOR (id_vector,value_vector,tag_name) values (2,"value vector2", "tag2");
+Insert into VECTOR (id_vector,value_vector,tag_name) values (3,"value vector3", "tag3");
+Insert into VECTOR (id_vector,value_vector,tag_name) values (4,"value vector4", "tag4");
+Insert into VECTOR (id_vector,value_vector,tag_name) values (5,"value vector5", "tag5");
+Insert into VECTOR (id_vector,value_vector,tag_name) values (6,"value vector6", "tag6");
+Insert into VECTOR (id_vector,value_vector,tag_name) values (7,"value vector7", "tag7");
+Insert into VECTOR (id_vector,value_vector,tag_name) values (8,"value vector8", "tag8");
+Insert into VECTOR (id_vector,value_vector,tag_name) values (9,"value vector9", "tag9");
+Insert into VECTOR (id_vector,value_vector,tag_name) values (10,"value vector10", "tag10");
 
 Insert into FACE_VECTOR (id_vector,IsKnown) values (1, 1);
 Insert into FACE_VECTOR (id_vector,IsKnown) values (2, 1);
