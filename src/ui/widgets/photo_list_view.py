@@ -2,44 +2,47 @@
 Widget permettant d'afficher une liste de photos.
 """
 
-from typing import List
+from typing import *
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from ui.widgets.flow_layout import *
+
 from ui.dependencies import *
+from ui.widgets.flow_layout import *
 
 class PhotoListView(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QWidget = None):
         super(PhotoListView, self).__init__(parent)
 
-        self.layout = FlowLayout(self, 30, 16, 16)
-        self.setLayout(self.layout)
+        self.__layout = FlowLayout(self, 0, 16, 16)
+        self.setLayout(self.__layout)
 
-    def set_photos(self, photos: List[Photo]):
-        self.photos = photos
+    def setPhotos(self, photos: List[Photo]):
+        self.__photos = photos
         for photo in photos:
-            self.layout.addWidget(PhotoListViewItem(photo, self.open_photo))
+            self.__layout.addWidget(PhotoListViewItem(photo, self.__openPhoto))
 
-    def open_photo(self):
+    def __openPhoto(self):
         window = self.window()
-        photo_viewer_panel = window.photo_viewer_panel
-        photo_viewer_panel.set_photo(self.sender().property('photo'))
-        window.set_panel(photo_viewer_panel)
+        photoViewerPanel = window.getPhotoViewerPanel()
+        photoViewerPanel.setPhoto(self.sender().property('photo'))
+        window.setActivePanel(photoViewerPanel)
 
 class PhotoListViewItem(QPushButton):
-    def __init__(self, photo: Photo, clicked_slot, parent=None):
+    def __init__(self, photo: Photo, clickSlot: Callable, parent: QWidget = None):
         super(PhotoListViewItem, self).__init__(parent)
 
         self.setProperty('photo', photo)
-        self.pixmap = QPixmap(photo.path)
-        self.fixed_height = 320
-        full_widget_size = QSize(self.pixmap.width() / self.pixmap.height() * self.fixed_height, self.fixed_height)
+        pixmap = QPixmap(photo.path)
+        fixedHeight = 200
+        fullWidgetSize = QSize(pixmap.width() / pixmap.height() * fixedHeight, fixedHeight)
 
-        self.setMaximumSize(full_widget_size)
-        self.setMinimumSize(QSize(full_widget_size.width() / 2, self.fixed_height))
+        self.setMaximumSize(fullWidgetSize)
+        self.setMinimumSize(QSize(fullWidgetSize.width() / 2, fixedHeight))
 
         self.setFlat(True)
-        self.setIcon(QIcon(self.pixmap.scaled(full_widget_size, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)))
-        self.setIconSize(full_widget_size)
-        self.clicked.connect(clicked_slot)
+        self.setIcon(QIcon(pixmap.scaled(fullWidgetSize, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)))
+        self.setIconSize(fullWidgetSize)
+        self.setStyleSheet('background-image: url(./res/icons/transparency_checkerboard.png);')
+        self.clicked.connect(clickSlot)

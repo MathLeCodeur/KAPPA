@@ -1,0 +1,49 @@
+@startuml class_diagram_controllers
+
+package controllers
+{
+    class Controller
+    {
+        -dao : DAO
+
+    	+getAll() : ModelList
+        +getById() : Model
+        +update(m : Model)
+        +add(m : Model)
+    }
+
+    class ImageController
+    {
+        -imageDAO : ImageDAO
+
+        +whateverYouWant()
+    }
+
+    class VectorController
+    {
+		-vectorDAO : VectorDAO
+
+        +whateverYouWant()
+    }
+
+    class ObjectVectorController
+    {
+    	-objectVectorDAO : ObjectVectorDAO
+
+        +whateverYouWant()
+    }
+
+    class FaceVectorController
+    {
+    	-faceVectorDAO : FaceVectorDAO
+
+        +whateverYouWant()
+    }
+
+    Controller <|-- ImageController
+    Controller <|-- VectorController
+    VectorController <|-- FaceVectorController
+    VectorController <|-- ObjectVectorController
+}
+
+@enduml

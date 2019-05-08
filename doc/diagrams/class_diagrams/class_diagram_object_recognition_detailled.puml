@@ -1,0 +1,28 @@
+@startuml class_diagram_object_recognition_detailled
+
+!include doc/diagrams/class_diagrams/class_diagram_object_recognition.puml
+
+package object_recognition
+{
+    "find_tag (module functions)" : arg : --image_file : str
+    "find_tag (module functions)" : arg : --model_dir : str
+    "find_tag (module functions)" : arg : --num_top_predictions : int
+
+    package data #DDDDDD
+    {
+        package imagenet_2012_challenge_label_map_photo.pbtxt
+        {
+        }
+        package imagenet_synset_to_human_label_map.txt
+        {
+        }
+        package classify_image_graph_def.pb
+        {
+        }
+    }
+}
+
+
+"find_tag (module)" --> data : use
+
+@enduml

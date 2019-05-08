@@ -1,0 +1,23 @@
+@startuml class_diagram_object_recognition
+
+package object_recognition
+{
+    package "find_tag (module)"
+    {
+        class NodeLookup
+        {
+            +load()
+            +id_to_string()
+            +run_inference_on_image()
+        }
+
+        class "find_tag (module functions)" << (M, SkyBlue) >>
+        {
+            +create_graph()
+            +run_inference_on_image()
+            +maybe_download_and_extract()
+        }
+    }
+}
+
+@enduml

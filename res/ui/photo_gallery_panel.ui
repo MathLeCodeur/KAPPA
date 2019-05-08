@@ -6,82 +6,232 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>700</height>
+    <width>1079</width>
+    <height>769</height>
    </rect>
   </property>
-  <layout class="QVBoxLayout" name="_2">
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QVBoxLayout" name="photoGalleryPanelLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
-    <layout class="QHBoxLayout" name="header">
-     <item>
-      <widget class="QTextEdit" name="search_textedit">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="maximumSize">
-        <size>
-         <width>300</width>
-         <height>16777215</height>
-        </size>
-       </property>
-       <property name="verticalScrollBarPolicy">
-        <enum>Qt::ScrollBarAlwaysOff</enum>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="search_button">
-       <property name="text">
-        <string>Search</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="header_spacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QPushButton" name="sorting_button">
-       <property name="text">
-        <string>Classement</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="advanced_search_button">
-       <property name="text">
-        <string>Recherche avancée</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="show_all_button">
-       <property name="text">
-        <string>Afficher tout</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QWidget" name="header" native="true">
+     <layout class="QHBoxLayout" name="headerLayout" stretch="1,0,0,0,0,0">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <property name="leftMargin">
+       <number>120</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLineEdit" name="searchLineEdit">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>260</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>396</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="placeholderText">
+         <string>Recherche par nom, date, lieu, tags...</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="headerSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="groupByContainer">
+        <property name="spacing">
+         <number>16</number>
+        </property>
+        <property name="leftMargin">
+         <number>16</number>
+        </property>
+        <property name="rightMargin">
+         <number>16</number>
+        </property>
+        <item>
+         <widget class="QLabel" name="groupBySmallLabel">
+          <property name="text">
+           <string>Grouper par</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="groupByComboBox">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>24</height>
+           </size>
+          </property>
+          <item>
+           <property name="text">
+            <string>Date</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Lieu</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Nom</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Tags</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QPushButton" name="advancedSearchActionButton">
+        <property name="minimumSize">
+         <size>
+          <width>62</width>
+          <height>48</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Recherche avancée</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../icons/cache/advanced_search.svg</normaloff>../icons/cache/advanced_search.svg</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="importFolderActionButton">
+        <property name="minimumSize">
+         <size>
+          <width>62</width>
+          <height>48</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Importer un répertoire d'images</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../icons/cache/import_folder.svg</normaloff>../icons/cache/import_folder.svg</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="changeThemeActionButton">
+        <property name="minimumSize">
+         <size>
+          <width>62</width>
+          <height>48</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string>Changer le thème graphique</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>../icons/cache/change_theme.svg</normaloff>../icons/cache/change_theme.svg</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>24</width>
+          <height>24</height>
+         </size>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
    </item>
    <item>
-    <widget class="QScrollArea" name="scroll_area">
+    <widget class="QScrollArea" name="photoGalleryContainer">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>1</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
+     </property>
+     <property name="verticalScrollBarPolicy">
+      <enum>Qt::ScrollBarAlwaysOff</enum>
      </property>
      <property name="horizontalScrollBarPolicy">
       <enum>Qt::ScrollBarAlwaysOff</enum>
@@ -94,8 +244,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>966</width>
-        <height>4390</height>
+        <width>1077</width>
+        <height>719</height>
        </rect>
       </property>
       <property name="sizePolicy">
@@ -104,9 +254,21 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
-      <layout class="QVBoxLayout" name="content_layout">
+      <layout class="QVBoxLayout" name="contentLayout">
+       <property name="leftMargin">
+        <number>120</number>
+       </property>
+       <property name="topMargin">
+        <number>32</number>
+       </property>
+       <property name="rightMargin">
+        <number>120</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
        <item>
-        <widget class="PhotoListView" name="photo_list_view">
+        <widget class="PhotoListView" name="photoListView" native="true">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Ignored" vsizetype="Preferred">
            <horstretch>0</horstretch>

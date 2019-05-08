@@ -12,6 +12,7 @@ for ui_file_path in $ui_files; do
     ui_src_file_name="${src_ui_dir}${ui_file_name}_ui.py"
 
     pyuic5 $ui_file_path -o "$ui_src_file_name" --from-imports
+    sed -i -e 's/\.\.\/icons/.\/res\/icons/g' "$ui_src_file_name"
 done
 
 for rc_file_path in $rc_files; do

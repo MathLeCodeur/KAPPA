@@ -1,0 +1,80 @@
+@startuml class_diagram_ui_detailled
+
+!include doc/diagrams/class_diagrams/class_diagram_ui.puml
+
+package ui
+{
+    package widgets
+    {
+        class AspectRatioImage
+        {
+            -pixmap : QPixmap
+
+            +AspectRatioImage(pixmap : QPixmap = null, parent : QWidget = null)
+            +setPixmap(pixmap : QPixmap)
+            +heightForWidth(width : int) : int
+            +sizeHint() : QSize
+            +resizeEvent(resizeEvent : QResizeEvent)
+            -getScaledPixmap() : QPixmap
+        }
+
+        class FlowLayout
+        {
+            -hSpacing : int
+            -vSpacing : int
+            -items : List<QWidget>
+
+            +FlowLayout(parent : QWidget = None, spacing : int = -1, hSpacing : int = -1, vSpacing : int = -1)
+            +addItem(item: QWidget)
+            +horizontalSpacing() : int
+            +verticalSpacing() : int
+            +count() : int
+            +itemAt(index : int) : QWidget
+            +takeAt(index : int) : QWidget
+            +expandingDirections() : Qt.Orientation
+            +hasHeightForWidth(width : int) : bool
+            +heightForWidth(width : int) : int
+            +setGeometry(rect : QRect)
+            +sizeHint() : QSize
+            +minimumSize() : QSize
+            +doLayout(rect : QRect, testOnly : bool) : int
+            +getRowWidthRatio(rect: QRect, i : int)
+            +smartSpacing(pixelMetric : QStyle.PixelMetric) : int
+        }
+
+        class PhotoListView
+        {
+            -layout : FlowLayout
+            -photos : List<Photo>
+
+            +PhotoListView(parent : QWidget = None)
+            +setPhotos(photos : List<Photo>)
+            -openPhoto()
+        }
+
+        class PhotoListViewItem
+        {
+            +photo: Photo
+
+            +PhotoListViewItem(photo : Photo, clickSlot : Callable, parent : QWidget = None)
+        }
+
+        class PhotoView
+        {
+            -detectionBoxes = List<List<int>>
+
+            +PhotoView(parent : QWidget = None)
+            +setDetectionBoxes(detectionBoxes : List<List<int>>)
+            +paintEvent(paintEvent : QPaintEvent)
+        }
+    }
+}
+
+PhotoGalleryPanel *-- PhotoListView
+PhotoViewerPanel *-- PhotoView
+
+PhotoListView *-- FlowLayout
+FlowLayout *-- "*" PhotoListViewItem
+PhotoView *-- AspectRatioImage
+
+@enduml

@@ -1,0 +1,54 @@
+@startuml class_diagram_dao
+
+package dao
+{
+	class ConnectionManager
+    {
+    }
+
+    class DAO
+    {
+    	-connectionManager : ConnectionManager
+
+        +getAll() : ModelList
+        +getById() : Model
+        +update(m : Model)
+        +add(m : Model)
+    }
+
+    class ImageDAO
+    {
+    	-connectionManager : ConnectionManager
+
+        +getByWhateverYouWant() : ImageModelList
+    }
+
+    class VectorDAO
+    {
+    	-connectionManager : ConnectionManager
+
+        +getByWhateverYouWant() : VectorModelList
+    }
+
+    class FaceVectorDAO
+    {
+    	-connectionManager : ConnectionManager
+
+        +getByWhateverYouWant() : FaceVectorModelList
+    }
+
+    class ObjectVectorDAO
+    {
+        -connectionManager : ConnectionManager
+
+        +getByWhateverYouWant() : ObjectVectorModelList
+    }
+
+    DAO <|-- ImageDAO
+    DAO <|-- VectorDAO
+    VectorDAO <|-- FaceVectorDAO
+    VectorDAO <|-- ObjectVectorDAO
+
+}
+
+@enduml

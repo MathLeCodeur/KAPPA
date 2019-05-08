@@ -1,0 +1,12 @@
+@startuml class_diagram_face_detection
+
+package face_detection
+{
+    class FaceDetector << M, SkyBlue >>
+    {
+        run(image : np.array) : Tuple<List, List, List, List>
+        getBoxes(imagePath : String) : List
+    }
+}
+
+@enduml

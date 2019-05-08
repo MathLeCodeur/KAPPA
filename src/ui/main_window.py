@@ -1,21 +1,38 @@
+from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import pyqtSlot
-from ui.generated.main_window_ui import Ui_MainWindow
-from ui.panels.photo_gallery_panel import PhotoGalleryPanel
-from ui.panels.photo_viewer_panel import PhotoViewerPanel
+
+from ui.generated.main_window_ui import *
+from ui.panels.photo_gallery_panel import *
+from ui.panels.photo_viewer_panel import *
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super(MainWindow, self).__init__()
 
-        self.ui = Ui_MainWindow()
-        self.ui.setupUi(self)
+        self.__ui = Ui_MainWindow()
+        self.__ui.setupUi(self)
 
-        self.photo_gallery_panel = PhotoGalleryPanel()
-        self.photo_viewer_panel = PhotoViewerPanel()
+        self.__createWidgets()
 
-        self.ui.stacked_widget.addWidget(self.photo_gallery_panel)
-        self.ui.stacked_widget.addWidget(self.photo_viewer_panel)
+    def __createWidgets(self):
+        self.__photoGalleryPanel = PhotoGalleryPanel()
+        self.__photoViewerPanel = PhotoViewerPanel()
 
-    def set_panel(self, panel: QWidget):
-        self.ui.stacked_widget.setCurrentWidget(panel)
+        self.__ui.stackedWidget.addWidget(self.__photoGalleryPanel)
+        self.__ui.stackedWidget.addWidget(self.__photoViewerPanel)
+
+    def getPhotoGalleryPanel(self) -> PhotoGalleryPanel:
+        return self.__photoGalleryPanel
+
+    def getPhotoViewerPanel(self) -> PhotoViewerPanel:
+        return self.__photoViewerPanel
+
+    def setActivePanel(self, panel: QWidget):
+        self.__ui.stackedWidget.setCurrentWidget(panel)
+
+    def reload(self):
+        self.hide()
+        self.__ui.stackedWidget.removeWidget(self.__photoGalleryPanel)
+        self.__ui.stackedWidget.removeWidget(self.__photoViewerPanel)
+        self.__createWidgets()
+        self.show()

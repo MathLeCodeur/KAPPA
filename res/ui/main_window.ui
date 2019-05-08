@@ -6,17 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>700</height>
+    <width>950</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Album Photo</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true"/>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../icons/logo.png</normaloff>../icons/logo.png</iconset>
   </property>
-  <widget class="QWidget" name="central_widget">
+  <property name="iconSize">
+   <size>
+    <width>128</width>
+    <height>128</height>
+   </size>
+  </property>
+  <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="central_widget_layout">
     <property name="leftMargin">
      <number>0</number>
@@ -31,105 +38,10 @@
      <number>0</number>
     </property>
     <item>
-     <widget class="QStackedWidget" name="stacked_widget"/>
+     <widget class="QStackedWidget" name="stackedWidget"/>
     </item>
    </layout>
   </widget>
-  <widget class="QMenuBar" name="menu_bar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1000</width>
-     <height>22</height>
-    </rect>
-   </property>
-   <widget class="QMenu" name="file_menu">
-    <property name="title">
-     <string>Fichier</string>
-    </property>
-    <addaction name="import_images_action"/>
-   </widget>
-   <widget class="QMenu" name="edit_menu">
-    <property name="title">
-     <string>Edition</string>
-    </property>
-    <addaction name="preferences_action"/>
-   </widget>
-   <widget class="QMenu" name="help_menu">
-    <property name="title">
-     <string>Aide</string>
-    </property>
-    <addaction name="help_action"/>
-    <addaction name="about_action"/>
-   </widget>
-   <widget class="QMenu" name="view_menu">
-    <property name="title">
-     <string>Affichage</string>
-    </property>
-    <widget class="QMenu" name="images_size_action">
-     <property name="title">
-      <string>Taille des images</string>
-     </property>
-     <addaction name="action_small_images"/>
-     <addaction name="action_medium_images"/>
-     <addaction name="action_large_images"/>
-    </widget>
-    <addaction name="images_size_action"/>
-   </widget>
-   <addaction name="file_menu"/>
-   <addaction name="edit_menu"/>
-   <addaction name="view_menu"/>
-   <addaction name="help_menu"/>
-  </widget>
-  <action name="import_images_action">
-   <property name="text">
-    <string>Importer les images depuis...</string>
-   </property>
-  </action>
-  <action name="preferences_action">
-   <property name="text">
-    <string>Préférences</string>
-   </property>
-  </action>
-  <action name="about_action">
-   <property name="text">
-    <string>A propos</string>
-   </property>
-  </action>
-  <action name="help_action">
-   <property name="text">
-    <string>Aide</string>
-   </property>
-  </action>
-  <action name="action_small_images">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Petites</string>
-   </property>
-  </action>
-  <action name="action_medium_images">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="checked">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Moyennes</string>
-   </property>
-  </action>
-  <action name="action_large_images">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
-   <property name="text">
-    <string>Grandes</string>
-   </property>
-  </action>
  </widget>
- <resources/>
  <connections/>
 </ui>

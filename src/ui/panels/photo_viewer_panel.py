@@ -1,44 +1,52 @@
 """
-...
+Affichage d'une seule photo avec ses métadonnées associées.
+
+Les visages et les objets détectés sur l'image sont encadrés lors du clic sur le bouton "Encadrer
+les objets".
 """
 
 import os
+
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from ui.generated.photo_viewer_panel_ui import Ui_PhotoViewerPanel
-from ui.widgets.aspect_ratio_image import AspectRatioImage
+
 from ui.dependencies import *
-from face_detection.inference_image_face import *
+from ui.generated.photo_viewer_panel_ui import *
+from ui.widgets.aspect_ratio_image import *
 
 class PhotoViewerPanel(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent: QWidget = None):
         super(PhotoViewerPanel, self).__init__(parent)
 
-        self.ui = Ui_PhotoViewerPanel()
-        self.ui.setupUi(self)
-        self.tDetector = TensoflowFaceDector()
+        self.__ui = Ui_PhotoViewerPanel()
+        self.__ui.setupUi(self)
 
-    def set_photo(self, photo: Photo):
+        #self.__faceDetector = TensoflowFaceDector()
+
+    def setPhoto(self, photo: Photo):
         pixmap = QPixmap(photo.path)
-        self.ui.photo.setPixmap(pixmap)
-        self.ui.photo.setDetectionBoxes(self.tDetector.getBoxes(photo.path))
-        self.ui.name_value_label.setText(os.path.basename(photo.path))
-        self.ui.size_value_label.setText(str(round(os.path.getsize(photo.path) / 1000, 1)) + ' KB')
-        self.ui.dimensions_value_label.setText(str(pixmap.width()) + 'x' + str(pixmap.height()))
-        self.ui.date_value_label.setText('Inconnue' if photo.date is None else photo.date.strftime("%d/%m/%Y"))
-        self.ui.place_value_label.setText('Inconnu' if photo.place is None else photo.place)
 
-        self.clear_layout(self.ui.classifications)
-        if (len(photo.classifications) == 0):
-            self.ui.classifications.addWidget(QLabel('Aucune classification'))
-        for classification in photo.classifications:
-            self.ui.classifications.addWidget(QLabel(classification))
+        self.__ui.image.setPixmap(pixmap)
+        self.__ui.imageNameValueLabel.setText(os.path.basename(photo.path))
+        self.__ui.imageDateValueLabel.setText('---' if photo.date is None else photo.date.strftime("%d/%m/%Y"))
+        self.__ui.imagePlaceValueLabel.setText('---' if photo.place is None else photo.place)
+        self.__ui.imageSizeValueLabel.setText(str(round(os.path.getsize(photo.path) / 1000, 1)) + ' KB')
+        self.__ui.imageDimensionsValueLabel.setText(str(pixmap.width()) + 'x' + str(pixmap.height()))
+        self.__ui.imagePathValueLabel.setText(photo.path)
 
-    def clear_layout(self, layout):
-        for i in reversed(range(layout.count())):
+        self.__clearTags(self.__ui.imageTagsContainer)
+
+        for tag in photo.classifications:
+            print(tag)
+            self.__ui.imageTagsContainer.addWidget(QLabel(tag))
+        else:
+            self.__ui.imageTagsContainer.addWidget(QLabel("---"))
+
+    @pyqtSlot(name='on_backActionButton_clicked')
+    def returnToPhotoGallery(self):
+        self.window().setActivePanel(self.window().getPhotoGalleryPanel())
+
+    def __clearTags(self, layout: QLayout):
+        for i in reversed(range(1, layout.count())):
             layout.itemAt(i).widget().setParent(None)
-
-    @pyqtSlot(name='on_back_button_clicked')
-    def return_to_photo_gallery(self):
-        self.window().set_panel(self.window().photo_gallery_panel)

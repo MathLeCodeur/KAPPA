@@ -1,0 +1,11 @@
+{
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+        "**/__init__.py": true,
+        "**/__pycache__": true,
+        "**/*.pyc": true
+    },
+    "python.linting.pylintEnabled": true
+}
