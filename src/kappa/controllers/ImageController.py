@@ -23,6 +23,9 @@ class ImageController(ctl.Controller):
 	def getById(self,id):
 		return self.cDao.getById(id)
 
+	def linkToVector(self,imgModel, vector):
+		self.cDao.linkToVector(imgModel,vector)
+
 	def importImageFolder(self,pathF):
 		y = ConnectionManager.ConnectionManager('KappaBase.db')
 		print(y.instance.connection)

@@ -14,6 +14,8 @@ class ObjectVectorController(ctl.Controller):
 		super().__init__()
 		self.cDao = ObjectVectorDAO()
 
+	def getByImageId(self, id):
+		return self.cDao.getByImageId(id)
 
 	def importObjectVectors(self):
 		#recuperation du fichier des description de chaque vecteurs
@@ -49,7 +51,7 @@ class ObjectVectorController(ctl.Controller):
 		for vector, tags_and_parent in tags.items():
 			if(type(tags_and_parent)!= type((88,55))):
 				tags[vector] = ( tags[vector] , None )
-		
+
 		#printOne(tags)
 
 		#/////////////////////////////////////////////////////////////////////////

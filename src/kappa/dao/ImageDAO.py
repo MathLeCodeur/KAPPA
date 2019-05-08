@@ -1,7 +1,8 @@
 import kappa.dao.DAO as dao
 from kappa.dao import ConnectionManager
 import kappa.models.ImageModel as im
-
+from kappa.controllers.FaceVectorController import FaceVectorController
+from kappa.controllers.ObjectVectorController import ObjectVectorController
 
 
 class ImageDAO(dao.DAO):
@@ -11,27 +12,21 @@ class ImageDAO(dao.DAO):
 	def getAllOrderByDate(self):
 		cm = ConnectionManager.ConnectionManager('KappaBase.db')
 		res = cm.executeSQL("SELECT * FROM Image order by creation_date")
+		oVectCtl = ObjectVectorController()
+		fVectCtl = FaceVectorController()
 		imageList = []
 		for elem in res:
-			#print(elem)
-			#sqlObject = cm.executeSQL("select * from Vector v, object_vector fv where v.id_vector=fv.id_vector and v.id_vector in (select id_vector from INCLUDE where id_image="+elem[0]+")")
-			#sqlFace = cm.executeSQL("select * from Vector v, Face_vector fv where v.id_vector=fv.id_vector and v.id_vector in (select id_vector from INCLUDE where id_image="+elem[0]+")")
-
-			#select * from Vector v, Face_vector fv where v.id_vector=fv.id_vector and v.id_vector in (select id_vector from INCLUDE where id_image=1);
-			imageList.append(im.ImageModel(elem[0], elem[1],elem[2],elem[3],elem[4],elem[5],elem[6], "face", "obj"))
+			imageList.append(im.ImageModel(elem[0], elem[1],elem[2],elem[3],elem[4],elem[5],elem[6], fVectCtl.getByImageId(elem[0]), oVectCtl.getByImageId(elem[0])))
 		return imageList
 
 	def getAll(self):
 		cm = ConnectionManager.ConnectionManager('KappaBase.db')
 		res = cm.executeSQL("SELECT * FROM Image")
+		oVectCtl = ObjectVectorController()
+		fVectCtl = FaceVectorController()
 		imageList = []
 		for elem in res:
-			#print(elem)
-			#sqlObject = cm.executeSQL("select * from Vector v, object_vector fv where v.id_vector=fv.id_vector and v.id_vector in (select id_vector from INCLUDE where id_image="+elem[0]+")")
-			#sqlFace = cm.executeSQL("select * from Vector v, Face_vector fv where v.id_vector=fv.id_vector and v.id_vector in (select id_vector from INCLUDE where id_image="+elem[0]+")")
-
-			#select * from Vector v, Face_vector fv where v.id_vector=fv.id_vector and v.id_vector in (select id_vector from INCLUDE where id_image=1);
-			imageList.append(im.ImageModel(elem[0], elem[1],elem[2],elem[3],elem[4],elem[5],elem[6], "face", "obj"))
+			imageList.append(im.ImageModel(elem[0], elem[1],elem[2],elem[3],elem[4],elem[5],elem[6], fVectCtl.getByImageId(elem[0]), oVectCtl.getByImageId(elem[0])))
 		return imageList
 
 	def getById(self,id):
@@ -50,16 +45,12 @@ class ImageDAO(dao.DAO):
 			res2=elem[0]+1
 
 		return res2
-	#d_image INT PRIMARY KEY NOT NULL,
-	#comment VARCHAR(255),
-	#creation_date date,
-	#length int,
-	#width int,
-	#size int,
-	#path VARCHAR(255)
+
+	def linkToVector(self,imgModel, vector):
+		cm = ConnectionManager.ConnectionManager('KappaBase.db')
+		res = cm.executeAndCommitSQL("INSERT INTO Include (id_image, id_vector) VALUES (" + str(imgModel.id) + ","+ str(vector.id)+ ")")
 	def update(self, imageMod):
 		print("update")
-
 
 	def create(self, imgModel):
 		print("create")

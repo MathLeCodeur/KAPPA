@@ -7,7 +7,7 @@ from kappa.models.ObjectVectorModel import ObjectVectorModel
 
 
 class ObjectVectorDAO(DAO):
-	def __init__(self):        
+	def __init__(self):
 		super(ObjectVectorDAO, self).__init__()
 
 	def update(self, vectorModel):
@@ -36,11 +36,22 @@ class ObjectVectorDAO(DAO):
 			res = cm.executeAndCommitSQL("INSERT INTO Object_vector (id_vector) VALUES (" + str(objectVectorModel.id) + ")")
 
 
+	def getByImageId(self, id):
+		cm = ConnectionManager.ConnectionManager('KappaBase.db')
+		res = cm.executeSQL("select * from Vector NATURAL JOIN OBJECT_VECTOR NATURAL JOIN INCLUDE where id_image = "+str(id)+";")
+		vectorList = []
+		for elem in res:
+			if(elem[3]!=None) :
+				vectorList.append(ObjectVectorModel(elem[0], elem[1], elem[2], self.getById(elem[3])))
+			else :
+				vectorList.append(ObjectVectorModel(elem[0], elem[1], elem[2], None))
+		return vectorList
+
 	def getAll(self):
 		cm = ConnectionManager.ConnectionManager('KappaBase')
 		res = cm.executeSQL("SELECT * FROM Vector NATURAL JOIN Object_vector)")
 		vectorList = []
-		for elem in res: 
+		for elem in res:
 			if(elem[3]!=None) :
 				vectorList.append(ObjectVectorModel(elem[0], elem[1], elem[2], self.getById(elem[3])))
 			else :
@@ -50,21 +61,21 @@ class ObjectVectorDAO(DAO):
 	def getById(self, id):
 		cm = ConnectionManager.ConnectionManager('KappaBase')
 		res = cm.executeSQL("SELECT * FROM Vector NATURAL JOIN Object_vector WHERE id_vector=" + str(id))
-		if (len(res)!=1) : 
+		if (len(res)!=1) :
 			return
 		if(res[0][3]!=None) :
 			res2 = ObjectVectorModel(res[0][0], res[0][1], res[0][2], self.getById(res[0][3]))
 		else :
 			res2 = ObjectVectorModel(res[0][0], res[0][1], res[0][2], None)
 		return res2
-	
+
 	def getByValue(self, value):
 		cm = ConnectionManager.ConnectionManager('KappaBase')
 		return self.getByValueWithConnection(cm, value)
-	
+
 	def getByValueWithConnection(self, cm, value):
 		res = cm.executeSQL("SELECT * FROM Vector NATURAL JOIN Object_vector WHERE value_vector=\"" + value + "\"")
-		if (len(res)!=1) : 
+		if (len(res)!=1) :
 			return
 		if(res[0][3]!=None) :
 			res2 = ObjectVectorModel(res[0][0], res[0][1], res[0][2], self.getById(res[0][3]))
@@ -84,7 +95,7 @@ class ObjectVectorDAO(DAO):
 				res2=0
 				break
 			res2=elem[0]+1
-		
+
 		return res2
 
 	def importObjectVectors(self, tagItems):
@@ -126,6 +137,3 @@ class ObjectVectorDAO(DAO):
 						vChild.parent = vParent
 						self.createWithConnection(cm, vParent)
 				self.createWithConnection(cm, vChild)
-
-		
-

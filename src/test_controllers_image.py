@@ -3,6 +3,7 @@ from kappa.dao.VectorDAO import VectorDAO
 from kappa.dao.ObjectVectorDAO import ObjectVectorDAO
 from kappa.controllers.ObjectVectorController import ObjectVectorController
 from kappa.controllers.ImageController import ImageController
+from kappa.controllers.FaceVectorController import FaceVectorController
 
 import os
 import glob
@@ -27,7 +28,12 @@ def main():
 		j+=1
 	print("test byDate and all")
 	print(j==i)
-	#imgCtl.importImageFolder("/home/kappa/Documents/Image/")
+
+	print("test link")
+	fVecCtl = FaceVectorController()
+	v = fVecCtl.getById(9)
+	print(str(v.id)+" "+str(v.value)+" "+ str(v.isKnown))
+	imgCtl.linkToVector(rows[0], v)
 
 if __name__ == "__main__":
     main()
