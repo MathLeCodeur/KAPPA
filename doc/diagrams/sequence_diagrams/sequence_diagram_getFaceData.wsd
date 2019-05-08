@@ -1,0 +1,26 @@
+@startuml
+
+participant image_viewer
+participant image_controller
+participant dao
+participant face_detection
+participant face_recognition
+
+image_viewer -> image_controller : getFaceData(image)
+
+image_controller -> face_detection : getBoxes(image)
+return boxes
+
+image_controller -> dao : getPeopleInformation()
+return peopleInformation
+
+image_controller -> face_recognition : recognizePeople(peopleInformation, boxes, image)
+return
+
+image_controller -> dao : if (inconnu) storeNewPeopleInformation()
+return
+
+image_controller -> image_viewer : boîtes de détection + labels associés
+
+
+@enduml

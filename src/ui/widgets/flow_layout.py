@@ -27,8 +27,7 @@ class FlowLayout(QLayout):
         if self.__vspacing >= 0:
             return self.__vspacing
         else:
-            return self.smartSpacing(
-                QStyle.PM_LayoutVerticalSpacing)
+            return self.smartSpacing(QStyle.PM_LayoutVerticalSpacing)
 
     def count(self):
         return len(self.__items)
@@ -68,6 +67,7 @@ class FlowLayout(QLayout):
     def doLayout(self, rect, testonly):
         left, top, right, bottom = self.getContentsMargins()
         effective = rect.adjusted(+left, +top, -right, -bottom)
+
         x = effective.x()
         y = effective.y()
         lineheight = 0
@@ -105,27 +105,25 @@ class FlowLayout(QLayout):
     def getRowWidthRatio(self, rect, i):
         left, top, right, bottom = self.getContentsMargins()
         effective = rect.adjusted(+left, +top, -right, -bottom)
-        minimum_line_width_and_spacing = 0
+        total_horizontal_spacing = 0
         maximum_line_width = 0
 
         for j in range(i, self.count()):
             item = self.__items[j]
-            widget = item.widget()
 
             if i == j:
                 hspace = 0
             else:
                 hspace = self.horizontalSpacing()
                 if hspace == -1:
-                    hspace = widget.style().layoutSpacing(
+                    hspace = item.widget().style().layoutSpacing(
                         QSizePolicy.PushButton,
                         QSizePolicy.PushButton, Qt.Horizontal)
 
-            next_minimum_line_width_and_spacing = minimum_line_width_and_spacing + item.minimumSize().width() + hspace
-            if next_minimum_line_width_and_spacing > effective.width():
+            if maximum_line_width + total_horizontal_spacing > effective.width():
                 break
-            minimum_line_width_and_spacing = next_minimum_line_width_and_spacing
             maximum_line_width += item.maximumSize().width()
+            total_horizontal_spacing += hspace
         if maximum_line_width > 0:
             return min((effective.width() - (j-i-1) * hspace) / maximum_line_width, 1)
         return 0.5

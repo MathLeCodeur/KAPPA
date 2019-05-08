@@ -1,11 +1,12 @@
 import sys
 
-from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
 
 from ui.main_window import *
 
 def main():
     app = QApplication(sys.argv)
+    config.load_themes(app)
 
     window = MainWindow()
     window.show()

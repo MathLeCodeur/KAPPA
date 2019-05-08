@@ -15,7 +15,7 @@ class PhotoListView(QWidget):
     def __init__(self, parent: QWidget = None):
         super(PhotoListView, self).__init__(parent)
 
-        self.__layout = FlowLayout(self, 30, 16, 16)
+        self.__layout = FlowLayout(self, 0, 16, 16)
         self.setLayout(self.__layout)
 
     def setPhotos(self, photos: List[Photo]):
@@ -35,7 +35,7 @@ class PhotoListViewItem(QPushButton):
 
         self.setProperty('photo', photo)
         pixmap = QPixmap(photo.path)
-        fixedHeight = 320
+        fixedHeight = 200
         fullWidgetSize = QSize(pixmap.width() / pixmap.height() * fixedHeight, fixedHeight)
 
         self.setMaximumSize(fullWidgetSize)
@@ -44,4 +44,5 @@ class PhotoListViewItem(QPushButton):
         self.setFlat(True)
         self.setIcon(QIcon(pixmap.scaled(fullWidgetSize, Qt.IgnoreAspectRatio, Qt.SmoothTransformation)))
         self.setIconSize(fullWidgetSize)
+        self.setStyleSheet('background-image: url(./res/icons/transparency_checkerboard.png);')
         self.clicked.connect(clickSlot)
