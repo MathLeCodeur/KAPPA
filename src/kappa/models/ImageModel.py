@@ -1,7 +1,6 @@
-import kappa.models.Model as m
+from kappa.models.Model import Model
 
-
-class ImageModel(m.Model):
+class ImageModel(Model):
 	def __init__(self, id, comment, creation_date, length, width, size,path, faceVectors, objectVectors):
 		self.id = id
 		self.comment = comment

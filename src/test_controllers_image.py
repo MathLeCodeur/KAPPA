@@ -33,7 +33,7 @@ def main():
 	fVecCtl = FaceVectorController()
 	v = fVecCtl.getById(9)
 	print(str(v.id)+" "+str(v.value)+" "+ str(v.isKnown))
-	imgCtl.linkToVector(rows[0], v)
+	#imgCtl.linkToVector(rows[0], v)
 
 if __name__ == "__main__":
     main()

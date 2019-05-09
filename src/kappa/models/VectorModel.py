@@ -1,7 +1,6 @@
-import kappa.models.Model as m
+from kappa.models.Model import Model
 
-
-class VectorModel(m.Model):
+class VectorModel(Model):
 	def __init__(self, id, value, tagName):
 		self.id = id
 		self.value = value

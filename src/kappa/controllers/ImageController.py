@@ -1,15 +1,11 @@
-import kappa.dao.DAO as dao
-import kappa.controllers.Controller as ctl
+from kappa.dao.DAO import DAO
+from kappa.controllers.Controller import Controller
 from kappa.dao import ConnectionManager
-import kappa.models.ImageModel as im
+from kappa.models.ImageModel import ImageModel
 from kappa.dao.ImageDAO import ImageDAO
-import os
-import glob
-from PIL import Image
-import time
 
 
-class ImageController(ctl.Controller):
+class ImageController(Controller):
 	def __init__(self):
 		super().__init__()
 		self.cDao = ImageDAO()
@@ -28,8 +24,9 @@ class ImageController(ctl.Controller):
 
 	def importImageFolder(self,pathF):
 		y = ConnectionManager.ConnectionManager('KappaBase.db')
-		print(y.instance.connection)
 		l=os.listdir(pathF)
+
+		#get next id
 		ui=y.executeSQL("select Max(id_image) from Image")
 		u=ui
 		for elem in ui:
@@ -38,12 +35,13 @@ class ImageController(ctl.Controller):
 				break
 			u=elem[0]+1
 
+		#file in folder
 		for i in l:
 			print(i)
 			if(os.path.isfile(pathF+i)):
 
 				extension = i.split(".")[1]
-				if(extension in ("jpeg","jpg") ):
+				if(extension in ("jpeg","jpg","png","PNG","JPEG","JPG")):
 
 					im = Image.open(pathF+str(i))
 					path = pathF+str(i)

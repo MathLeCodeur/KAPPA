@@ -22,7 +22,7 @@ class FaceVectorDAO(DAO):
 		print("create")
 		cm = ConnectionManager.ConnectionManager('KappaBase.db')
 		vDao = VectorDAO()
-		vDao.createWithConnection(cm, VectorModel(FaceVectorModel.id, FaceVectorModel.value, FaceVectorModel.tagName))
+		vDao.create(VectorModel(FaceVectorModel.id, FaceVectorModel.value, FaceVectorModel.tagName))
 		res = cm.executeAndCommitSQL("INSERT INTO Face_vector (id_vector, IsKnown) VALUES (" + str(FaceVectorModel.id) + ", " + str(FaceVectorModel.isKnown) + ")")
 
 	def getById(self, id):
