@@ -1,5 +1,4 @@
-import kappa.dao.DAO as dao
-import kappa.controllers.Controller as ctl
+from kappa.controllers.Controller import Controller
 from kappa.dao import ConnectionManager
 from kappa.models.FaceVectorModel import FaceVectorModel
 from kappa.dao.FaceVectorDAO import FaceVectorDAO
@@ -8,7 +7,7 @@ import glob
 from PIL import Image
 import time
 
-class FaceVectorController(ctl.Controller):
+class FaceVectorController(Controller):
     def __init__(self):
         super().__init__()
         self.cDao = FaceVectorDAO()
