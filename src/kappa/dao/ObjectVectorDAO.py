@@ -10,31 +10,23 @@ class ObjectVectorDAO(DAO):
 	def __init__(self):
 		super(ObjectVectorDAO, self).__init__()
 
-	def update(self, vectorModel):
+	def update(self, objectVectorModel):
 		cm = ConnectionManager.ConnectionManager('KappaBase')
-		self.updateWithConnection(cm)
-
-	def create(self, vectorModel):
-		cm = ConnectionManager.ConnectionManager('KappaBase')
-		self.createWithConnection(cm)
-
-	def updateWithConnection(self, cm, objectVectorModel):
 		vDao = VectorDAO()
-		vDao.updateWithConnection(cm, VectorModel(objectVectorModel.id, objectVectorModel.value, objectVectorModel.tagName))
+		vDao.update(VectorModel(objectVectorModel.id, objectVectorModel.value, objectVectorModel.tagName))
 		if(objectVectorModel.parent!=None) :
 			cm.executeAndCommitSQL("UPDATE Object_vector SET id_parent=" + str(objectVectorModel.parent.id)+ " WHERE id_vector=" + str(objectVectorModel.id))
 		else :
 			cm.executeAndCommitSQL("UPDATE Object_vector SET id_parent=NULL WHERE id_vector=" + str(objectVectorModel.id))
 
-
-	def createWithConnection(self, cm, objectVectorModel):
+	def create(self, objectVectorModel):
+		cm = ConnectionManager.ConnectionManager('KappaBase')
 		vDao = VectorDAO()
-		vDao.createWithConnection(cm, VectorModel(objectVectorModel.id, objectVectorModel.value, objectVectorModel.tagName))
+		vDao.create(VectorModel(objectVectorModel.id, objectVectorModel.value, objectVectorModel.tagName))
 		if(objectVectorModel.parent!=None) :
 			res = cm.executeAndCommitSQL("INSERT INTO Object_vector (id_vector, id_parent) VALUES (" + str(objectVectorModel.id) + ", " + str(objectVectorModel.parent.id) + ")")
 		else :
 			res = cm.executeAndCommitSQL("INSERT INTO Object_vector (id_vector) VALUES (" + str(objectVectorModel.id) + ")")
-
 
 	def getByImageId(self, id):
 		cm = ConnectionManager.ConnectionManager('KappaBase.db')
@@ -71,9 +63,6 @@ class ObjectVectorDAO(DAO):
 
 	def getByValue(self, value):
 		cm = ConnectionManager.ConnectionManager('KappaBase')
-		return self.getByValueWithConnection(cm, value)
-
-	def getByValueWithConnection(self, cm, value):
 		res = cm.executeSQL("SELECT * FROM Vector NATURAL JOIN Object_vector WHERE value_vector=\"" + value + "\"")
 		if (len(res)!=1) :
 			return
@@ -85,17 +74,13 @@ class ObjectVectorDAO(DAO):
 
 	def getNextId(self):
 		cm = ConnectionManager.ConnectionManager('KappaBase')
-		return self.getNextIdWithConnection(cm)
-
-	def getNextIdWithConnection(self, cm):
-		res = cm.executeSQL("SELECT MAX(id_vector) FROM VECTOR")
+		res = cm.executeSQL("SELECT MAX(id_vector) FROM Vector")
 		res2 = res
 		for elem in res:
 			if(elem[0] == None):
 				res2=0
 				break
 			res2=elem[0]+1
-
 		return res2
 
 	def importObjectVectors(self, tagItems):
@@ -106,7 +91,7 @@ class ObjectVectorDAO(DAO):
 			#vector          => 'n07877187'
 			#tags_and_parent => ('spaghetti and meatballs', 'n07557434')
 
-			vChild = self.getByValueWithConnection(cm, vector)
+			vChild = self.getByValue(vector)
 
 			if (vChild!=None) :
 				vChild.value = vector
@@ -114,26 +99,26 @@ class ObjectVectorDAO(DAO):
 				if(tags_and_parent[1]==None) :
 					vChild.parent = None
 				else :
-					vParent = self.getByValueWithConnection(cm, tags_and_parent[1])
+					vParent = self.getByValue(tags_and_parent[1])
 					if(vParent!=None) :
 						vChild.parent = vParent
 					else :
-						nextId=self.getNextIdWithConnection(cm)
+						nextId=self.getNextId()
 						vParent = ObjectVectorModel(nextId, tags_and_parent[1], "", None)
 						vChild.parent = vParent
-						self.createWithConnection(cm, vParent)
-				self.updateWithConnection(cm, vChild)
+						self.create(vParent)
+				self.update(vChild)
 			else :
-				nextId=self.getNextIdWithConnection(cm)
+				nextId=self.getNextId()
 				vChild = ObjectVectorModel(nextId, vector, tags_and_parent[0], None)
 				if(tags_and_parent[1]==None) :
 					vChild.parent = None
 				else :
-					vParent = self.getByValueWithConnection(cm, tags_and_parent[1])
+					vParent = self.getByValue(tags_and_parent[1])
 					if(vParent!=None) :
 						vChild.parent = vParent
 					else :
 						vParent = ObjectVectorModel(nextId+1, tags_and_parent[1], "", None)
 						vChild.parent = vParent
-						self.createWithConnection(cm, vParent)
-				self.createWithConnection(cm, vChild)
+						self.create(vParent)
+				self.create(vChild)
