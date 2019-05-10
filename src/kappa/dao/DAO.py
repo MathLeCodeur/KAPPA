@@ -1,5 +1,5 @@
-import kappa.dao.ConnectionManager as cm
+from kappa.dao.ConnectionManager import ConnectionManager
 
 class DAO:
 	def __init__(self):
-		self.connectionManager = cm.ConnectionManager("KappaBase")
+		self.connectionManager = ConnectionManager("KappaBase")

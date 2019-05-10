@@ -26,15 +26,8 @@ class VectorDAO(daoclass):
 
 	def update(self, vectorModel):
 		cm = ConnectionManager('KappaBase')
-		self.updateWithConnection(cm, vectorModel)
+		res = cm.executeAndCommitSQL("UPDATE Vector SET value_vector=\"" + str(vectorModel.value) + "\" , tag_name=\"" + str(vectorModel.tagName) + "\" WHERE id_vector=" + str(vectorModel.id))
 
 	def create(self, vectorModel):
 		cm = ConnectionManager('KappaBase')
-		self.createWithConnection(cm, vectorModel)
-
-	def updateWithConnection(self, cm, vectorModel):
-		res = cm.executeAndCommitSQL("UPDATE Vector SET value_vector=\"" + str(vectorModel.value) + "\" , tag_name=\"" + str(vectorModel.tagName) + "\" WHERE id_vector=" + str(vectorModel.id))
-
-	def createWithConnection(self, cm, vectorModel):
-		print("INSERT INTO Vector (id_vector, value_vector, tag_name) VALUES (" + str(vectorModel.id) + ", \"" + vectorModel.value + "\", \"" + vectorModel.value + "\")")
 		res = cm.executeAndCommitSQL("INSERT INTO Vector (id_vector, value_vector, tag_name) VALUES (" + str(vectorModel.id) + ", \"" + vectorModel.value + "\", \"" + vectorModel.tagName + "\")")

@@ -1,5 +1,4 @@
-import kappa.dao.DAO as dao
-import kappa.controllers.Controller as ctl
+from kappa.controllers.Controller import Controller
 from kappa.dao import ConnectionManager
 from kappa.models.ObjectVectorModel import ObjectVectorModel
 from kappa.dao.ObjectVectorDAO import ObjectVectorDAO
@@ -9,13 +8,31 @@ from PIL import Image
 import time
 
 
-class ObjectVectorController(ctl.Controller):
+class ObjectVectorController(Controller):
 	def __init__(self):
 		super().__init__()
 		self.cDao = ObjectVectorDAO()
 
+	def update(self, vectorModel):
+		self.cDao.update(vectorModel)
+
+	def create(self, vectorModel):
+		self.cDao.create(vectorModel)
+
+	def getAll(self):
+		return self.cDao.getAll()
+
 	def getByImageId(self, id):
 		return self.cDao.getByImageId(id)
+
+	def getById(self, id):
+		return self.cDao.getById(id)
+
+	def getByValue(self, value):
+		return self.cDao.getByValue(value)
+
+	def getNextId(self):
+		return self.cDao.getNextId()
 
 	def importObjectVectors(self):
 		#recuperation du fichier des description de chaque vecteurs
@@ -63,17 +80,3 @@ class ObjectVectorController(ctl.Controller):
 		#/////////////////////////////////////////////////////////////////////////
 		#/////////////////////////////////////////////////////////////////////////
 		#/////////////////////////////////////////////////////////////////////////
-
-	def printOne(tags):
-		i=0
-		for vector, tag_et_parent in tags.items():
-			i=i+1
-			if(i==1):
-				print('tags0=',vector," = ", tag_et_parent)
-				#print('type=',type(tag_et_parent))
-				break
-
-	def getRecognizedObjects(self, imagePath: str):
-		objects = []
-
-		return objects
