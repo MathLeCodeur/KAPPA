@@ -20,6 +20,8 @@ class PhotoListView(QWidget):
 
     def setPhotos(self, photos: List[ImageModel]):
         self.__photos = photos
+        for i in reversed(range(1, self.__layout.count())):
+            self.__layout.itemAt(i).widget().setParent(None)
         for photo in photos:
             self.__layout.addWidget(PhotoListViewItem(photo, self.__openPhoto))
 

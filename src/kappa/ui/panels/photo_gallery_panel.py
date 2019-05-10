@@ -41,7 +41,8 @@ class PhotoGalleryPanel(QWidget):
         )
 
         if directory:
-            print(directory)
+            self.window().imageController.importImageFolder(directory)
+            self.setPhotos(self.window().imageController.getAll())
 
     @pyqtSlot(name='on_changeThemeActionButton_clicked')
     def changeTheme(self):

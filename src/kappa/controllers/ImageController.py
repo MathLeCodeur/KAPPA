@@ -1,6 +1,6 @@
 from kappa.dao.DAO import DAO
 from kappa.controllers.Controller import Controller
-from kappa.dao import ConnectionManager
+from kappa.dao.ConnectionManager import ConnectionManager
 from kappa.models.ImageModel import ImageModel
 from kappa.dao.ImageDAO import ImageDAO
 import os
@@ -26,7 +26,8 @@ class ImageController(Controller):
 		self.cDao.linkToVector(imgModel,vector)
 
 	def importImageFolder(self,pathF):
-
+		print(pathF)
+		y = ConnectionManager('KappaBase.db')
 		l=os.listdir(pathF)
 
 		#get next id
@@ -39,17 +40,19 @@ class ImageController(Controller):
 
 		#file in folder
 		for i in l:
-			pathName = pathF+i
+			pathName = os.path.join(pathF, i)
+			print(pathName)
 			if(os.path.isfile(pathName) and pathName not in listPath):
+				print(2, pathName)
 
 				extension = i.split(".")[1]
 				if(extension in ("jpeg","jpg","png","PNG","JPEG","JPG")):
-					im = Image.open(pathF+str(i))
-					path = pathF+str(i)
+					im = Image.open(pathName)
+					path = pathName
 					size = os.path.getsize(path)
 					width = im.size[0]
 					height = im.size[1]
-					date = str(time.ctime(os.path.getctime(pathF+str(i))))
+					date = str(time.ctime(os.path.getctime(path)))
 					sql	= "Insert into IMAGE (id_image,creation_date ,length, width,size, path) values ("+str(u)+",'"+date+"',"+str(height)+", "+str(width)+ ", " +str(size)+", '" +path+"')"
 					print("image insert" + path)
 					y.executeAndCommitSQL(sql)
