@@ -5,8 +5,8 @@ Panel de recherche avancée dans la gallerie photo.
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
-from ui.generated.advanced_search_panel_ui import *
-from ui.generated.advanced_search_sub_panel_ui import *
+from kappa.ui.generated.advanced_search_panel_ui import *
+from kappa.ui.generated.advanced_search_sub_panel_ui import *
 
 class AdvancedSearchPanel(QWidget):
     def __init__(self, parent: QWidget = None):

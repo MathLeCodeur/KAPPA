@@ -34,17 +34,18 @@ def set(key: str, value: str):
     with open(configPath, 'w') as configFile:
         yaml.dump(__configMap, configFile)
 
-def load_themes(app: QApplication):
+def loadThemes(app: QApplication, iconsChanged: bool):
     with open(os.path.join('res', 'styles', 'common.css'), 'r') as commonStyleSheetFile:
-        with open(os.path.join('res', 'styles', 'themes', get('theme') + '_theme.css'), 'r') as themeStyleSheetFile:
+        with open(os.path.join('res', 'styles', 'themes', get('theme'), get('theme') + '_theme.css'), 'r') as themeStyleSheetFile:
             app.setStyleSheet(commonStyleSheetFile.read() + '\n' + themeStyleSheetFile.read())
 
-    iconsDir = os.path.join('res', 'icons')
+    if iconsChanged:
+        iconsDir = os.path.join('res', 'icons')
 
-    iconsCacheDir = os.path.join(iconsDir, 'cache')
-    for iconFile in os.listdir(iconsCacheDir):
-        os.remove(os.path.join(iconsCacheDir, iconFile))
+        iconsCacheDir = os.path.join(iconsDir, 'cache')
+        for iconFile in os.listdir(iconsCacheDir):
+            os.remove(os.path.join(iconsCacheDir, iconFile))
 
-    iconsThemeDir = os.path.join(iconsDir, get('icon-theme'))
-    for iconFile in os.listdir(iconsThemeDir):
-        shutil.copyfile(os.path.join(iconsThemeDir, iconFile), os.path.join(iconsCacheDir, iconFile))
+        iconsThemeDir = os.path.join(iconsDir, get('iconTheme'))
+        for iconFile in os.listdir(iconsThemeDir):
+            shutil.copyfile(os.path.join(iconsThemeDir, iconFile), os.path.join(iconsCacheDir, iconFile))

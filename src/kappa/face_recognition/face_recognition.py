@@ -17,9 +17,13 @@ def recognizePeople(peopleInformation, facePositions, imagePath):
 	unknownImage = face_recognition.load_image_file(imagePath)
 	for i in range(len(facePositions)):
 		#Crop in the big picture to face of every person and compute if they can be recognized
-		currentPersonPicture = unknownImage[facePositions[i][2]:facePositions[i][3],
-							facePositions[i][0]:facePositions[i][1]]
-		print(type(currentPersonPicture))
+		imageHeight, imageWidth, _ = unknownImage.shape
+
+		currentPersonPicture = unknownImage[int(round(facePositions[i][2] * imageHeight)) : int(round(facePositions[i][3] * imageWidth)),
+							int(round(facePositions[i][0]) * imageHeight) : int(round(facePositions[i][1] * imageWidth))]
+		# currentPersonPicture = unknownImage[int(round(facePositions[i][0] * imageHeight)) : int(round(facePositions[i][2] * imageHeight)),
+        #                 int(round(facePositions[i][1] * imageWidth)) : int(round(facePositions[i][3] * imageWidth))]
+
 		unknownEncoding = face_recognition.face_encodings(currentPersonPicture)
 		peopleName = "Unknown"
 		for j in range(len(peopleInformation)):

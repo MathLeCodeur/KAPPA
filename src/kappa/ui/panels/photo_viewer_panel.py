@@ -11,9 +11,9 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from ui.dependencies import *
-from ui.generated.photo_viewer_panel_ui import *
-from ui.widgets.aspect_ratio_image import *
+import config
+from kappa.models.ImageModel import *
+from kappa.ui.generated.photo_viewer_panel_ui import *
 
 class PhotoViewerPanel(QWidget):
     def __init__(self, parent: QWidget = None):
@@ -22,30 +22,51 @@ class PhotoViewerPanel(QWidget):
         self.__ui = Ui_PhotoViewerPanel()
         self.__ui.setupUi(self)
 
-        #self.__faceDetector = TensoflowFaceDector()
+        self.__drawRecognizedPeopleAndObjects = config.get('frameObjects')
 
-    def setPhoto(self, photo: Photo):
+    def setPhoto(self, photo: ImageModel):
         pixmap = QPixmap(photo.path)
+
+        self.__photoPath = photo.path
 
         self.__ui.image.setPixmap(pixmap)
         self.__ui.imageNameValueLabel.setText(os.path.basename(photo.path))
-        self.__ui.imageDateValueLabel.setText('---' if photo.date is None else photo.date.strftime("%d/%m/%Y"))
-        self.__ui.imagePlaceValueLabel.setText('---' if photo.place is None else photo.place)
+        self.__ui.imageDateValueLabel.setText('---' if photo.creation_date is None else photo.creation_date)
         self.__ui.imageSizeValueLabel.setText(str(round(os.path.getsize(photo.path) / 1000, 1)) + ' KB')
         self.__ui.imageDimensionsValueLabel.setText(str(pixmap.width()) + 'x' + str(pixmap.height()))
         self.__ui.imagePathValueLabel.setText(photo.path)
 
         self.__clearTags(self.__ui.imageTagsContainer)
 
-        for tag in photo.classifications:
-            print(tag)
-            self.__ui.imageTagsContainer.addWidget(QLabel(tag))
+        # for tag in photo.classifications:
+        #     print(tag)
+        #     self.__ui.imageTagsContainer.addWidget(QLabel(tag))
+        # else:
+        #     self.__ui.imageTagsContainer.addWidget(QLabel("---"))
+        self.__ui.imageTagsContainer.addWidget(QLabel("---"))
+
+        self.updateRecognizedPeopleAndObjects()
+
+    def updateRecognizedPeopleAndObjects(self):
+        if self.__drawRecognizedPeopleAndObjects:
+            self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('QPushButton{ border: 2px solid ' + config.get('themeColor') + '; }')
+            recognizedPeople = self.window().faceVectorController.getRecognizedPeople(self.__photoPath, self.window().faceDetector)
+            self.__ui.image.setRecognizedPeopleAndObjects(recognizedPeople)
         else:
-            self.__ui.imageTagsContainer.addWidget(QLabel("---"))
+            self.__ui.image.saveTagData()
+            self.__ui.image.setRecognizedPeopleAndObjects([])
+            self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('')
 
     @pyqtSlot(name='on_backActionButton_clicked')
     def returnToPhotoGallery(self):
+        self.__ui.image.saveTagData()
         self.window().setActivePanel(self.window().getPhotoGalleryPanel())
+
+    @pyqtSlot(name='on_frameObjectsAndPeopleActionButton_clicked')
+    def toggleFrameObjectsAndPeople(self):
+        self.__drawRecognizedPeopleAndObjects = not self.__drawRecognizedPeopleAndObjects
+        self.updateRecognizedPeopleAndObjects()
+        config.set('frameObjects', self.__drawRecognizedPeopleAndObjects)
 
     def __clearTags(self, layout: QLayout):
         for i in reversed(range(1, layout.count())):

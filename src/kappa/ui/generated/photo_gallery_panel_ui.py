@@ -52,8 +52,6 @@ class Ui_PhotoGalleryPanel(object):
         self.groupByComboBox.setObjectName("groupByComboBox")
         self.groupByComboBox.addItem("")
         self.groupByComboBox.addItem("")
-        self.groupByComboBox.addItem("")
-        self.groupByComboBox.addItem("")
         self.groupByContainer.addWidget(self.groupByComboBox)
         self.headerLayout.addLayout(self.groupByContainer)
         self.advancedSearchActionButton = QtWidgets.QPushButton(self.header)
@@ -122,14 +120,12 @@ class Ui_PhotoGalleryPanel(object):
 
     def retranslateUi(self, PhotoGalleryPanel):
         _translate = QtCore.QCoreApplication.translate
-        self.searchLineEdit.setPlaceholderText(_translate("PhotoGalleryPanel", "Recherche par nom, date, lieu, tags..."))
+        self.searchLineEdit.setPlaceholderText(_translate("PhotoGalleryPanel", "Recherche par nom, date, tags"))
         self.groupBySmallLabel.setText(_translate("PhotoGalleryPanel", "Grouper par"))
         self.groupByComboBox.setItemText(0, _translate("PhotoGalleryPanel", "Date"))
-        self.groupByComboBox.setItemText(1, _translate("PhotoGalleryPanel", "Lieu"))
-        self.groupByComboBox.setItemText(2, _translate("PhotoGalleryPanel", "Nom"))
-        self.groupByComboBox.setItemText(3, _translate("PhotoGalleryPanel", "Tags"))
+        self.groupByComboBox.setItemText(1, _translate("PhotoGalleryPanel", "Tag"))
         self.advancedSearchActionButton.setToolTip(_translate("PhotoGalleryPanel", "Recherche avancée"))
         self.importFolderActionButton.setToolTip(_translate("PhotoGalleryPanel", "Importer un répertoire d\'images"))
         self.changeThemeActionButton.setToolTip(_translate("PhotoGalleryPanel", "Changer le thème graphique"))
 
-from ui.widgets.photo_list_view import PhotoListView
+from kappa.ui.widgets.photo_list_view import PhotoListView

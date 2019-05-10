@@ -9,9 +9,9 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
 import config
-from ui.dependencies import *
-from ui.generated.photo_gallery_panel_ui import *
-from ui.panels.advanced_search_panel import *
+from kappa.models.ImageModel import *
+from kappa.ui.generated.photo_gallery_panel_ui import *
+from kappa.ui.panels.advanced_search_panel import *
 
 class PhotoGalleryPanel(QWidget):
     def __init__(self, parent: QWidget = None):
@@ -20,10 +20,13 @@ class PhotoGalleryPanel(QWidget):
         self.__ui = Ui_PhotoGalleryPanel()
         self.__ui.setupUi(self)
 
-        self.__photos = getPhotos('date', 'desc')
-        self.__ui.photoListView.setPhotos(self.__photos)
+        self.__photos = []
 
         self.__advancedSearchPanel = AdvancedSearchPanel()
+
+    def setPhotos(self, photos: ImageModel):
+        self.__photos = photos
+        self.__ui.photoListView.setPhotos(self.__photos)
 
     @pyqtSlot(name='on_advancedSearchActionButton_clicked')
     def openAdvancedSearchPanel(self):
@@ -44,10 +47,10 @@ class PhotoGalleryPanel(QWidget):
     def changeTheme(self):
         if (config.get('theme') == 'dark'):
             config.set('theme', 'light')
-            config.set('icon-theme', 'black')
+            config.set('iconTheme', 'black')
         else:
             config.set('theme', 'dark')
-            config.set('icon-theme', 'blue')
+            config.set('iconTheme', 'blue')
 
-        config.load_themes(qApp)
+        config.loadThemes(qApp, True)
         self.window().reload()

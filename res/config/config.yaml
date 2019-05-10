@@ -1,2 +1,5 @@
-icon-theme: blue
+frameObjects: true
+iconTheme: blue
 theme: dark
+themeColor: '#0179cb'
+themeFont: Open Sans

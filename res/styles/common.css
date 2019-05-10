@@ -1,0 +1,46 @@
+QLabel, QLineEdit, QComboBox, QLabel[objectName*="FieldLabel"]
+{
+    font-size: 11pt;
+}
+
+QLineEdit, QComboBox, QListView, QPushButton#okButton, QPushButton#cancelButton
+{
+    padding: 0 16px;
+    font-size: 11pt;
+}
+
+QScrollArea
+{
+    border: none;
+}
+
+QPushButton[objectName*="ActionButton"]
+{
+    background: transparent;
+    border: none;
+    qproperty-minimumSize: 62px 48px;
+    qproperty-iconSize: 24px 24px;
+}
+
+QPushButton[objectName*="SmallActionButton"]
+{
+    qproperty-minimumSize: 32px 32px;
+    qproperty-iconSize: 16px 16px;
+}
+
+QPushButton#okButton, QPushButton#cancelButton
+{
+    font-size: 12pt;
+    font-weight: bold;
+}
+
+QLabel[objectName*="SmallLabel"]
+{
+    font-size: 10pt;
+}
+
+QLabel[objectName*="TitleLabel"]
+{
+    font-size: 14pt;
+    font-weight: bold;
+}

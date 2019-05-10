@@ -33,17 +33,12 @@
     <widget class="QComboBox" name="fieldComboBox">
      <item>
       <property name="text">
-       <string>Date</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>Lieu</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
        <string>Nom</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Date</string>
       </property>
      </item>
      <item>

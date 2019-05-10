@@ -68,7 +68,7 @@
          </size>
         </property>
         <property name="placeholderText">
-         <string>Recherche par nom, date, lieu, tags...</string>
+         <string>Recherche par nom, date, tags</string>
         </property>
        </widget>
       </item>
@@ -124,17 +124,7 @@
           </item>
           <item>
            <property name="text">
-            <string>Lieu</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Nom</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Tags</string>
+            <string>Tag</string>
            </property>
           </item>
          </widget>
@@ -287,7 +277,7 @@
   <customwidget>
    <class>PhotoListView</class>
    <extends>QWidget</extends>
-   <header>ui.widgets.photo_list_view</header>
+   <header>kappa.ui.widgets.photo_list_view</header>
   </customwidget>
  </customwidgets>
  <resources/>

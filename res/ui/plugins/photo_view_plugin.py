@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QIcon
 from PyQt5.QtDesigner import QPyDesignerCustomWidgetPlugin
-from ui.widgets.photo_view import PhotoView
+from kappa.ui.widgets.photo_view import PhotoView
 
 class PhotoViewPlugin(QPyDesignerCustomWidgetPlugin):
     def __init__(self, parent=None):
@@ -37,4 +37,4 @@ class PhotoViewPlugin(QPyDesignerCustomWidgetPlugin):
         return False
 
     def includeFile(self):
-        return "ui.widgets.photo_view"
+        return "kappa.ui.widgets.photo_view"

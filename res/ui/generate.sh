@@ -2,7 +2,7 @@
 
 ui_files="res/ui/*.ui"
 rc_files=""
-src_ui_dir="src/ui/generated/"
+src_ui_dir="src/kappa/ui/generated/"
 
 rm -rf ${src_ui_dir}*
 

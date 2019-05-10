@@ -72,3 +72,8 @@ class ObjectVectorController(ctl.Controller):
 				print('tags0=',vector," = ", tag_et_parent)
 				#print('type=',type(tag_et_parent))
 				break
+
+	def getRecognizedObjects(self, imagePath: str):
+		objects = []
+
+		return objects

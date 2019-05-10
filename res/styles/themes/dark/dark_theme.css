@@ -1,3 +1,7 @@
+* {
+    font-family: "Open Sans";
+}
+
 QWidget#header {
     background: #202225;
 }
@@ -6,32 +10,30 @@ QMainWindow, QWidget#content {
     background: #36393f;
 }
 
+QScrollArea#photoGalleryContainer QWidget#content
+{
+    background: url("./res/styles/themes/dark/img/93df7d99.png");
+    /*
+    background: url("./res/styles/themes/dark/img/06ca4cb3.png");
+    background: url("./res/styles/themes/dark/img/cebce514.png");
+    */
+}
+
 QLabel, QLineEdit, QComboBox
 {
     color: white;
-    font-family: "Open Sans";
-    font-size: 11pt;
 }
 
 QLabel[objectName*="FieldLabel"]
 {
-    font-size: 11pt;
     color: #72767d;
-}
-
-QLabel[objectName*="SmallLabel"]
-{
-    font-size: 10pt;
 }
 
 QLineEdit, QComboBox, QListView, QPushButton#okButton, QPushButton#cancelButton
 {
-    padding: 0 16px;
     background: #2f3136;
     color: #b9bbbe;
     border-radius: 10px;
-    font-family: "Open Sans";
-    font-size: 11pt;
 }
 
 QListView
@@ -44,22 +46,6 @@ QComboBox
     border-radius: 5px;
 }
 
-QPushButton[objectName*="ActionButton"]
-{
-    background: transparent;
-    border: none;
-    qproperty-minimumSize: 62px 48px;
-    qproperty-iconSize: 24px 24px;
-}
-
-QPushButton[objectName*="SmallActionButton"]
-{
-    background: transparent;
-    border: none;
-    qproperty-minimumSize: 32px 32px;
-    qproperty-iconSize: 16px 16px;
-}
-
 QPushButton[objectName*="ActionButton"]:hover:!pressed
 {
     background: #272A2E;
@@ -70,22 +56,9 @@ QPushButton[objectName*="ActionButton"]:hover:pressed
     background: #2E3136;
 }
 
-QScrollArea
-{
-    border: none;
-}
-
 QPushButton#okButton, QPushButton#cancelButton
 {
     background: #202225;
-    font-size: 12pt;
-    font-weight: bold;
-}
-
-QLabel[objectName*="TitleLabel"]
-{
-    font-size: 14pt;
-    font-weight: bold;
 }
 
 QWidget#imageInfoRootContainer, QWidget#imageInfoRootContainer *

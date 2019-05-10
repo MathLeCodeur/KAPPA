@@ -1,0 +1,10 @@
+Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (1,"",'2029-08-09 10:00:00',2000,1500,7897,"./res/images/samples/image0.jpg");
+Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (2,"",'2029-08-09 15:14:20',300,300,8968,"./res/images/samples/image1.jpg");
+Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (3,"",'2029-08-09 20:20:33',2000,300,3213,"./res/images/samples/image2.jpg");
+Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (4,"",'2029-08-09 13:00:00',2000,30000,24972,"./res/images/samples/image3.jpg");
+Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (5,"",'2017-10-10 10:00:00',424,242,2,"./res/images/samples/image4.jpg");
+Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (6,"",'2017-10-10 19:00:00',9242,2424,2,"./res/images/samples/image5.png");
+Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (7,"",'2017-10-10 10:00:00',5000,50021,89265,"./res/images/samples/image6.jpg");
+Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (8,"",'2017-10-10 10:00:00',509,500,897,"./res/images/samples/image7.png");
+Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (9,"",'2030-01-09 10:20:00',2000,2000,958738,"./res/images/samples/image8.jpg");
+Insert into IMAGE (id_image,comment,creation_date,length,width,size,path) values (10,"",'2077-01-05 10:09:00',5000,5000,970,"./res/images/samples/image9.jpg");

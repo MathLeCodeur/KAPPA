@@ -111,18 +111,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="addTagActionButton">
-        <property name="toolTip">
-         <string>Tagger un objet ou une personne</string>
-        </property>
-        <property name="icon">
-         <iconset>
-          <normaloff>../icons/cache/add_tag.svg</normaloff>../icons/cache/add_tag.svg</iconset>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="frameObjectsActionButton">
+       <widget class="QPushButton" name="frameObjectsAndPeopleActionButton">
         <property name="toolTip">
          <string>Encadrer les objets et les visages reconnus</string>
         </property>
@@ -209,8 +198,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>250</width>
-            <height>577</height>
+            <width>95</width>
+            <height>589</height>
            </rect>
           </property>
           <layout class="QHBoxLayout" name="scrollAreaWidgetContentsLayout">
@@ -269,27 +258,6 @@
                </item>
                <item>
                 <widget class="QLabel" name="imageDateValueLabel">
-                 <property name="text">
-                  <string/>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <layout class="QVBoxLayout" name="imagePlaceContainer">
-               <property name="spacing">
-                <number>2</number>
-               </property>
-               <item>
-                <widget class="QLabel" name="imagePlaceFieldLabel">
-                 <property name="text">
-                  <string>Lieu</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLabel" name="imagePlaceValueLabel">
                  <property name="text">
                   <string/>
                  </property>
@@ -402,7 +370,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="imageContainer">
+     <widget class="QWidget" name="imageContainer" native="true">
       <layout class="QVBoxLayout" name="imageContainerLayout">
        <property name="leftMargin">
         <number>32</number>
@@ -429,7 +397,7 @@
   <customwidget>
    <class>PhotoView</class>
    <extends>QWidget</extends>
-   <header>ui.widgets.photo_view</header>
+   <header>kappa.ui.widgets.photo_view</header>
   </customwidget>
  </customwidgets>
  <resources/>

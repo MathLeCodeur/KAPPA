@@ -2,13 +2,16 @@ import sys
 
 from PyQt5.QtCore import *
 
-from ui.main_window import *
+from kappa.face_detection.inference_image_face import *
+from kappa.ui.main_window import *
 
 def main():
     app = QApplication(sys.argv)
-    config.load_themes(app)
+    config.loadThemes(app, False)
 
-    window = MainWindow()
+    faceDetector = TensorflowFaceDetector()
+
+    window = MainWindow(faceDetector)
     window.show()
 
     sys.exit(app.exec_())

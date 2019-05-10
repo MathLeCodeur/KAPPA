@@ -35,6 +35,15 @@ class FaceVectorDAO(DAO):
 
 		return res
 
+	def getKnown(self):
+		cm = ConnectionManager.ConnectionManager('KappaBase.db')
+		res = cm.executeSQL("SELECT * FROM Vector NATURAL JOIN Face_vector WHERE IsKnown=true")
+		vectorList = []
+		for elem in res:
+			i=0
+			vectorList.append(FaceVectorModel(elem[0], elem[1], elem[2], elem[3]))
+		return vectorList
+
 	def getByImageId(self, id):
 		cm = ConnectionManager.ConnectionManager('KappaBase.db')
 		res = cm.executeSQL("select * from Vector NATURAL JOIN FACE_VECTOR NATURAL JOIN INCLUDE where id_image = "+str(id)+";")

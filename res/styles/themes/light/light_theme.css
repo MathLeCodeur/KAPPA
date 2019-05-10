@@ -1,0 +1,80 @@
+* {
+    font-family: "Open Sans";
+}
+
+QWidget#header {
+    background: #e6e6e6;
+}
+
+QWidget#PhotoViewerPanel QWidget#header {
+    background: white;
+}
+
+QMainWindow, QWidget#content {
+    background: white;
+}
+
+QScrollArea#photoGalleryContainer QWidget#content
+{
+    /*
+    background: url("./res/styles/themes/light/img/471ff070.png");
+    */
+}
+
+QLabel, QLineEdit, QComboBox
+{
+    color: black;
+}
+
+QLabel[objectName*="FieldLabel"]
+{
+    color: #616161;
+}
+
+QLineEdit, QComboBox, QListView, QPushButton#okButton, QPushButton#cancelButton
+{
+    /* background: #2f3136; */
+    color: black;
+    border-radius: 10px;
+}
+
+QListView
+{
+    margin-top: 8px;
+}
+
+QComboBox
+{
+    border-radius: 5px;
+}
+
+QPushButton[objectName*="ActionButton"]:hover:!pressed
+{
+    background: #e6e6e6;
+}
+
+QPushButton[objectName*="ActionButton"]:hover:pressed
+{
+    background: #cccccc;
+}
+
+QPushButton#okButton, QPushButton#cancelButton
+{
+    background: #e6e6e6;
+}
+
+QWidget#imageInfoRootContainer, QWidget#imageInfoRootContainer *
+{
+    background: #f2f2f2;
+}
+
+QWidget[objectName*="EmphasisContainer"]
+{
+    background: #e6e6e6;
+    border-radius: 16px;
+}
+
+QLayout#imageContainer {
+    margin-top: 0px;
+    padding-top: 0px;
+}

@@ -8,8 +8,8 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 
-from ui.dependencies import *
-from ui.widgets.flow_layout import *
+from kappa.models.ImageModel import *
+from kappa.ui.widgets.flow_layout import *
 
 class PhotoListView(QWidget):
     def __init__(self, parent: QWidget = None):
@@ -18,7 +18,7 @@ class PhotoListView(QWidget):
         self.__layout = FlowLayout(self, 0, 16, 16)
         self.setLayout(self.__layout)
 
-    def setPhotos(self, photos: List[Photo]):
+    def setPhotos(self, photos: List[ImageModel]):
         self.__photos = photos
         for photo in photos:
             self.__layout.addWidget(PhotoListViewItem(photo, self.__openPhoto))
@@ -30,7 +30,7 @@ class PhotoListView(QWidget):
         window.setActivePanel(photoViewerPanel)
 
 class PhotoListViewItem(QPushButton):
-    def __init__(self, photo: Photo, clickSlot: Callable, parent: QWidget = None):
+    def __init__(self, photo: ImageModel, clickSlot: Callable, parent: QWidget = None):
         super(PhotoListViewItem, self).__init__(parent)
 
         self.setProperty('photo', photo)

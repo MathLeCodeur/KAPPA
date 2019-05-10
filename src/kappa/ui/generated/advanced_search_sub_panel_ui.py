@@ -21,7 +21,6 @@ class Ui_AdvancedSearchSubPanel(object):
         self.fieldComboBox.addItem("")
         self.fieldComboBox.addItem("")
         self.fieldComboBox.addItem("")
-        self.fieldComboBox.addItem("")
         self.horizontalLayout.addWidget(self.fieldComboBox)
         self.operatorComboBox = QtWidgets.QComboBox(AdvancedSearchSubPanel)
         self.operatorComboBox.setObjectName("operatorComboBox")
@@ -44,9 +43,8 @@ class Ui_AdvancedSearchSubPanel(object):
     def retranslateUi(self, AdvancedSearchSubPanel):
         _translate = QtCore.QCoreApplication.translate
         AdvancedSearchSubPanel.setWindowTitle(_translate("AdvancedSearchSubPanel", "Form"))
-        self.fieldComboBox.setItemText(0, _translate("AdvancedSearchSubPanel", "Date"))
-        self.fieldComboBox.setItemText(1, _translate("AdvancedSearchSubPanel", "Lieu"))
-        self.fieldComboBox.setItemText(2, _translate("AdvancedSearchSubPanel", "Nom"))
-        self.fieldComboBox.setItemText(3, _translate("AdvancedSearchSubPanel", "Tags"))
+        self.fieldComboBox.setItemText(0, _translate("AdvancedSearchSubPanel", "Nom"))
+        self.fieldComboBox.setItemText(1, _translate("AdvancedSearchSubPanel", "Date"))
+        self.fieldComboBox.setItemText(2, _translate("AdvancedSearchSubPanel", "Tags"))
         self.andLabel.setText(_translate("AdvancedSearchSubPanel", "et"))
 
