@@ -7,6 +7,8 @@ import os
 import glob
 from PIL import Image
 import time
+#from NodeLookup import NodeLookup,searchTags,run_inference_on_image,create_graph
+import kappa.controllers.NodeLookup
 
 class ImageController(Controller):
 	def __init__(self):
@@ -57,3 +59,6 @@ class ImageController(Controller):
 					print("image insert" + path)
 					y.executeAndCommitSQL(sql)
 					u+=1
+
+	def searchTags(self, pathIm):
+		return kappa.controllers.NodeLookup.searchTags(pathIm)
