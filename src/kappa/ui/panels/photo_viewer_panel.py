@@ -38,18 +38,18 @@ class PhotoViewerPanel(QWidget):
 
         self.__clearTags(self.__ui.imageTagsContainer)
 
-        # for tag in photo.classifications:
-        #     print(tag)
-        #     self.__ui.imageTagsContainer.addWidget(QLabel(tag))
-        # else:
-        #     self.__ui.imageTagsContainer.addWidget(QLabel("---"))
-        self.__ui.imageTagsContainer.addWidget(QLabel("---"))
+        tags = sorted([vector.tagName for vector in photo.faceVectors + photo.objectVectors])
+
+        for tag in tags:
+            self.__ui.imageTagsContainer.addWidget(QLabel(tag))
+        else:
+            self.__ui.imageTagsContainer.addWidget(QLabel("---"))
 
         self.updateRecognizedPeopleAndObjects()
 
     def updateRecognizedPeopleAndObjects(self):
         if self.__drawRecognizedPeopleAndObjects:
-            self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('QPushButton{ border: 2px solid ' + config.get('themeColor') + '; }')
+            self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('QPushButton{ border-bottom: 4px solid ' + config.get('themeColor') + '; }')
             recognizedPeople = self.window().faceVectorController.getRecognizedPeople(self.__photoPath, self.window().faceDetector)
             self.__ui.image.setRecognizedPeopleAndObjects(recognizedPeople)
         else:

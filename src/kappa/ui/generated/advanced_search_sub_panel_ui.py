@@ -23,6 +23,7 @@ class Ui_AdvancedSearchSubPanel(object):
         self.fieldComboBox.addItem("")
         self.horizontalLayout.addWidget(self.fieldComboBox)
         self.operatorComboBox = QtWidgets.QComboBox(AdvancedSearchSubPanel)
+        self.operatorComboBox.setMinimumSize(QtCore.QSize(140, 0))
         self.operatorComboBox.setObjectName("operatorComboBox")
         self.horizontalLayout.addWidget(self.operatorComboBox)
         self.operand1LineEdit = QtWidgets.QLineEdit(AdvancedSearchSubPanel)

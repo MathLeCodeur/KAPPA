@@ -5,6 +5,8 @@ from PyQt5.QtCore import *
 from kappa.face_detection.inference_image_face import *
 from kappa.ui.main_window import *
 
+QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
+
 def main():
     app = QApplication(sys.argv)
     config.loadThemes(app, False)

@@ -36,11 +36,6 @@ QLineEdit, QComboBox, QListView, QPushButton#okButton, QPushButton#cancelButton
     border-radius: 10px;
 }
 
-QListView
-{
-    margin-top: 8px;
-}
-
 QComboBox
 {
     border-radius: 5px;
