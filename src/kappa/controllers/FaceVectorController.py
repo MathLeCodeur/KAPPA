@@ -26,3 +26,9 @@ class FaceVectorController(Controller):
 
     def getByImageId(self, id):
         return self.cDao.getByImageId(id)
+
+    def update(self, fVectModel):
+        self.cDao.update(fVectModel)
+
+    def delete(self, fVectModel):
+        self.cDao.delete(fVectModel)

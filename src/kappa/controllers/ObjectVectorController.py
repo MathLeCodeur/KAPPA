@@ -34,6 +34,9 @@ class ObjectVectorController(Controller):
 	def getNextId(self):
 		return self.cDao.getNextId()
 
+	def delete(self, oVectModel):
+		self.cDao.delete(oVectModel)
+
 	def importObjectVectors(self):
 		#recuperation du fichier des description de chaque vecteurs
 		descriptionf = open('./res/database/imagenet_synset_to_human_label_map.txt','r')
