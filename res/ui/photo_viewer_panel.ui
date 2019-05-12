@@ -98,6 +98,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="addToFavouritesActionButton">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="toolTip">
          <string>Ajouter aux favoris</string>
         </property>
@@ -198,7 +201,7 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>95</width>
+            <width>250</width>
             <height>589</height>
            </rect>
           </property>

@@ -49,7 +49,14 @@
     </widget>
    </item>
    <item>
-    <widget class="QComboBox" name="operatorComboBox"/>
+    <widget class="QComboBox" name="operatorComboBox">
+     <property name="minimumSize">
+      <size>
+       <width>140</width>
+       <height>0</height>
+      </size>
+     </property>
+    </widget>
    </item>
    <item>
     <widget class="QLineEdit" name="operand1LineEdit">

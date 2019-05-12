@@ -9,6 +9,12 @@ QLineEdit, QComboBox, QListView, QPushButton#okButton, QPushButton#cancelButton
     font-size: 11pt;
 }
 
+QListView
+{
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
 QScrollArea
 {
     border: none;

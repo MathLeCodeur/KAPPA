@@ -113,6 +113,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="removeSmallActionButton">
+          <property name="enabled">
+           <bool>false</bool>
+          </property>
           <property name="toolTip">
            <string>Supprimer le dernier critère de recherche</string>
           </property>
