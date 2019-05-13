@@ -56,6 +56,10 @@ class ImageDAO(DAO):
         print("update")
 
     def create(self, imgModel):
-        print("create")
         cm = ConnectionManager.ConnectionManager('KappaBase.db')
-        res = cm.executeAndCommitSQL("INSERT INTO Image (id_image, comment,creation_date,length,width,size,path) VALUES (" + imgModel.id + ", \"" + imgModel.comment + "\""+imgModel.creation_date+", "+imgModel.length+","+imgModel.size+","+imgModel.path+")")
+        res = cm.executeAndCommitSQL("INSERT INTO Image (id_image, comment,creation_date,length,width,size,path)" + 
+                                    "VALUES (" + str(imgModel.id) + ", \"" + imgModel.comment + "\", \"" + imgModel.creation_date + "\", " + str(imgModel.length) + "," + str(imgModel.width) + "," + str(imgModel.size) + ",\"" + imgModel.path+"\")")
+        if (imgModel.objectVectors==None):
+            return
+        for ov in imgModel.objectVectors:
+            self.linkToVector(imgModel, ov)

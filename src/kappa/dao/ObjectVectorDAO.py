@@ -28,6 +28,24 @@ class ObjectVectorDAO(DAO):
 		else :
 			res = cm.executeAndCommitSQL("INSERT INTO Object_vector (id_vector) VALUES (" + str(objectVectorModel.id) + ")")
 
+	def updateWithoutCommit(self, objectVectorModel):
+		cm = ConnectionManager.ConnectionManager('KappaBase')
+		vDao = VectorDAO()
+		vDao.updateWithoutCommit(VectorModel(objectVectorModel.id, objectVectorModel.value, objectVectorModel.tagName))
+		if(objectVectorModel.parent!=None) :
+			cm.executeSQL("UPDATE Object_vector SET id_parent=" + str(objectVectorModel.parent.id)+ " WHERE id_vector=" + str(objectVectorModel.id))
+		else :
+			cm.executeSQL("UPDATE Object_vector SET id_parent=NULL WHERE id_vector=" + str(objectVectorModel.id))
+
+	def createWithoutCommit(self, objectVectorModel):
+		cm = ConnectionManager.ConnectionManager('KappaBase')
+		vDao = VectorDAO()
+		vDao.createWithoutCommit(VectorModel(objectVectorModel.id, objectVectorModel.value, objectVectorModel.tagName))
+		if(objectVectorModel.parent!=None) :
+			res = cm.executeSQL("INSERT INTO Object_vector (id_vector, id_parent) VALUES (" + str(objectVectorModel.id) + ", " + str(objectVectorModel.parent.id) + ")")
+		else :
+			res = cm.executeSQL("INSERT INTO Object_vector (id_vector) VALUES (" + str(objectVectorModel.id) + ")")
+
 	def getByImageId(self, id):
 		cm = ConnectionManager.ConnectionManager('KappaBase.db')
 		res = cm.executeSQL("select * from Vector NATURAL JOIN OBJECT_VECTOR NATURAL JOIN INCLUDE where id_image = "+str(id)+";")
@@ -72,6 +90,17 @@ class ObjectVectorDAO(DAO):
 			res2 = ObjectVectorModel(res[0][0], res[0][1], res[0][2], None)
 		return res2
 
+	def getByName(self, name):
+		cm = ConnectionManager.ConnectionManager('KappaBase')
+		res = cm.executeSQL("SELECT * FROM Vector NATURAL JOIN Object_vector WHERE tag_name=\"" + name + "\"")
+		if (len(res)!=1) :
+			return
+		if(res[0][3]!=None) :
+			res2 = ObjectVectorModel(res[0][0], res[0][1], res[0][2], self.getById(res[0][3]))
+		else :
+			res2 = ObjectVectorModel(res[0][0], res[0][1], res[0][2], None)
+		return res2
+
 	def getNextId(self):
 		cm = ConnectionManager.ConnectionManager('KappaBase')
 		res = cm.executeSQL("SELECT MAX(id_vector) FROM Vector")
@@ -106,8 +135,8 @@ class ObjectVectorDAO(DAO):
 						nextId=self.getNextId()
 						vParent = ObjectVectorModel(nextId, tags_and_parent[1], "", None)
 						vChild.parent = vParent
-						self.create(vParent)
-				self.update(vChild)
+						self.createWithoutCommit(vParent)
+				self.updateWithoutCommit(vChild)
 			else :
 				nextId=self.getNextId()
 				vChild = ObjectVectorModel(nextId, vector, tags_and_parent[0], None)
@@ -120,5 +149,8 @@ class ObjectVectorDAO(DAO):
 					else :
 						vParent = ObjectVectorModel(nextId+1, tags_and_parent[1], "", None)
 						vChild.parent = vParent
-						self.create(vParent)
-				self.create(vChild)
+						self.createWithoutCommit(vParent)
+				self.createWithoutCommit(vChild)
+		
+		cm.executeAndCommitSQL("SELECT MAX(id_vector) FROM Vector")
+

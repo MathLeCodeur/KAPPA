@@ -83,7 +83,7 @@ def create_graph():
     graph_def.ParseFromString(f.read())
     _ = tf.import_graph_def(graph_def, name='')
 
-def searchTags(pathIm):
+def searchTags(pathIm, scoreMin):
   """Runs inference on an image.
   Args:
     image: Image file name.
@@ -121,7 +121,8 @@ def searchTags(pathIm):
     for node_id in top_k:
       human_string = node_lookup.id_to_string(node_id)
       score = predictions[node_id]
-      prediction[human_string] = score
+      if (score > scoreMin) :
+        prediction[human_string] = score
 
     return prediction
 
