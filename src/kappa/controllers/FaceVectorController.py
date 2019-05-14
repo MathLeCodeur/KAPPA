@@ -12,6 +12,7 @@ import face_recognition
 import scipy.misc
 import pickle
 import codecs
+from typing import *
 
 class FaceVectorController(Controller):
     def __init__(self):
@@ -40,36 +41,25 @@ class FaceVectorController(Controller):
         pass
 
     def getRecognizedPeople(self, imagePath: str, faceDetector: TensorflowFaceDetector):
-        faceBoxes = faceDetector.getBoxes(imagePath)
-        peopleInformation = [[faceVectorModel.tagName, pickle.loads(codecs.decode(faceVectorModel.value.encode(), "base64"))] for faceVectorModel in self.getKnown()]
-        names = recognizePeople(peopleInformation, faceBoxes, imagePath)
-
         imageMatrix = face_recognition.load_image_file(imagePath)
-        imageHeight, imageWidth, _ = imageMatrix.shape
+        peopleInformation = [[faceVectorModel.tagName, pickle.loads(codecs.decode(faceVectorModel.value.encode(), "base64"))] for faceVectorModel in self.getKnown()]
 
-        tagData = []
+        faceBoxes = face_recognition.face_locations(imageMatrix)
+        names = recognizePeople(peopleInformation, faceBoxes, imageMatrix)
 
-        for i in range(len(names)):
-            currentPersonPicture = imageMatrix[int(round(faceBoxes[i][0] * imageHeight)) : int(round(faceBoxes[i][2] * imageHeight)),
-                        int(round(faceBoxes[i][1] * imageWidth)) : int(round(faceBoxes[i][3] * imageWidth))]
+        return [{'name': names[i], 'boundingBox': faceBoxes[i]} for i in range(len(faceBoxes))]
 
-            if face_recognition.face_encodings(currentPersonPicture):
-                tagData.append({'name': names[i], 'boundingBox': faceBoxes[i]})
-
-        return tagData
-
-    def commitFaceVectorChange(self, oldTagName, newTagName, croppedImagePath):
+    def commitFaceVectorChange(self, oldTagName: str, newTagName: str, imagePath: str, faceBox: Tuple[int, int, int, int]):
         if oldTagName == 'Unknown':
             if newTagName != 'Unknown' and newTagName:
                 print('create')
-                imageMatrix = face_recognition.load_image_file(croppedImagePath)
+                imageMatrix = face_recognition.load_image_file(imagePath)
 
-                faceEncodings = face_recognition.face_encodings(imageMatrix)
-                if faceEncodings:
-                    faceVector = faceEncodings[0]
-                    base64FaceVector = codecs.encode(pickle.dumps(faceVector), "base64").decode()
+                faceEncodings = face_recognition.face_encodings(imageMatrix, known_face_locations=[faceBox])
+                faceVector = faceEncodings[0]
+                base64FaceVector = codecs.encode(pickle.dumps(faceVector), "base64").decode()
 
-                    self.cDao.create(FaceVectorModel(self.cDao.getNextId(), base64FaceVector, newTagName, True))
+                self.cDao.create(FaceVectorModel(self.cDao.getNextId(), base64FaceVector, newTagName, True))
         else:
             if newTagName and newTagName != 'Unknown':
                 print('update')

@@ -56,10 +56,10 @@ class PhotoView(QGraphicsView):
 
         for tagData_ in self.__tagData:
             box, name = tagData_['boundingBox'], tagData_['name']
-            yMin = box[0] * imageHeight
-            xMin = box[1] * imageWidth
-            yMax = box[2] * imageHeight
-            xMax = box[3] * imageWidth
+            yMin = box[0]
+            xMax = box[1]
+            yMax = box[2]
+            xMin = box[3]
 
             boxWidth, boxHeight = xMax - xMin, yMax - yMin
             boxCenterX, boxCenterY = xMin + boxWidth / 2, yMin + boxHeight / 2
@@ -69,7 +69,6 @@ class PhotoView(QGraphicsView):
 
             # Write to __tagData
             tagData_['lineEdit'] = lineEdit
-            tagData_['globalBoundingBox'] = QRect(xMin, yMin, boxWidth, boxHeight)
 
             lineEditItem = self.scene().addWidget(lineEdit)
 
@@ -90,19 +89,6 @@ class PhotoView(QGraphicsView):
         self.fitInView(self.__pixmapItem, Qt.KeepAspectRatio)
         super().resizeEvent(event)
 
-    def saveTagData(self):
+    def saveTagData(self, photoPath: str):
         for tagData_ in self.__tagData:
-            oldTagName = tagData_['name']
-            newTagName = tagData_['lineEdit'].text()
-            boundingBox = tagData_['globalBoundingBox']
-
-            croppedImagePath = self.__savePixmapToTemp(self.pixmap().copy(boundingBox))
-
-            self.window().faceVectorController.commitFaceVectorChange(oldTagName, newTagName, croppedImagePath)
-
-    def __savePixmapToTemp(self, pixmap: QPixmap):
-        imagePath = os.path.join(tempfile.gettempdir(), context.tempImageCropFileName)
-        imageFile = QFile(imagePath)
-        pixmap.save(imageFile, context.tempImageCropFileName.split('.')[-1])
-
-        return imagePath
+            self.window().faceVectorController.commitFaceVectorChange(tagData_['name'], tagData_['lineEdit'].text(), photoPath, tagData_['boundingBox'])

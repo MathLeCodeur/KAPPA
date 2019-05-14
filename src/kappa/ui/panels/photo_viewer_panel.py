@@ -53,13 +53,13 @@ class PhotoViewerPanel(QWidget):
             recognizedPeople = self.window().faceVectorController.getRecognizedPeople(self.__photoPath, self.window().faceDetector)
             self.__ui.image.setRecognizedPeopleAndObjects(recognizedPeople)
         else:
-            self.__ui.image.saveTagData()
+            self.__ui.image.saveTagData(self.__photoPath)
             self.__ui.image.setRecognizedPeopleAndObjects([])
             self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('')
 
     @pyqtSlot(name='on_backActionButton_clicked')
     def returnToPhotoGallery(self):
-        self.__ui.image.saveTagData()
+        self.__ui.image.saveTagData(self.__photoPath)
         self.window().setActivePanel(self.window().getPhotoGalleryPanel())
 
     @pyqtSlot(name='on_frameObjectsAndPeopleActionButton_clicked')
