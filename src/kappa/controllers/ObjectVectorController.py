@@ -31,6 +31,9 @@ class ObjectVectorController(Controller):
 	def getByValue(self, value):
 		return self.cDao.getByValue(value)
 
+	def getByName(self, name):
+		return self.cDao.getByName(name)
+
 	def getNextId(self):
 		return self.cDao.getNextId()
 

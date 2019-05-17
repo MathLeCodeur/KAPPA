@@ -3,17 +3,28 @@ from kappa.controllers.Controller import Controller
 from kappa.dao.ConnectionManager import ConnectionManager
 from kappa.models.ImageModel import ImageModel
 from kappa.dao.ImageDAO import ImageDAO
+from kappa.controllers.ObjectVectorController import ObjectVectorController
+import kappa.object_detection.NodeLookup as NodeLookup
 import os
 import glob
 from PIL import Image
 import time
-#from NodeLookup import NodeLookup,searchTags,run_inference_on_image,create_graph
-import kappa.controllers.NodeLookup
 
 class ImageController(Controller):
 	def __init__(self):
 		super().__init__()
 		self.cDao = ImageDAO()
+
+	def create(self, imgModel):
+		ovc = ObjectVectorController()
+		resTag = self.searchTags(imgModel.path, 0)
+
+		for name , score in resTag.items():
+			if(imgModel.objectVectors==None) :
+				imgModel.objectVectors = []
+			imgModel.objectVectors.append(ovc.getByName(name))
+
+		self.cDao.create(imgModel)
 
 	def getAll(self):
 		return self.cDao.getAll()
@@ -55,13 +66,13 @@ class ImageController(Controller):
 					width = im.size[0]
 					height = im.size[1]
 					date = str(time.ctime(os.path.getctime(path)))
-					sql	= "Insert into IMAGE (id_image,creation_date ,length, width,size, path) values ("+str(u)+",'"+date+"',"+str(height)+", "+str(width)+ ", " +str(size)+", '" +path+"')"
-					print("image insert" + path)
-					y.executeAndCommitSQL(sql)
+
+					img = ImageModel(u, "", date, height, width, size, path, None, None)
+					self.create(img)
 					u+=1
 
-	def searchTags(self, pathIm):
-		return kappa.controllers.NodeLookup.searchTags(pathIm)
+	def searchTags(self, pathIm, score):
+		return NodeLookup.searchTags(pathIm, score)
 		
 		
 		
@@ -98,7 +109,4 @@ class ImageController(Controller):
 			if(img[0] > 1):
 				finalList.append(img[1])
 		return finalList
-		
-		
-				
 

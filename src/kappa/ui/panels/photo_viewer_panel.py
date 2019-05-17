@@ -27,6 +27,8 @@ class PhotoViewerPanel(QWidget):
     def setPhoto(self, photo: ImageModel):
         pixmap = QPixmap(photo.path)
 
+        print(photo.getObjectVectorsWithTheirMommiesAndDaddies())
+
         self.__photoPath = photo.path
 
         self.__ui.image.setPixmap(pixmap)
@@ -38,28 +40,31 @@ class PhotoViewerPanel(QWidget):
 
         self.__clearTags(self.__ui.imageTagsContainer)
 
-        # for tag in photo.classifications:
-        #     print(tag)
-        #     self.__ui.imageTagsContainer.addWidget(QLabel(tag))
-        # else:
-        #     self.__ui.imageTagsContainer.addWidget(QLabel("---"))
-        self.__ui.imageTagsContainer.addWidget(QLabel("---"))
+        tags = photo.getObjectVectorsWithTheirMommiesAndDaddies()
+        formattedTags = [tag.replace('/', ' > ').title() for tag in tags]
+        shortenedFormattedTags = [' > '.join(tag.split(' > ')[-2:]) for tag in formattedTags]
+
+        if len(shortenedFormattedTags) != 0:
+            for tag in shortenedFormattedTags:
+                self.__ui.imageTagsContainer.addWidget(QLabel(tag))
+        else:
+            self.__ui.imageTagsContainer.addWidget(QLabel("---"))
 
         self.updateRecognizedPeopleAndObjects()
 
     def updateRecognizedPeopleAndObjects(self):
         if self.__drawRecognizedPeopleAndObjects:
-            self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('QPushButton{ border: 2px solid ' + config.get('themeColor') + '; }')
+            self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('QPushButton{ border-bottom: 4px solid ' + config.get('themeColor') + '; }')
             recognizedPeople = self.window().faceVectorController.getRecognizedPeople(self.__photoPath, self.window().faceDetector)
             self.__ui.image.setRecognizedPeopleAndObjects(recognizedPeople)
         else:
-            self.__ui.image.saveTagData()
+            self.__ui.image.saveTagData(self.__photoPath)
             self.__ui.image.setRecognizedPeopleAndObjects([])
             self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('')
 
     @pyqtSlot(name='on_backActionButton_clicked')
     def returnToPhotoGallery(self):
-        self.__ui.image.saveTagData()
+        self.__ui.image.saveTagData(self.__photoPath)
         self.window().setActivePanel(self.window().getPhotoGalleryPanel())
 
     @pyqtSlot(name='on_frameObjectsAndPeopleActionButton_clicked')

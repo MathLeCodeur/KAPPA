@@ -11,3 +11,9 @@ class ImageModel(Model):
 		self.size = size
 		self.faceVectors = faceVectors
 		self.objectVectors = objectVectors
+
+	def getObjectVectorsWithTheirMommiesAndDaddies(self) :
+		tagList = []
+		for v in self.objectVectors:
+			tagList.append(v.getObjectVectorWithItsMommiesAndDaddies())
+		return tagList

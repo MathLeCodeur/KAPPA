@@ -22,15 +22,27 @@ class PhotoGalleryPanel(QWidget):
 
         self.__photos = []
 
-        self.__advancedSearchPanel = AdvancedSearchPanel()
+        self.__advancedSearchPanel = AdvancedSearchPanel(self)
+        self.__imageQuery = ImageQuery()
 
     def setPhotos(self, photos: ImageModel):
         self.__photos = photos
         self.__ui.photoListView.setPhotos(self.__photos)
 
+    @pyqtSlot(name='on_searchLineEdit_returnPressed')
+    def updateImageQuery(self):
+        try:
+            self.__imageQuery = ImageQuery.fromImageQueryLanguage(self.__ui.searchLineEdit.text())
+        except ImageQueryError as imageQueryError:
+            print('error')
+
     @pyqtSlot(name='on_advancedSearchActionButton_clicked')
     def openAdvancedSearchPanel(self):
-        self.__advancedSearchPanel.show()
+        self.__advancedSearchPanel.setImageQuery(self.__imageQuery)
+
+        if self.__advancedSearchPanel.exec() == QDialog.Accepted:
+            self.__imageQuery = self.__advancedSearchPanel.getImageQuery()
+            self.__ui.searchLineEdit.setText(self.__imageQuery.toImageQueryLanguage())
 
     @pyqtSlot(name='on_importFolderActionButton_clicked')
     def importFolder(self):

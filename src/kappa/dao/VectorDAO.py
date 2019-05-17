@@ -31,3 +31,12 @@ class VectorDAO(daoclass):
 	def create(self, vectorModel):
 		cm = ConnectionManager('KappaBase')
 		res = cm.executeAndCommitSQL("INSERT INTO Vector (id_vector, value_vector, tag_name) VALUES (" + str(vectorModel.id) + ", \"" + vectorModel.value + "\", \"" + vectorModel.tagName + "\")")
+
+	def updateWithoutCommit(self, vectorModel):
+		cm = ConnectionManager('KappaBase')
+		res = cm.executeSQL("UPDATE Vector SET value_vector=\"" + str(vectorModel.value) + "\" , tag_name=\"" + str(vectorModel.tagName) + "\" WHERE id_vector=" + str(vectorModel.id))
+
+	def createWithoutCommit(self, vectorModel):
+		cm = ConnectionManager('KappaBase')
+		res = cm.executeSQL("INSERT INTO Vector (id_vector, value_vector, tag_name) VALUES (" + str(vectorModel.id) + ", \"" + vectorModel.value + "\", \"" + vectorModel.tagName + "\")")
+	

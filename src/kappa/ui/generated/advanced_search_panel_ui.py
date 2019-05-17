@@ -52,6 +52,7 @@ class Ui_AdvancedSearchPanel(object):
         self.addSmallActionButton.setObjectName("addSmallActionButton")
         self.titleAndButtonsContainer.addWidget(self.addSmallActionButton)
         self.removeSmallActionButton = QtWidgets.QPushButton(self.content)
+        self.removeSmallActionButton.setEnabled(False)
         icon2 = QtGui.QIcon()
         icon2.addPixmap(QtGui.QPixmap("./res/icons/cache/minus.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.removeSmallActionButton.setIcon(icon2)
