@@ -13,13 +13,15 @@ def main():
 
     print("research SIMILAR ...")
     imgCtl = ImageController()
+    listimgBase = imgCtl.getAll()
+    imgBase = listimgBase[4]
+    print(imgBase, " compare to", imgBase.path)
     
-    rows = imgCtl.getAll()
-    j=0
-    for row in rows:
-        j+=1
-        for tag in row.objectVectors :
-            print("my image ",j," ",tag)
+    listSimilar = imgCtl.searchSimilar(imgBase)
+    
+    
+    for img in listSimilar:
+        print("similar to ",img.path)
 
 
 if __name__ == "__main__":

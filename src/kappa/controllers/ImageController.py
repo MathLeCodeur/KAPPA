@@ -76,15 +76,19 @@ class ImageController(Controller):
 		
 		
 		
-	def getAllTags(objV):
+	def getAllTags(self, objVectors):
 		listTagHere = []   # on rempli le tag de l'image actuel et ses parents
-		while(objV != NULL ):
-			listTagHere.append(objV.tagName)
-			objV = objV.parents
+		maxi = 2
+		for objV in objVectors:
+			i=0
+			while(objV != None and i < maxi  ):
+				i=i+1
+				listTagHere.append(objV.tagName)
+				objV = objV.parent
 		return listTagHere
 
 
-	def getSimilarScoreTags(taglist1 , taglist2):
+	def getSimilarScoreTags(self, taglist1 , taglist2):
 		score = 0 
 		for tag1 in taglist1:
 			for tag2 in taglist2:
@@ -93,20 +97,22 @@ class ImageController(Controller):
 		return score
 
 
-	def searchSimilar(self):
-		listTagHere = getAllTags(self.objectVectors.tagName)  # on rempli le tag de l'image actuel et ses parents
+	def searchSimilar(self, imgBase ):
+		# on rempli le tag de l'image actuel et ses parents
+		listTagHere = self.getAllTags(imgBase.objectVectors)  
 		#on vas comparer aux tags des autres images
 		imageList= self.cDao.getAll()
 		scoreList=[]
 		for img in imageList : 
-			s = getSimilarScoreTags(listTagHere , getAllTags(img.objectVectors))
-			score.append([s,img])# on initialise un score de similarité pour tout le monde
-			
-		scoreList.sort(key=lambda x: x[0])
+			s = self.getSimilarScoreTags(listTagHere , self.getAllTags(img.objectVectors))
+			scoreList.append([s,img])# on initialise un score de similarité pour tout le monde
+		scoreList.sort(key=lambda x: -x[0])
 		
 		finalList = []
-		for img in scoreList:
+		for img in scoreList: 
+			#print("score =  ",img[0], " : ", img[1].path)
 			if(img[0] > 1):
-				finalList.append(img[1])
+				if(imgBase.path != img[1].path ):
+				    finalList.append(img[1])
 		return finalList
 
