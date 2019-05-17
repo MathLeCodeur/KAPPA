@@ -27,6 +27,8 @@ class PhotoViewerPanel(QWidget):
     def setPhoto(self, photo: ImageModel):
         pixmap = QPixmap(photo.path)
 
+        print(photo.getObjectVectorsWithTheirMommiesAndDaddies())
+
         self.__photoPath = photo.path
 
         self.__ui.image.setPixmap(pixmap)
@@ -38,10 +40,13 @@ class PhotoViewerPanel(QWidget):
 
         self.__clearTags(self.__ui.imageTagsContainer)
 
-        tags = sorted([vector.tagName for vector in photo.faceVectors + photo.objectVectors])
+        tags = photo.getObjectVectorsWithTheirMommiesAndDaddies()
+        formattedTags = [tag.replace('/', ' > ').title() for tag in tags]
+        shortenedFormattedTags = [' > '.join(tag.split(' > ')[-2:]) for tag in formattedTags]
 
-        for tag in tags:
-            self.__ui.imageTagsContainer.addWidget(QLabel(tag))
+        if len(shortenedFormattedTags) != 0:
+            for tag in shortenedFormattedTags:
+                self.__ui.imageTagsContainer.addWidget(QLabel(tag))
         else:
             self.__ui.imageTagsContainer.addWidget(QLabel("---"))
 

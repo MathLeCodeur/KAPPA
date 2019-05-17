@@ -17,7 +17,7 @@ class ImageController(Controller):
 
 	def create(self, imgModel):
 		ovc = ObjectVectorController()
-		resTag = self.searchTags(imgModel.path, 0.5)
+		resTag = self.searchTags(imgModel.path, 0)
 
 		for name , score in resTag.items():
 			if(imgModel.objectVectors==None) :
@@ -66,7 +66,7 @@ class ImageController(Controller):
 					width = im.size[0]
 					height = im.size[1]
 					date = str(time.ctime(os.path.getctime(path)))
-					
+
 					img = ImageModel(u, "", date, height, width, size, path, None, None)
 					self.create(img)
 					u+=1
