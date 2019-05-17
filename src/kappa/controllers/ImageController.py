@@ -59,3 +59,43 @@ class ImageController(Controller):
 
 	def searchTags(self, pathIm):
 		return kappa.controllers.NodeLookup.searchTags(pathIm)
+		
+		
+		
+	def getAllTags(objV):
+		listTagHere = []   # on rempli le tag de l'image actuel et ses parents
+		while(objV != NULL ):
+			listTagHere.append(objV.tagName)
+			objV = objV.parents
+		return listTagHere
+
+
+	def getSimilarScoreTags(taglist1 , taglist2):
+		score = 0 
+		for tag1 in taglist1:
+			for tag2 in taglist2:
+				if(tag1 == tag2):
+					score+=1
+		return score
+
+
+	def searchSimilar(self):
+		listTagHere = getAllTags(self.objectVectors.tagName)  # on rempli le tag de l'image actuel et ses parents
+		#on vas comparer aux tags des autres images
+		imageList= self.cDao.getAll()
+		scoreList=[]
+		for img in imageList : 
+			s = getSimilarScoreTags(listTagHere , getAllTags(img.objectVectors))
+			score.append([s,img])# on initialise un score de similarité pour tout le monde
+			
+		scoreList.sort(key=lambda x: x[0])
+		
+		finalList = []
+		for img in scoreList:
+			if(img[0] > 1):
+				finalList.append(img[1])
+		return finalList
+		
+		
+				
+
