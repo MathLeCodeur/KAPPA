@@ -6,7 +6,7 @@ QLabel, QLineEdit, QComboBox, QLabel[objectName*="FieldLabel"]
 QLineEdit, QComboBox, QListView, QPushButton#okButton, QPushButton#cancelButton
 {
     padding: 0 16px;
-    font-size: 11pt;
+    font-size: 10pt;
 }
 
 QListView
@@ -38,6 +38,13 @@ QPushButton#okButton, QPushButton#cancelButton
 {
     font-size: 12pt;
     font-weight: bold;
+}
+
+QPushButton#searchActionButton
+{
+    qproperty-minimumSize: 48px 48px;
+    margin: 4px;
+    border-radius: 20px;
 }
 
 QLabel[objectName*="SmallLabel"]

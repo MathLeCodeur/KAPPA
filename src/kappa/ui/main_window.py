@@ -1,22 +1,18 @@
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QMainWindow
 
-from kappa.controllers.FaceVectorController import *
-from kappa.controllers.ImageController import *
-from kappa.controllers.ObjectVectorController import *
-from kappa.face_detection.inference_image_face import *
-from kappa.ui.generated.main_window_ui import *
-from kappa.ui.panels.photo_gallery_panel import *
-from kappa.ui.panels.photo_viewer_panel import *
+from kappa.controllers.FaceVectorController import FaceVectorController
+from kappa.controllers.ImageController import ImageController
+from kappa.controllers.ObjectVectorController import ObjectVectorController
+from kappa.ui.generated.main_window_ui import Ui_MainWindow
+from kappa.ui.panels.photo_gallery_panel import PhotoGalleryPanel
+from kappa.ui.panels.photo_viewer_panel import PhotoViewerPanel
 
 class MainWindow(QMainWindow):
-    def __init__(self, faceDetector: TensorflowFaceDetector):
+    def __init__(self):
         super(MainWindow, self).__init__()
 
         self.__ui = Ui_MainWindow()
         self.__ui.setupUi(self)
-
-        self.faceDetector = faceDetector
 
         self.faceVectorController = FaceVectorController()
         self.imageController = ImageController()
@@ -40,7 +36,7 @@ class MainWindow(QMainWindow):
     def getPhotoViewerPanel(self) -> PhotoViewerPanel:
         return self.__photoViewerPanel
 
-    def setActivePanel(self, panel: QWidget):
+    def setActivePanel(self, panel):
         self.__ui.stackedWidget.setCurrentWidget(panel)
 
     def reload(self):

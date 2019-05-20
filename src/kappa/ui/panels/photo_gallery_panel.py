@@ -9,6 +9,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 
 import config
+from kappa.interoperability.image_query import *
 from kappa.models.ImageModel import *
 from kappa.ui.generated.photo_gallery_panel_ui import *
 from kappa.ui.panels.advanced_search_panel import *
@@ -30,19 +31,25 @@ class PhotoGalleryPanel(QWidget):
         self.__ui.photoListView.setPhotos(self.__photos)
 
     @pyqtSlot(name='on_searchLineEdit_returnPressed')
+    @pyqtSlot(name='on_searchActionButton_clicked')
     def updateImageQuery(self):
         try:
             self.__imageQuery = ImageQuery.fromImageQueryLanguage(self.__ui.searchLineEdit.text())
+            self.__imageQuery.setImageGrouping(ImageGrouping(self.__ui.groupByComboBox.currentIndex()))
+
+            self.setPhotos(self.window().imageController.getByImageQuery(self.__imageQuery))
         except ImageQueryError as imageQueryError:
             print('error')
 
     @pyqtSlot(name='on_advancedSearchActionButton_clicked')
     def openAdvancedSearchPanel(self):
+        self.__imageQuery = ImageQuery.fromImageQueryLanguage(self.__ui.searchLineEdit.text())
         self.__advancedSearchPanel.setImageQuery(self.__imageQuery)
 
         if self.__advancedSearchPanel.exec() == QDialog.Accepted:
             self.__imageQuery = self.__advancedSearchPanel.getImageQuery()
             self.__ui.searchLineEdit.setText(self.__imageQuery.toImageQueryLanguage())
+            self.updateImageQuery()
 
     @pyqtSlot(name='on_importFolderActionButton_clicked')
     def importFolder(self):

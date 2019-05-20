@@ -31,7 +31,7 @@
    </property>
    <item>
     <widget class="QWidget" name="header" native="true">
-     <layout class="QHBoxLayout" name="headerLayout" stretch="1,0,0,0,0,0">
+     <layout class="QHBoxLayout" name="headerLayout" stretch="1,0,0,0,0,0,0">
       <property name="spacing">
        <number>0</number>
       </property>
@@ -69,6 +69,14 @@
         </property>
         <property name="placeholderText">
          <string>Recherche par nom, date, tags</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="searchActionButton">
+        <property name="icon">
+         <iconset>
+          <normaloff>../../../../../../../../.designer/icons/cache/search.svg</normaloff>../../../../../../../../.designer/icons/cache/search.svg</iconset>
         </property>
        </widget>
       </item>
@@ -133,12 +141,6 @@
       </item>
       <item>
        <widget class="QPushButton" name="advancedSearchActionButton">
-        <property name="minimumSize">
-         <size>
-          <width>62</width>
-          <height>48</height>
-         </size>
-        </property>
         <property name="toolTip">
          <string>Recherche avancée</string>
         </property>
@@ -147,24 +149,12 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../icons/cache/advanced_search.svg</normaloff>../icons/cache/advanced_search.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
+          <normaloff>../../../../../../../../.designer/icons/cache/advanced_search.svg</normaloff>../../../../../../../../.designer/icons/cache/advanced_search.svg</iconset>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="importFolderActionButton">
-        <property name="minimumSize">
-         <size>
-          <width>62</width>
-          <height>48</height>
-         </size>
-        </property>
         <property name="toolTip">
          <string>Importer un répertoire d'images</string>
         </property>
@@ -173,24 +163,12 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../icons/cache/import_folder.svg</normaloff>../icons/cache/import_folder.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
+          <normaloff>../../../../../../../../.designer/icons/cache/import_folder.svg</normaloff>../../../../../../../../.designer/icons/cache/import_folder.svg</iconset>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="changeThemeActionButton">
-        <property name="minimumSize">
-         <size>
-          <width>62</width>
-          <height>48</height>
-         </size>
-        </property>
         <property name="toolTip">
          <string>Changer le thème graphique</string>
         </property>
@@ -199,13 +177,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../icons/cache/change_theme.svg</normaloff>../icons/cache/change_theme.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
+          <normaloff>../../../../../../../../.designer/icons/cache/change_theme.svg</normaloff>../../../../../../../../.designer/icons/cache/change_theme.svg</iconset>
         </property>
        </widget>
       </item>
@@ -235,7 +207,7 @@
         <x>0</x>
         <y>0</y>
         <width>1077</width>
-        <height>719</height>
+        <height>735</height>
        </rect>
       </property>
       <property name="sizePolicy">

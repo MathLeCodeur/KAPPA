@@ -2,14 +2,8 @@ from kappa.controllers.Controller import Controller
 from kappa.dao import ConnectionManager
 from kappa.models.FaceVectorModel import FaceVectorModel
 from kappa.dao.FaceVectorDAO import FaceVectorDAO
-from kappa.face_detection.inference_image_face import *
 from kappa.face_recognition.face_recognition import *
-import os
-import glob
-from PIL import Image
-import time
 import face_recognition
-import scipy.misc
 import pickle
 import codecs
 from typing import *
@@ -37,10 +31,7 @@ class FaceVectorController(Controller):
     def getByImageId(self, id):
         return self.cDao.getByImageId(id)
 
-    def loadRecognizedPeopleFaceVector(self, faceDetector: TensorflowFaceDetector):
-        pass
-
-    def getRecognizedPeople(self, imagePath: str, faceDetector: TensorflowFaceDetector):
+    def getRecognizedPeople(self, imagePath: str):
         imageMatrix = face_recognition.load_image_file(imagePath)
         peopleInformation = [[faceVectorModel.tagName, pickle.loads(codecs.decode(faceVectorModel.value.encode(), "base64"))] for faceVectorModel in self.getKnown()]
 

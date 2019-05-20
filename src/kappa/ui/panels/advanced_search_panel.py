@@ -16,9 +16,6 @@ class AdvancedSearchPanel(QDialog):
         self.__ui = Ui_AdvancedSearchPanel()
         self.__ui.setupUi(self)
 
-        self.__ui.searchConditionsContainerLayout.addWidget(AdvancedSearchSubPanel())
-
-        self.__conditionCount = 1
         self.__maxConditionCount = 4
 
         self.__imageQuery = None
@@ -29,46 +26,47 @@ class AdvancedSearchPanel(QDialog):
     def setImageQuery(self, imageQuery: ImageQuery):
         conditions = imageQuery.getConditions()
 
-        for i in range(self.__ui.searchConditionsContainerLayout.count() - 2):
+        for i in range(self.__ui.searchConditionsContainerLayout.count()):
             self.removeAdvancedSearchSubPanel()
+        self.addAdvancedSearchSubpanel()
 
-        if conditions:
-            for i in range(len(conditions)):
-                if i > 0:
-                    self.addAdvancedSearchSubpanel()
-                advancedSearchSubPanel = self.__ui.searchConditionsContainerLayout.itemAt(i + 1).widget()
-                advancedSearchSubPanel.setCondition(conditions[i])
+        for i in range(min(len(conditions), self.__maxConditionCount)):
+            if i > 0:
+                self.addAdvancedSearchSubpanel()
+            advancedSearchSubPanel = self.__ui.searchConditionsContainerLayout.itemAt(i).widget()
+            advancedSearchSubPanel.setCondition(conditions[i])
+
+    def updateButtons(self):
+        if self.__ui.searchConditionsContainerLayout.count() <= 1:
+            self.__ui.removeSmallActionButton.setEnabled(False)
         else:
-            pass
+            self.__ui.removeSmallActionButton.setEnabled(True)
+
+        if self.__ui.searchConditionsContainerLayout.count() == self.__maxConditionCount:
+            self.__ui.addSmallActionButton.setEnabled(False)
+        else:
+            self.__ui.addSmallActionButton.setEnabled(True)
 
     @pyqtSlot(name='on_addSmallActionButton_clicked')
     def addAdvancedSearchSubpanel(self):
-        if self.__conditionCount < self.__maxConditionCount:
+        if self.__ui.searchConditionsContainerLayout.count() < self.__maxConditionCount:
             self.__ui.searchConditionsContainerLayout.addWidget(AdvancedSearchSubPanel())
-            self.__conditionCount += 1
-
-            if self.__conditionCount == self.__maxConditionCount:
-                self.__ui.addSmallActionButton.setEnabled(False)
-            self.__ui.removeSmallActionButton.setEnabled(True)
+            self.updateButtons()
 
     @pyqtSlot(name='on_removeSmallActionButton_clicked')
     def removeAdvancedSearchSubPanel(self):
-        if self.__conditionCount > 1:
-            widget = self.__ui.searchConditionsContainerLayout.itemAt(self.__conditionCount).widget()
+        if self.__ui.searchConditionsContainerLayout.count() > 0:
+            widget = self.__ui.searchConditionsContainerLayout.itemAt(self.__ui.searchConditionsContainerLayout.count() - 1).widget()
             self.__ui.searchConditionsContainerLayout.removeWidget(widget)
             widget.deleteLater()
-            self.__conditionCount -= 1
-
-            if self.__conditionCount == 1:
-                self.__ui.removeSmallActionButton.setEnabled(False)
-            self.__ui.addSmallActionButton.setEnabled(True)
+            self.updateButtons()
 
     @pyqtSlot(name='on_okButton_clicked')
     def acceptImageSearch(self):
         self.__imageQuery = None
         imageQuery = ImageQuery()
 
-        for i in range(1, self.__ui.searchConditionsContainerLayout.count()):
+        for i in range(0, self.__ui.searchConditionsContainerLayout.count()):
             advancedSearchSubPanel = self.__ui.searchConditionsContainerLayout.itemAt(i).widget()
 
             try:
@@ -97,12 +95,12 @@ class AdvancedSearchSubPanel(QWidget):
     def getCondition(self) -> ImageQueryCondition:
         return ImageQueryCondition(
             ImageQueryField(self.__ui.fieldComboBox.currentIndex()),
-            ImageQueryOperator(self.__ui.operatorComboBox.currentIndex()),
+            ImageQueryOperator(self.__ui.operatorComboBox.currentIndex() if self.__ui.operatorComboBox.currentText() != 'contient' else 4),
             self.__ui.operand1LineEdit.text(), self.__ui.operand2LineEdit.text())
 
     def setCondition(self, imageQueryCondition: ImageQueryCondition):
         self.__ui.fieldComboBox.setCurrentIndex(imageQueryCondition.getField().value)
-        self.__ui.operatorComboBox.setCurrentIndex(imageQueryCondition.getOperator().value)
+        self.__ui.operatorComboBox.setCurrentIndex(imageQueryCondition.getOperator().value % 4)
         self.__ui.operand1LineEdit.setText(imageQueryCondition.getOperand1())
         self.__ui.operand2LineEdit.setText(imageQueryCondition.getOperand2())
 

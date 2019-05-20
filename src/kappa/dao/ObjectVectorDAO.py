@@ -151,6 +151,5 @@ class ObjectVectorDAO(DAO):
 						vChild.parent = vParent
 						self.createWithoutCommit(vParent)
 				self.createWithoutCommit(vChild)
-		
-		cm.executeAndCommitSQL("SELECT MAX(id_vector) FROM Vector")
 
+		cm.executeAndCommitSQL("SELECT MAX(id_vector) FROM Vector")

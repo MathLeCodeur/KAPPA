@@ -5,6 +5,7 @@ Les visages et les objets détectés sur l'image sont encadrés lors du clic sur
 les objets".
 """
 
+import functools
 import os
 
 from PyQt5.QtCore import *
@@ -14,6 +15,8 @@ from PyQt5.QtWidgets import *
 import config
 from kappa.models.ImageModel import *
 from kappa.ui.generated.photo_viewer_panel_ui import *
+from kappa.ui.widgets.aspect_ratio_image import *
+from kappa.ui.widgets.photo_view import *
 
 class PhotoViewerPanel(QWidget):
     def __init__(self, parent: QWidget = None):
@@ -22,14 +25,14 @@ class PhotoViewerPanel(QWidget):
         self.__ui = Ui_PhotoViewerPanel()
         self.__ui.setupUi(self)
 
+        self.__ui.scrollAreaSimilarImages.setVisible(False)
+
         self.__drawRecognizedPeopleAndObjects = config.get('frameObjects')
 
     def setPhoto(self, photo: ImageModel):
         pixmap = QPixmap(photo.path)
 
-        print(photo.getObjectVectorsWithTheirMommiesAndDaddies())
-
-        self.__photoPath = photo.path
+        self.__imageModel = photo
 
         self.__ui.image.setPixmap(pixmap)
         self.__ui.imageNameValueLabel.setText(os.path.basename(photo.path))
@@ -38,7 +41,7 @@ class PhotoViewerPanel(QWidget):
         self.__ui.imageDimensionsValueLabel.setText(str(pixmap.width()) + 'x' + str(pixmap.height()))
         self.__ui.imagePathValueLabel.setText(photo.path)
 
-        self.__clearTags(self.__ui.imageTagsContainer)
+        self.__clearLayout(self.__ui.imageTagsContainer)
 
         tags = photo.getObjectVectorsWithTheirMommiesAndDaddies()
         formattedTags = [tag.replace('/', ' > ').title() for tag in tags]
@@ -55,16 +58,16 @@ class PhotoViewerPanel(QWidget):
     def updateRecognizedPeopleAndObjects(self):
         if self.__drawRecognizedPeopleAndObjects:
             self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('QPushButton{ border-bottom: 4px solid ' + config.get('themeColor') + '; }')
-            recognizedPeople = self.window().faceVectorController.getRecognizedPeople(self.__photoPath, self.window().faceDetector)
+            recognizedPeople = self.window().faceVectorController.getRecognizedPeople(self.__imageModel.path)
             self.__ui.image.setRecognizedPeopleAndObjects(recognizedPeople)
         else:
-            self.__ui.image.saveTagData(self.__photoPath)
+            self.__ui.image.saveTagData(self.__imageModel.path)
             self.__ui.image.setRecognizedPeopleAndObjects([])
             self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('')
 
     @pyqtSlot(name='on_backActionButton_clicked')
     def returnToPhotoGallery(self):
-        self.__ui.image.saveTagData(self.__photoPath)
+        self.__ui.image.saveTagData(self.__imageModel.path)
         self.window().setActivePanel(self.window().getPhotoGalleryPanel())
 
     @pyqtSlot(name='on_frameObjectsAndPeopleActionButton_clicked')
@@ -73,6 +76,27 @@ class PhotoViewerPanel(QWidget):
         self.updateRecognizedPeopleAndObjects()
         config.set('frameObjects', self.__drawRecognizedPeopleAndObjects)
 
-    def __clearTags(self, layout: QLayout):
-        for i in reversed(range(1, layout.count())):
+    @pyqtSlot(name='on_searchSimilarActionButton_clicked')
+    def toggleShowSimilarImages(self):
+        if not self.__ui.similarImagesContainer.isVisible():
+            self.__clearLayout(self.__ui.similarImagesLayout)
+            similarImages = self.window().imageController.searchSimilar(self.__imageModel)
+
+            for similarImage in similarImages:
+                similarImageWidget = AspectRatioImage()
+                similarImageWidget.setPixmap(QPixmap(similarImage.path))
+                similarImageWidget.mousePressEvent = functools.partial(self.__openPhoto, similarImage)
+                self.__ui.similarImagesLayout.addWidget(similarImageWidget)
+
+            if similarImages:
+                self.__ui.scrollAreaSimilarImages.setVisible(True)
+
+        else:
+            self.__ui.scrollAreaSimilarImages.setVisible(False)
+
+    def __openPhoto(self, image: ImageModel, param):
+        self.setPhoto(image)
+
+    def __clearLayout(self, layout: QLayout):
+        for i in reversed(range(0, layout.count())):
             layout.itemAt(i).widget().setParent(None)

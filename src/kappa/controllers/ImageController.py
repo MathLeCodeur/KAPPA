@@ -5,10 +5,10 @@ from kappa.models.ImageModel import ImageModel
 from kappa.dao.ImageDAO import ImageDAO
 from kappa.controllers.ObjectVectorController import ObjectVectorController
 import kappa.object_detection.NodeLookup as NodeLookup
-import os
-import glob
-from PIL import Image
-import time
+from os import listdir
+from os.path import isdir, join, getctime, getsize, isfile
+from PIL.Image import open
+from datetime import datetime
 
 class ImageController(Controller):
 	def __init__(self):
@@ -32,6 +32,9 @@ class ImageController(Controller):
 	def getAllOrderByDate(self):
 		return self.cDao.getAllOrderByDate()
 
+	def getByImageQuery(self, imageQuery):
+		return self.cDao.getByImageQuery(imageQuery)
+
 	def getById(self,id):
 		return self.cDao.getById(id)
 
@@ -41,7 +44,7 @@ class ImageController(Controller):
 	def importImageFolder(self,pathF):
 		print(pathF)
 		y = ConnectionManager('KappaBase.db')
-		l=os.listdir(pathF)
+		l=listdir(pathF)
 
 		#get next id
 		u=self.cDao.getNextId()
@@ -53,19 +56,19 @@ class ImageController(Controller):
 
 		#file in folder
 		for i in l:
-			pathName = os.path.join(pathF, i)
+			pathName = join(pathF, i)
 			print(pathName)
-			if(os.path.isfile(pathName) and pathName not in listPath):
+			if(isfile(pathName) and pathName not in listPath):
 				print(2, pathName)
 
 				extension = i.split(".")[1]
 				if(extension in ("jpeg","jpg","png","PNG","JPEG","JPG")):
-					im = Image.open(pathName)
+					im = open(pathName)
 					path = pathName
-					size = os.path.getsize(path)
+					size = getsize(path)
 					width = im.size[0]
 					height = im.size[1]
-					date = str(time.ctime(os.path.getctime(path)))
+					date = str(datetime.fromtimestamp(getctime(path)))
 
 					img = ImageModel(u, "", date, height, width, size, path, None, None)
 					self.create(img)
@@ -73,9 +76,9 @@ class ImageController(Controller):
 
 	def searchTags(self, pathIm, score):
 		return NodeLookup.searchTags(pathIm, score)
-		
-		
-		
+
+
+
 	def getAllTags(self, objVectors):
 		listTagHere = []   # on rempli le tag de l'image actuel et ses parents
 		maxi = 2
@@ -89,7 +92,7 @@ class ImageController(Controller):
 
 
 	def getSimilarScoreTags(self, taglist1 , taglist2):
-		score = 0 
+		score = 0
 		for tag1 in taglist1:
 			for tag2 in taglist2:
 				if(tag1 == tag2):
@@ -99,20 +102,19 @@ class ImageController(Controller):
 
 	def searchSimilar(self, imgBase ):
 		# on rempli le tag de l'image actuel et ses parents
-		listTagHere = self.getAllTags(imgBase.objectVectors)  
+		listTagHere = self.getAllTags(imgBase.objectVectors)
 		#on vas comparer aux tags des autres images
 		imageList= self.cDao.getAll()
 		scoreList=[]
-		for img in imageList : 
+		for img in imageList :
 			s = self.getSimilarScoreTags(listTagHere , self.getAllTags(img.objectVectors))
 			scoreList.append([s,img])# on initialise un score de similarité pour tout le monde
 		scoreList.sort(key=lambda x: -x[0])
-		
+
 		finalList = []
-		for img in scoreList: 
+		for img in scoreList:
 			#print("score =  ",img[0], " : ", img[1].path)
 			if(img[0] > 1):
 				if(imgBase.path != img[1].path ):
 				    finalList.append(img[1])
 		return finalList
-

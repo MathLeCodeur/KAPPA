@@ -2,10 +2,6 @@ from kappa.controllers.Controller import Controller
 from kappa.dao import ConnectionManager
 from kappa.models.ObjectVectorModel import ObjectVectorModel
 from kappa.dao.ObjectVectorDAO import ObjectVectorDAO
-import os
-import glob
-from PIL import Image
-import time
 
 
 class ObjectVectorController(Controller):

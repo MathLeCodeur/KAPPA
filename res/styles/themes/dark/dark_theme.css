@@ -2,7 +2,7 @@
     font-family: "Open Sans";
 }
 
-QWidget#header {
+QWidget#header, QWidget#similarImagesContainer {
     background: #202225;
 }
 

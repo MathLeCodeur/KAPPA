@@ -1,5 +1,5 @@
-import face_recognition
-import numpy as np
+from face_recognition import compare_faces, face_encodings
+
 
 # Inputs :
 # peopleInformations : List including name and vectorial information about a picture of a person ["Name",[vector]]
@@ -14,12 +14,12 @@ import numpy as np
 
 def recognizePeople(peopleInformation, facePositions, imageMatrix):
 	outputList = []
-	unknownEncodings = face_recognition.face_encodings(imageMatrix, known_face_locations=facePositions)
+	unknownEncodings = face_encodings(imageMatrix, known_face_locations=facePositions)
 	print(peopleInformation)
 
 	for i in range(len(unknownEncodings)):
 		for j in range(len(peopleInformation)):
-			comparisonResult = face_recognition.compare_faces([unknownEncodings[i]], peopleInformation[j][1])
+			comparisonResult = compare_faces([unknownEncodings[i]], peopleInformation[j][1])
 			if comparisonResult and comparisonResult[0] == True:
 				outputList.append(peopleInformation[j][0])
 				break

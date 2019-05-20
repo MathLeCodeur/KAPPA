@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS IMAGE;
 CREATE TABLE IMAGE(
 	id_image INT PRIMARY KEY NOT NULL,
 	comment VARCHAR(255),
-	creation_date date,
+	creation_date TEXT,
 	length int,
 	width int,
 	size int,

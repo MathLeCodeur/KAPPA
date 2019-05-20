@@ -15,7 +15,7 @@ class ImageQueryOperator(Enum):
     GREATER_THAN = 1
     LOWER_THAN = 2
     BETWEEN = 3
-    CONTAINS = 0
+    CONTAINS = 4
 
 
 class ImageGrouping(Enum):
@@ -72,11 +72,14 @@ class ImageQuery:
 
     def toImageQueryLanguage(self) -> str:
         conditionStrings = []
-        errorOperandIndices = []
 
         for i in range(len(self.__conditions)):
             c = self.__conditions[i]
-            conditionString = c.getField().name.lower() + ' '
+            fieldName = c.getField().name
+            # Temporary hardcoded translation
+            if fieldName == 'NAME':
+                fieldName = 'NOM'
+            conditionString = fieldName.lower() + ' '
 
             if c.getOperator() is ImageQueryOperator.GREATER_THAN:
                 conditionString += '> '
@@ -89,9 +92,6 @@ class ImageQuery:
                 conditionString += ' - ' + c.getOperand2()
 
             conditionStrings.append(conditionString)
-
-        if errorOperandIndices:
-            raise ImageQueryError(errorOperandIndices)
         return ', '.join(conditionStrings)
 
     def fromImageQueryLanguage(imageQueryString: str) -> 'ImageQuery':
@@ -144,7 +144,7 @@ class ImageQuery:
             elif fieldStr.upper() == 'DATE':
                 field = ImageQueryField.DATE
             elif fieldStr.upper() == 'TAGS':
-                field = ImageQueryField.NAME
+                field = ImageQueryField.TAGS
             else:
                 raise ImageQueryError()
 
@@ -164,12 +164,6 @@ class ImageQuery:
 
         return imageQuery
 
-
-    def toSQL(self) -> str:
-        query = 'SELECT * FROM IMAGE WHERE '
-
-        for condition in self.__conditions:
-            pass
 
     def parseDate(date: str) -> datetime:
         return dateparser.parse(date, languages=['fr'])
