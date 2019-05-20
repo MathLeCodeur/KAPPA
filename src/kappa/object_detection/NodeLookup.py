@@ -122,7 +122,7 @@ def searchTags(pathIm, scoreMin):
       human_string = node_lookup.id_to_string(node_id)
       score = predictions[node_id]
       if (score > scoreMin) :
-        prediction[human_string] = score
+        prediction[node_id] = score
 
     return prediction
 
