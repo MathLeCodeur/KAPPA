@@ -17,10 +17,10 @@ class PhotoView(QGraphicsView):
     def __init__(self, parent: QWidget = None):
         super(PhotoView, self).__init__(parent=parent)
 
-        scene = QGraphicsScene()
-        self.setScene(scene)
+        self.__scene = QGraphicsScene()
+        self.setScene(self.__scene)
 
-        self.__pixmapItem = scene.addPixmap(QPixmap())
+        self.__pixmapItem = self.__scene.addPixmap(QPixmap())
 
         self.__sceneWidgets = []
         self.__tagData = []
@@ -63,7 +63,7 @@ class PhotoView(QGraphicsView):
 
             boxWidth, boxHeight = xMax - xMin, yMax - yMin
             boxCenterX, boxCenterY = xMin + boxWidth / 2, yMin + boxHeight / 2
-            lineEditWidth, lineEditHeight = imageWidth / 5, imageHeight / 18
+            lineEditWidth, lineEditHeight = self.mapToScene(self.width(), 0).x() / 5, imageHeight / 20
 
             lineEdit = QLineEdit(name)
 
@@ -73,7 +73,7 @@ class PhotoView(QGraphicsView):
             lineEditItem = self.scene().addWidget(lineEdit)
 
             lineEditFont = lineEditItem.widget().font()
-            lineEditFont.setPixelSize(imageHeight / 26)
+            lineEditFont.setPixelSize(lineEditWidth / 12)
             lineEditItem.widget().setFont(lineEditFont)
             lineEditItem.widget().setAlignment(Qt.AlignCenter)
             lineEdit.setTextMargins(0, 0, 0, 0)
@@ -91,4 +91,4 @@ class PhotoView(QGraphicsView):
 
     def saveTagData(self, photoPath: str):
         for tagData_ in self.__tagData:
-            self.window().faceVectorController.commitFaceVectorChange(tagData_['name'], tagData_['lineEdit'].text(), photoPath, tagData_['boundingBox'])
+            self.window().faceVectorController.commitFaceVectorChange(tagData_['name'], tagData_['lineEdit'].text(), photoPath, tagData_['boundingBox'], tagData_['vector'])

@@ -17,7 +17,7 @@ class ImageController(Controller):
 
 	def create(self, imgModel):
 		ovc = ObjectVectorController()
-		resTag = self.searchTags(imgModel.path, 0)
+		resTag = self.searchTags(imgModel.path, 0.1)
 
 		for valueTag , score in resTag.items():
 			if(imgModel.objectVectors==None) :

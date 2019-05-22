@@ -76,7 +76,7 @@
        <widget class="QPushButton" name="searchActionButton">
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../../../.designer/icons/cache/search.svg</normaloff>../../../../../../../../.designer/icons/cache/search.svg</iconset>
+          <normaloff>../icons/cache/search.svg</normaloff>../icons/cache/search.svg</iconset>
         </property>
        </widget>
       </item>
@@ -149,7 +149,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../../../.designer/icons/cache/advanced_search.svg</normaloff>../../../../../../../../.designer/icons/cache/advanced_search.svg</iconset>
+          <normaloff>../icons/cache/advanced_search.svg</normaloff>../icons/cache/advanced_search.svg</iconset>
         </property>
        </widget>
       </item>
@@ -163,7 +163,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../../../.designer/icons/cache/import_folder.svg</normaloff>../../../../../../../../.designer/icons/cache/import_folder.svg</iconset>
+          <normaloff>../icons/cache/import_folder.svg</normaloff>../icons/cache/import_folder.svg</iconset>
         </property>
        </widget>
       </item>
@@ -177,7 +177,7 @@
         </property>
         <property name="icon">
          <iconset>
-          <normaloff>../../../../../../../../.designer/icons/cache/change_theme.svg</normaloff>../../../../../../../../.designer/icons/cache/change_theme.svg</iconset>
+          <normaloff>../icons/cache/change_theme.svg</normaloff>../icons/cache/change_theme.svg</iconset>
         </property>
        </widget>
       </item>

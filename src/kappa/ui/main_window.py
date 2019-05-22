@@ -25,7 +25,7 @@ class MainWindow(QMainWindow):
         self.__photoGalleryPanel = PhotoGalleryPanel()
         self.__photoViewerPanel = PhotoViewerPanel()
 
-        self.__photoGalleryPanel.setPhotos(self.imageController.getAll())
+        self.__photoGalleryPanel.setPhotos(self.imageController.getAllOrderByDate())
 
         self.__ui.stackedWidget.addWidget(self.__photoGalleryPanel)
         self.__ui.stackedWidget.addWidget(self.__photoViewerPanel)

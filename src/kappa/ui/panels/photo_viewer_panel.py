@@ -27,7 +27,8 @@ class PhotoViewerPanel(QWidget):
 
         self.__ui.scrollAreaSimilarImages.setVisible(False)
 
-        self.__drawRecognizedPeopleAndObjects = config.get('frameObjects')
+        self.__drawRecognizedPeopleAndObjects = False
+        self.__showSimilarImages = False
 
     def setPhoto(self, photo: ImageModel):
         pixmap = QPixmap(photo.path)
@@ -41,7 +42,7 @@ class PhotoViewerPanel(QWidget):
         self.__ui.imageDimensionsValueLabel.setText(str(pixmap.width()) + 'x' + str(pixmap.height()))
         self.__ui.imagePathValueLabel.setText(photo.path)
 
-        self.__clearLayout(self.__ui.imageTagsContainer)
+        self.__clearLayout(self.__ui.imageTagsContainer, 1)
 
         tags = photo.getObjectVectorsWithTheirMommiesAndDaddies()
         formattedTags = [tag.replace('/', ' > ').title() for tag in tags]
@@ -53,15 +54,20 @@ class PhotoViewerPanel(QWidget):
         else:
             self.__ui.imageTagsContainer.addWidget(QLabel("---"))
 
+        # Disable advanced features after opening an image
+        if self.__drawRecognizedPeopleAndObjects:
+            self.toggleFrameObjectsAndPeople()
+        if self.__showSimilarImages:
+            self.toggleShowSimilarImages()
+
         self.updateRecognizedPeopleAndObjects()
 
     def updateRecognizedPeopleAndObjects(self):
         if self.__drawRecognizedPeopleAndObjects:
-            self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('QPushButton{ border-bottom: 4px solid ' + config.get('themeColor') + '; }')
+            self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('QPushButton { border-bottom: 4px solid ' + config.get('themeColor') + '; }')
             recognizedPeople = self.window().faceVectorController.getRecognizedPeople(self.__imageModel.path)
             self.__ui.image.setRecognizedPeopleAndObjects(recognizedPeople)
         else:
-            self.__ui.image.saveTagData(self.__imageModel.path)
             self.__ui.image.setRecognizedPeopleAndObjects([])
             self.__ui.frameObjectsAndPeopleActionButton.setStyleSheet('')
 
@@ -74,11 +80,12 @@ class PhotoViewerPanel(QWidget):
     def toggleFrameObjectsAndPeople(self):
         self.__drawRecognizedPeopleAndObjects = not self.__drawRecognizedPeopleAndObjects
         self.updateRecognizedPeopleAndObjects()
-        config.set('frameObjects', self.__drawRecognizedPeopleAndObjects)
 
     @pyqtSlot(name='on_searchSimilarActionButton_clicked')
     def toggleShowSimilarImages(self):
-        if not self.__ui.similarImagesContainer.isVisible():
+        self.__showSimilarImages = not self.__showSimilarImages
+
+        if self.__showSimilarImages:
             self.__clearLayout(self.__ui.similarImagesLayout)
             similarImages = self.window().imageController.searchSimilar(self.__imageModel)
 
@@ -88,15 +95,22 @@ class PhotoViewerPanel(QWidget):
                 similarImageWidget.mousePressEvent = functools.partial(self.__openPhoto, similarImage)
                 self.__ui.similarImagesLayout.addWidget(similarImageWidget)
 
-            if similarImages:
-                self.__ui.scrollAreaSimilarImages.setVisible(True)
+            if not similarImages:
+                label = QLabel("Aucune image n'est similaire à cette image.")
+                label.setAlignment(Qt.AlignCenter)
+                self.__ui.similarImagesLayout.addWidget(label)
+
+            self.__ui.searchSimilarActionButton.setStyleSheet('QPushButton { border-bottom: 4px solid ' + config.get('themeColor') + '; }')
 
         else:
-            self.__ui.scrollAreaSimilarImages.setVisible(False)
+            self.__ui.searchSimilarActionButton.setStyleSheet('')
+
+        self.__ui.scrollAreaSimilarImages.setVisible(self.__showSimilarImages)
 
     def __openPhoto(self, image: ImageModel, param):
+        self.__ui.image.saveTagData(self.__imageModel.path)
         self.setPhoto(image)
 
-    def __clearLayout(self, layout: QLayout):
-        for i in reversed(range(0, layout.count())):
+    def __clearLayout(self, layout: QLayout, startIndex: int = 0):
+        for i in reversed(range(startIndex, layout.count())):
             layout.itemAt(i).widget().setParent(None)
