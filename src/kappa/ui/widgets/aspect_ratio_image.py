@@ -31,7 +31,6 @@ class AspectRatioImage(QLabel):
 
     def sizeHint(self) -> QSize:
         if self.__scaledPixmap:
-            print(self.__scaledPixmap.size().width(), self.__scaledPixmap.size().height())
             return self.__scaledPixmap.size()
         return QSize()
 

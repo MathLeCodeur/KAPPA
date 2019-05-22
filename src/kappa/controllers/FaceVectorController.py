@@ -33,29 +33,39 @@ class FaceVectorController(Controller):
 
     def getRecognizedPeople(self, imagePath: str):
         imageMatrix = face_recognition.load_image_file(imagePath)
-        peopleInformation = [[faceVectorModel.tagName, pickle.loads(codecs.decode(faceVectorModel.value.encode(), "base64"))] for faceVectorModel in self.getKnown()]
+        knownFaceVectors = self.getKnown()
+        peopleInformation = [[faceVectorModel.tagName, pickle.loads(codecs.decode(faceVectorModel.value.encode(), "base64"))] for faceVectorModel in knownFaceVectors]
 
         faceBoxes = face_recognition.face_locations(imageMatrix)
-        names = recognizePeople(peopleInformation, faceBoxes, imageMatrix)
+        names, knownVectorIndices = recognizePeople(peopleInformation, faceBoxes, imageMatrix)
 
-        return [{'name': names[i], 'boundingBox': faceBoxes[i]} for i in range(len(faceBoxes))]
+        recognizedFaceVectors = [knownFaceVectors[idx].value if idx is not None else None for idx in knownVectorIndices]
 
-    def commitFaceVectorChange(self, oldTagName: str, newTagName: str, imagePath: str, faceBox: Tuple[int, int, int, int]):
+        return [{'name': names[i], 'boundingBox': faceBoxes[i], 'vector': recognizedFaceVectors[i]} for i in range(len(faceBoxes))]
+
+    def commitFaceVectorChange(self, oldTagName: str, newTagName: str, imagePath: str, faceBox: Tuple[int, int, int, int], knownVectorBase64: str):
         if oldTagName == 'Unknown':
             if newTagName != 'Unknown' and newTagName:
-                print('create')
+                # Create
                 imageMatrix = face_recognition.load_image_file(imagePath)
-
                 faceEncodings = face_recognition.face_encodings(imageMatrix, known_face_locations=[faceBox])
-                faceVector = faceEncodings[0]
-                base64FaceVector = codecs.encode(pickle.dumps(faceVector), "base64").decode()
 
-                self.cDao.create(FaceVectorModel(self.cDao.getNextId(), base64FaceVector, newTagName, True))
+                if faceEncodings:
+                    faceVector = faceEncodings[0]
+                    base64FaceVector = codecs.encode(pickle.dumps(faceVector), "base64").decode()
+                    self.create(FaceVectorModel(self.cDao.getNextId(), base64FaceVector, newTagName, True))
         else:
+            faceVector = self.getByValue(knownVectorBase64)
+
             if newTagName and newTagName != 'Unknown':
-                print('update')
+                # Update
+                faceVector.tagName = newTagName
+                self.update(faceVector)
+
             else:
-                print('delete')
+                # Delete
+                self.delete(faceVector)
+
     def update(self, fVectModel):
         self.cDao.update(fVectModel)
 

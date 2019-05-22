@@ -13,7 +13,8 @@ from face_recognition import compare_faces, face_encodings
 # The output have to be linked with the facePositions to understand who was recognized
 
 def recognizePeople(peopleInformation, facePositions, imageMatrix):
-	outputList = []
+	recognizedNames = []
+	recognizedVectorIndices = []
 	unknownEncodings = face_encodings(imageMatrix, known_face_locations=facePositions)
 	print(peopleInformation)
 
@@ -21,8 +22,10 @@ def recognizePeople(peopleInformation, facePositions, imageMatrix):
 		for j in range(len(peopleInformation)):
 			comparisonResult = compare_faces([unknownEncodings[i]], peopleInformation[j][1])
 			if comparisonResult and comparisonResult[0] == True:
-				outputList.append(peopleInformation[j][0])
+				recognizedNames.append(peopleInformation[j][0])
+				recognizedVectorIndices.append(j)
 				break
 		else:
-			outputList.append("Unknown")
-	return outputList
+			recognizedNames.append("Unknown")
+			recognizedVectorIndices.append(None)
+	return recognizedNames, recognizedVectorIndices
