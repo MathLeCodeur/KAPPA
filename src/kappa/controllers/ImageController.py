@@ -19,10 +19,10 @@ class ImageController(Controller):
 		ovc = ObjectVectorController()
 		resTag = self.searchTags(imgModel.path, 0)
 
-		for name , score in resTag.items():
+		for valueTag , score in resTag.items():
 			if(imgModel.objectVectors==None) :
 				imgModel.objectVectors = []
-			imgModel.objectVectors.append(ovc.getByName(name))
+			imgModel.objectVectors.append(ovc.getByValue(valueTag))
 
 		self.cDao.create(imgModel)
 

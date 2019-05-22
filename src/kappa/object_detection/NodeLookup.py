@@ -62,7 +62,7 @@ class NodeLookup(object):
       if val not in uid_to_human:
         tf.logging.fatal('Failed to locate: %s', val)
       name = uid_to_human[val]
-      node_id_to_name[key] = name
+      node_id_to_name[key] = val
 
     return node_id_to_name
 
