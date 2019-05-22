@@ -79,6 +79,12 @@ class ObjectVectorDAO(DAO):
 			res2 = ObjectVectorModel(res[0][0], res[0][1], res[0][2], None)
 		return res2
 
+	def delete(self,objVectorModel):
+		cm = ConnectionManager.ConnectionManager('KappaBase')
+		vDao = VectorDAO()
+		vDao.delete(VectorModel(objVectorModel.id, objVectorModel.value, objVectorModel.tagName))
+		cm.executeAndCommitSQL("Delete from object_vector WHERE id_vector=" + str(objVectorModel.id))
+
 	def getByValue(self, value):
 		cm = ConnectionManager.ConnectionManager('KappaBase')
 		res = cm.executeSQL("SELECT * FROM Vector NATURAL JOIN Object_vector WHERE value_vector=\"" + value + "\"")

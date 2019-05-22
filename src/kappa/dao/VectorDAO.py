@@ -28,6 +28,11 @@ class VectorDAO(daoclass):
 		cm = ConnectionManager('KappaBase')
 		res = cm.executeAndCommitSQL("UPDATE Vector SET value_vector=\"" + str(vectorModel.value) + "\" , tag_name=\"" + str(vectorModel.tagName) + "\" WHERE id_vector=" + str(vectorModel.id))
 
+	def delete(self,vectorModel):
+		cm = ConnectionManager('KappaBase')
+		res = cm.executeAndCommitSQL("Delete from include WHERE id_vector=" + str(vectorModel.id))
+		res = cm.executeAndCommitSQL("Delete from Vector WHERE id_vector=" + str(vectorModel.id))
+
 	def create(self, vectorModel):
 		cm = ConnectionManager('KappaBase')
 		res = cm.executeAndCommitSQL("INSERT INTO Vector (id_vector, value_vector, tag_name) VALUES (" + str(vectorModel.id) + ", \"" + vectorModel.value + "\", \"" + vectorModel.tagName + "\")")
@@ -39,4 +44,3 @@ class VectorDAO(daoclass):
 	def createWithoutCommit(self, vectorModel):
 		cm = ConnectionManager('KappaBase')
 		res = cm.executeSQL("INSERT INTO Vector (id_vector, value_vector, tag_name) VALUES (" + str(vectorModel.id) + ", \"" + vectorModel.value + "\", \"" + vectorModel.tagName + "\")")
-	

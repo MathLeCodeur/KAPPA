@@ -56,3 +56,8 @@ class FaceVectorController(Controller):
                 print('update')
             else:
                 print('delete')
+    def update(self, fVectModel):
+        self.cDao.update(fVectModel)
+
+    def delete(self, fVectModel):
+        self.cDao.delete(fVectModel)

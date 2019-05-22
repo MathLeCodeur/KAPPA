@@ -72,3 +72,14 @@ class FaceVectorDAO(DAO):
 				break
 			res2=elem[0]+1
 		return res2
+	def delete(self,faceVectorModel):
+		cm = ConnectionManager.ConnectionManager('KappaBase')
+		vDao = VectorDAO()
+		vDao.delete(VectorModel(faceVectorModel.id, faceVectorModel.value, faceVectorModel.tagName))
+		cm.executeAndCommitSQL("Delete from face_vector WHERE id_vector=" + str(faceVectorModel.id))
+
+	def update(self, faceVectorModel):
+		cm = ConnectionManager.ConnectionManager('KappaBase')
+		vDao = VectorDAO()
+		vDao.update(VectorModel(faceVectorModel.id, faceVectorModel.value, faceVectorModel.tagName))
+		cm.executeAndCommitSQL("UPDATE face_vector SET IsKnown=" + str(faceVectorModel.isKnown)+ " WHERE id_vector=" + str(faceVectorModel.id))
