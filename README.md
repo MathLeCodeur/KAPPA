@@ -18,7 +18,7 @@ conda env create -f env.yml
 Nécessaire seulement en cas de recréation de la base de données :
 
 ```bash
-python src/init_databas.py
+python src/init_database.py
 ```
 
 ## Exécution
