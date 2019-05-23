@@ -14,7 +14,7 @@ class ImageDAO(DAO):
     def getAllOrderByDate(self):
         cm = ConnectionManager.ConnectionManager('KappaBase.db')
 
-        res = cm.executeSQL("SELECT * FROM Image order by creation_date")
+        res = cm.executeSQL("SELECT * FROM Image order by creation_date DESC")
         oVectDao = ObjectVectorDAO()
         fVectDao = FaceVectorDAO()
         imageList = []
@@ -76,7 +76,7 @@ class ImageDAO(DAO):
             self.linkToVector(imgModel, ov)
 
     def convertImageQueryToSQL(self, imageQuery):
-        sqlQuery = 'SELECT * FROM IMAGE NATURAL JOIN INCLUDE NATURAL JOIN VECTOR'
+        sqlQuery = 'SELECT * FROM IMAGE LEFT NATURAL JOIN INCLUDE LEFT NATURAL JOIN VECTOR'
         conditions = imageQuery.getConditions()
 
         nameSqlConditions = []
@@ -140,7 +140,7 @@ class ImageDAO(DAO):
 
         orderField = imageQuery.getImageGrouping()
         if orderField == ImageGrouping.DATE:
-            sqlQuery += ' GROUP BY id_image ORDER BY creation_date'
+            sqlQuery += ' GROUP BY id_image ORDER BY creation_date DESC'
         elif orderField == ImageGrouping.TAG:
             sqlQuery += ' ORDER BY tag_name'
         else:

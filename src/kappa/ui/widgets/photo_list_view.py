@@ -2,6 +2,7 @@
 Widget permettant d'afficher une liste de photos.
 """
 
+import os
 from typing import *
 
 from PyQt5.QtCore import *
@@ -23,7 +24,8 @@ class PhotoListView(QWidget):
         for i in reversed(range(0, self.__layout.count())):
             self.__layout.itemAt(i).widget().setParent(None)
         for photo in photos:
-            self.__layout.addWidget(PhotoListViewItem(photo, self.__openPhoto))
+            if os.path.isfile(photo.path):
+                self.__layout.addWidget(PhotoListViewItem(photo, self.__openPhoto))
 
     def __openPhoto(self):
         window = self.window()
