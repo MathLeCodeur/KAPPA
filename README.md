@@ -18,12 +18,14 @@ conda env create -f env.yml
 Nécessaire seulement en cas de recréation de la base de données :
 
 ```bash
+conda activate kappa
 python src/init_database.py
 ```
 
 ## Exécution
 
 ```bash
+conda activate kappa
 python src/main.py
 ```
 
